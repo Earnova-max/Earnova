@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earnova - Professional Earning Platform</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Hind Siliguri',Arial,sans-serif}
+body{background:#f4f6fb;color:#172033;padding-bottom:80px}
+button{border:0;cursor:pointer;font-weight:600;transition:.2s}
+button:disabled{opacity:.6;cursor:not-allowed}
+.page{display:none}.page.active{display:block}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:#eef3ff}
+.loginBox{width:100%;max-width:400px;background:#fff;padding:28px;border-radius:22px;box-shadow:0 10px 30px #0002}
+.logo{width:65px;height:65px;border-radius:18px;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:bold;margin:0 auto 15px}
+.loginBox h2{text-align:center;margin-bottom:8px}.loginBox p{text-align:center;color:#777;margin-bottom:25px;font-size:14px}
+input,select{width:100%;padding:14px;border:1px solid #ddd;border-radius:11px;margin:7px 0 15px;outline:none;font-size:14px}
+input:focus,select:focus{border-color:#2563eb}
+.passwordBox{position:relative}.passwordBox input{padding-right:50px}
+.passwordToggle{position:absolute;right:8px;top:14px;background:none;font-size:19px;color:#555}
+.primary{background:#2563eb;color:#fff;padding:13px 18px;border-radius:10px}
+.secondary{background:#eef3ff;color:#2563eb;padding:13px;border-radius:10px}
+.chatBtn{width:100%;margin-top:10px;padding:13px;background:#16a34a;color:#fff;border-radius:10px}
+.forgotBtn{background:none;color:#2563eb;font-size:13px;margin-bottom:12px;display:block;text-align:right;width:100%}
+.header{background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;padding:22px 18px 30px;border-radius:0 0 28px 28px}
+.top{display:flex;justify-content:space-between;align-items:center}.bell{width:42px;height:42px;border-radius:50%;background:#ffffff22;color:#fff;font-size:19px}
+.balanceBox{background:#fff;color:#172033;margin-top:22px;padding:17px;border-radius:18px;box-shadow:0 8px 20px #0002}
+.moneyBox{padding:12px 0}.moneyBox+.moneyBox{border-top:1px solid #eee}.moneyBox small{color:#777}.moneyBox h2{margin-top:5px}
+.packageMoney{color:#2563eb}.taskMoney{color:#16a34a}
+.container{padding:18px}.card{background:#fff;padding:18px;border-radius:17px;margin-bottom:15px;box-shadow:0 3px 12px #0001}
+.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:8px 0 15px}
+.packages{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.package{background:#fff;padding:15px;border-radius:17px;box-shadow:0 3px 12px #0001;border-top:4px solid #2563eb}
+.package.activePackage{border-top-color:#16a34a}.package h3{margin-bottom:7px}
+.price{font-size:19px;font-weight:bold;color:#2563eb;margin-bottom:10px}.package button{width:100%;background:#2563eb;color:#fff;padding:10px;border-radius:9px}
+.requestBtn{width:100%;background:#16a34a!important;margin-top:7px}
+.status{font-size:12px;color:#16a34a;font-weight:bold;margin-bottom:8px}
+.locked{text-align:center;background:#fff7ed;padding:28px 18px;border-radius:17px}.lockIcon{font-size:42px;margin-bottom:10px}
+.task{display:flex;align-items:center;gap:12px}.taskIcon{width:48px;height:48px;border-radius:13px;background:#eef3ff;display:flex;align-items:center;justify-content:center;font-size:23px}
+.taskInfo{flex:1}.reward{color:#16a34a;font-weight:bold;margin-top:4px}.task button{background:#2563eb;color:#fff;padding:9px 13px;border-radius:9px}
+.notification{display:flex;gap:12px;padding:15px 0;border-bottom:1px solid #eee}.notification:last-child{border-bottom:0}.notificationIcon{font-size:22px}
+.profileRow{padding:13px 0;border-bottom:1px solid #eee}.profileRow:last-child{border-bottom:0}.profileRow small{display:block;color:#888;margin-bottom:4px}.profileRow strong{font-size:15px;word-break:break-all}
+.history{padding:12px 0;border-bottom:1px solid #eee}.pending{color:#ea580c;font-weight:bold}.approved{color:#16a34a;font-weight:bold}.rejected{color:#dc2626;font-weight:bold}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:70px;background:#fff;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -4px 15px #0001;z-index:10;overflow-x:auto}
+.nav{background:none;color:#777;font-size:11px;min-width:62px}.nav span{display:block;font-size:20px;margin-bottom:3px}.nav.active{color:#2563eb;font-weight:bold}
+.logout{width:100%;padding:13px;background:#fee2e2;color:#dc2626;border-radius:10px;margin-top:10px}
+.adminBadge{display:inline-block;background:#dcfce7;color:#15803d;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:bold}
+.adminUser{padding:12px 0;border-bottom:1px solid #eee}.adminActions{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}.adminActions button{padding:8px 10px;border-radius:8px}
+.danger{background:#fee2e2;color:#dc2626}.success{background:#dcfce7;color:#15803d}.small{font-size:12px;color:#777;margin-top:4px}
+.info{background:#eef3ff;color:#2563eb;padding:12px;border-radius:10px;font-size:13px;line-height:1.6;margin-bottom:15px}
+.paymentNumber{background:#f0fdf4;border:1px solid #bbf7d0;padding:14px;border-radius:12px;margin:12px 0}.paymentNumber b{font-size:20px;color:#15803d}
+.requestStatus{margin-top:10px;padding:10px;border-radius:10px;font-size:13px}.requestPending{background:#fff7ed;color:#c2410c}.requestApproved{background:#dcfce7;color:#15803d}.requestRejected{background:#fee2e2;color:#dc2626}
+.copyRow{display:flex;gap:7px;align-items:center}.copyRow input{flex:1;margin:7px 0 15px}.copyBtn{height:46px;margin-top:-1px;padding:0 12px;white-space:nowrap}
+
+/* Floating Live Chat Button & Window */
+.floatingChatBtn{position:fixed;right:18px;bottom:85px;width:54px;height:54px;border-radius:50%;background:#16a34a;color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px #0004;z-index:45;border:2px solid #fff}
+.floatingChatBtn:active{transform:scale(0.92)}
+.chatWindow{position:fixed;right:15px;bottom:85px;width:calc(100% - 30px);max-width:380px;height:480px;background:#fff;border-radius:18px;box-shadow:0 10px 35px #0003;z-index:50;display:none;overflow:hidden}
+.chatHeader{background:#2563eb;color:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center}
+.chatMessages{height:360px;overflow-y:auto;padding:12px;background:#f8fafc}.chatMsg{padding:9px 12px;border-radius:12px;margin-bottom:8px;max-width:85%;font-size:14px;word-break:break-word}
+.chatUser{background:#dbeafe;margin-left:auto}.chatAdmin{background:#dcfce7;margin-right:auto}
+.chatInput{display:flex;gap:7px;padding:10px;border-top:1px solid #eee}.chatInput input{margin:0;flex:1}.chatInput button{padding:10px 14px;background:#2563eb;color:#fff;border-radius:9px}
+
+@media(max-width:380px){.packages{grid-template-columns:1fr}.copyBtn{padding:0 8px;font-size:12px}}
+</style>
+</head>
+
+<body>
+
+<div class="login" id="login">
+  <div class="loginBox">
+    <div class="logo">E</div><h2>Earnova</h2><p>আপনার Account-এ Login করুন</p>
+    <input id="loginId" type="email" placeholder="Gmail">
+    <div class="passwordBox"><input id="loginPassword" type="password" placeholder="Password"><button class="passwordToggle" onclick="togglePassword('loginPassword',this)">👁️</button></div>
+    <button class="forgotBtn" onclick="resetPassword()">Forgot Password?</button>
+    <button class="primary" style="width:100%" id="loginBtn" onclick="login()">Login</button>
+    <button class="secondary" style="width:100%;margin-top:10px" onclick="showRegister()">Create Account</button>
+  </div>
+</div>
+
+<div class="login" id="register" style="display:none">
+  <div class="loginBox">
+    <div class="logo">E</div><h2>Create Account</h2><p>নতুন Earnova Account তৈরি করুন</p>
+    <input id="registerName" type="text" placeholder="আপনার নাম">
+    <input id="registerEmail" type="email" placeholder="Gmail">
+    <div class="passwordBox"><input id="registerPassword" type="password" placeholder="Password (কমপক্ষে 6 অক্ষর)"><button class="passwordToggle" onclick="togglePassword('registerPassword',this)">👁️</button></div>
+    <button class="primary" style="width:100%" id="registerBtn" onclick="registerUser()">Register</button>
+    <button class="secondary" style="width:100%;margin-top:10px" onclick="showLogin()">Already have an account? Login</button>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+<div class="header">
+  <div class="top"><div><small>Welcome back 👋</small><h2 id="userName">User</h2></div><button class="bell" onclick="openPage('notifications')">🔔</button></div>
+  <div class="balanceBox">
+    <div class="moneyBox"><small>📦 Package Balance</small><h2 class="packageMoney">৳ <span id="packageBalance">0</span></h2></div>
+    <div class="moneyBox"><small>🎯 Task Token</small><h2 class="taskMoney">🪙 <span id="taskToken">0</span></h2></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+  <div class="sectionTitle"><h3>🏠 Home</h3></div>
+  <div class="card"><h3>📖 About Earnova</h3><p style="margin-top:10px;color:#666;line-height:1.7">এটি একটি নির্ভরযোগ্য আর্নিং প্ল্যাটফর্ম। Package activation পেমেন্ট রিকোয়েস্ট ও অ্যাডমিন কনফার্মেশনের মাধ্যমে সম্পন্ন হয়।</p></div>
+  <div class="card"><h3>📊 Today's Activity</h3><p style="margin-top:10px;color:#777">Completed Tasks: <b id="taskCount">0</b></p></div>
+  <div class="card"><h3>⚡ Quick Access</h3><br><button class="primary" onclick="openPage('packages')">📦 Packages</button><button class="primary" style="margin-left:5px" onclick="openPage('tasks')">🎯 Tasks</button></div>
+
+  <!-- REFERRAL SYSTEM CARD AT HOME PAGE -->
+  <div class="card" style="border:2px dashed #2563eb; background:#f0f5ff">
+    <h3>🎁 Referral & Earn Program</h3>
+    <p style="font-size:13px; color:#555; margin: 6px 0 12px">বন্ধুদের ইনভাইট করুন! প্রতি <b>১০ জন</b> সফল রেফারেল অ্যাকাউন্ট খোলার সাথে সাথে অটোমেটিক পাবেন <b>+৫০ Task Token</b> বোনাস!</p>
+    <div class="profileRow"><small>👥 Total Referred Users</small><strong id="referralCount">0 Person</strong></div>
+    <div class="profileRow"><small>🔗 Your Referral Link</small>
+      <div class="copyRow">
+        <input id="refLinkInput" type="text" readonly>
+        <button class="secondary copyBtn" onclick="copyText('refLinkInput')">📋 Copy Link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="packages" class="page">
+  <div class="sectionTitle"><h3>📦 Packages</h3></div>
+  <div class="info">Package নিতে হলে প্রথমে <b>Payment Request</b> বাটনে ক্লিক করুন। Payment করার পর প্রয়োজনীয় তথ্য দিয়ে submit করুন। Admin confirmation না দেওয়া পর্যন্ত Package Active হবে না।</div>
+  <div class="packages" id="packageList"></div>
+</div>
+
+<!-- PAYMENT REQUEST -->
+<div id="paymentRequest" class="page">
+  <div class="sectionTitle"><h3>💳 Payment Request</h3></div>
+  <div class="card">
+    <div id="paymentPackageInfo"></div>
+    <div class="info"><b>👤 User Information</b><br>নিচের তথ্যগুলো আপনার Account থেকে স্বয়ংক্রিয়ভাবে নেওয়া হয়েছে।</div>
+
+    <label>🆔 User ID</label>
+    <div class="copyRow"><input id="requestUserId" type="text" readonly><button class="secondary copyBtn" onclick="copyText('requestUserId')">📋 Copy</button></div>
+
+    <label>📧 Gmail</label>
+    <div class="copyRow"><input id="requestEmail" type="email" readonly><button class="secondary copyBtn" onclick="copyText('requestEmail')">📋 Copy</button></div>
+
+    <label>📱 Mobile Number</label>
+    <div class="copyRow"><input id="requestMobile" type="text" readonly><button class="secondary copyBtn" onclick="copyText('requestMobile')">📋 Copy</button></div>
+
+    <div class="paymentNumber">
+      <div>💳 Payment Number</div>
+      <div style="display:flex;gap:7px;align-items:center;margin-top:7px">
+        <b id="paymentNumber">Loading...</b>
+        <button class="secondary" style="padding:8px 12px" onclick="copyPaymentNumber()">📋 Copy</button>
+      </div>
+      <p style="font-size:12px;color:#777;margin-top:7px">এই নম্বরে Payment পাঠাবেন।</p>
+    </div>
+
+    <label>💳 Transaction Number</label>
+    <div class="copyRow"><input id="requestTransactionNumber" type="text" placeholder="Transaction Number লিখুন"><button class="secondary copyBtn" onclick="copyText('requestTransactionNumber')">📋 Copy</button></div>
+
+    <label>💰 Payment Method</label>
+    <select id="paymentMethod"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select>
+
+    <label>📦 Package</label><input id="requestPackage" type="text" readonly>
+
+    <label>💵 Amount</label>
+    <div class="copyRow"><input id="requestAmount" type="number" readonly><button class="secondary copyBtn" onclick="copyText('requestAmount')">📋 Copy</button></div>
+
+    <label>🔢 Transaction ID / TrxID</label><input id="transactionId" type="text" placeholder="Transaction ID লিখুন">
+
+    <button class="primary" style="width:100%" id="submitPayBtn" onclick="submitPaymentRequest()">📤 Submit Payment Request</button>
+  </div>
+
+  <div id="myPaymentRequests" class="card"><h3>📋 My Payment Request</h3><div id="paymentRequestHistory"></div></div>
+</div>
+
+<div id="tasks" class="page">
+  <div class="sectionTitle"><h3>🎯 Daily Tasks</h3></div>
+  <div id="taskLocked" class="locked"><div class="lockIcon">🔒</div><h3>Tasks Locked</h3><p style="color:#777;margin:10px 0 18px">Admin আপনার Package confirm করার পর Tasks unlock হবে।</p><button class="primary" onclick="openPage('packages')">📦 View Packages</button></div>
+  <div id="taskArea" style="display:none">
+    <div class="card"><h3>🟢 Tasks Unlocked</h3><p style="color:#777;margin-top:8px">প্রতিটি task ২৪ ঘণ্টায় একবার complete করা যাবে।</p></div>
+    <div class="card task"><div class="taskIcon">🎬</div><div class="taskInfo"><b>Watch Video</b><div class="reward">+20 Token</div></div><button id="task1Btn" onclick="completeTask(1)">Start</button></div>
+    <div class="card task"><div class="taskIcon">⭐</div><div class="taskInfo"><b>Follow Page</b><div class="reward">+20 Token</div></div><button id="task2Btn" onclick="completeTask(2)">Start</button></div>
+    <div class="card task"><div class="taskIcon">📝</div><div class="taskInfo"><b>Daily Task</b><div class="reward">+20 Token</div></div><button id="task3Btn" onclick="completeTask(3)">Start</button></div>
+  </div>
+</div>
+
+<div id="withdraw" class="page">
+  <div class="sectionTitle"><h3>💸 Withdraw</h3></div>
+  <div class="card"><h3>Token Redemption</h3><p style="color:#777;margin:10px 0">Available Task Token: <b id="withdrawBalance">0</b></p>
+    <label>Method</label><select id="method"><option>bKash</option><option>Nagad</option></select>
+    <label>Account Number</label><input id="number" type="text" placeholder="01XXXXXXXXX">
+    <label>Token Amount</label><input id="amount" type="number" placeholder="Enter token amount">
+    <button class="primary" style="width:100%" id="withdrawBtn" onclick="withdraw()">Submit Withdrawal Request</button>
+  </div>
+  <div class="card"><h3>📋 Withdrawal History</h3><div id="withdrawHistory"><p style="color:#777;margin-top:10px">No request yet.</p></div></div>
+</div>
+
+<div id="notifications" class="page"><div class="sectionTitle"><h3>🔔 Notifications</h3></div><div class="card" id="notificationList"><p style="color:#777">No notifications yet.</p></div></div>
+
+<div id="profile" class="page">
+  <div class="sectionTitle"><h3>👤 My Profile</h3></div>
+  <div class="card">
+    <div class="profileRow"><small>📧 Gmail 🔒</small><strong id="profileGmail">Not Set</strong></div>
+    <div class="profileRow"><small>🆔 Firebase UID 🔒</small><strong id="profileUID">Not Set</strong></div>
+    <div class="profileRow"><small>👤 Name</small><input id="editName" placeholder="Your Name"></div>
+    <div class="profileRow"><small>📱 Mobile Number</small><input id="editMobile" placeholder="01XXXXXXXXX"></div>
+    <div class="profileRow"><small>🏠 Address</small><input id="editAddress" placeholder="Your Address"></div>
+    <div class="profileRow"><small>📍 District</small><input id="editDistrict" placeholder="District"></div>
+    <div class="profileRow"><small>📍 Upazila</small><input id="editUpazila" placeholder="Upazila"></div>
+    <div class="profileRow"><small>🎂 Date of Birth</small><input id="editDOB" type="date"></div>
+    <button class="primary" style="width:100%;margin-top:15px" onclick="saveProfile()">💾 Save Profile</button>
+    <div class="profileRow" style="margin-top:15px"><small>📦 Package Balance</small><strong>৳ <span id="profilePackage">0</span></strong></div>
+    <div class="profileRow"><small>🎯 Task Token</small><strong>🪙 <span id="profileTask">0</span></strong></div>
+    <div class="profileRow"><small>📦 Active Package</small><strong id="activePackageName">None</strong></div>
+  </div>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<div id="admin" class="page">
+  <div class="sectionTitle"><h3>👑 Admin Panel</h3><span class="adminBadge">ADMIN</span></div>
+  <div class="card"><h3>⚙️ Admin Settings</h3><label style="margin-top:10px;display:block">Update Global Payment Number</label><input id="adminPayNumInput" type="text" placeholder="New Payment Number"><button class="primary" style="width:100%" onclick="updateAdminPaymentNumber()">Save Number</button></div>
+  <div class="card"><h3>💳 Package Payment Requests</h3><div id="adminPaymentRequests">Loading...</div></div>
+  <div class="card"><h3>👥 Users</h3><div id="adminUsers">Loading...</div></div>
+  <div class="card"><h3>💸 Pending Withdrawals</h3><div id="adminWithdrawals">Loading...</div></div>
+</div>
+
+</div>
+
+<div class="bottom">
+  <button class="nav active" onclick="openPage('home',this)"><span>🏠</span>Home</button>
+  <button class="nav" onclick="openPage('packages',this)"><span>📦</span>Packages</button>
+  <button class="nav" onclick="openPage('tasks',this)"><span>🎯</span>Tasks</button>
+  <button class="nav" onclick="openPage('withdraw',this)"><span>💸</span>Withdraw</button>
+  <button class="nav" onclick="openPage('profile',this)"><span>👤</span>Profile</button>
+</div>
+</div>
+
+<!-- FLOATING LIVE CHAT BUTTON (সব সময় স্ক্রিনে থাকবে) -->
+<button class="floatingChatBtn" onclick="toggleChat()" title="Live Chat Support">💬</button>
+
+<!-- LIVE CHAT WINDOW -->
+<div id="chatWindow" class="chatWindow">
+  <div class="chatHeader"><b>💬 Earnova Support</b><button onclick="closeChat()" style="background:none;color:#fff;font-size:20px">×</button></div>
+  <div id="chatMessages" class="chatMessages"></div>
+  <div class="chatInput"><input id="chatText" placeholder="Message লিখুন..." onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Send</button></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, onSnapshot, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyCovpUhfJKebXSrQjOfm3_43ldJ4o17Jbo",
+  authDomain:"earnova-53855.firebaseapp.com",
+  projectId:"earnova-53855",
+  storageBucket:"earnova-53855.firebasestorage.app",
+  messagingSenderId:"770453136576",
+  appId:"1:770453136576:web:63494e444a43b9462bb925",
+  measurementId:"G-X0G3MY582W"
+};
+
+const firebaseApp=initializeApp(firebaseConfig),auth=getAuth(firebaseApp),db=getFirestore(firebaseApp);
+
+let globalPaymentNumber="01XXXXXXXXX",packageBalance=0,taskToken=0,activePackage=null,currentUser=null,userData={},chatUnsubscribe=null,selectedPackageIndex=null;
+
+const packageList=[
+ ["Bronze",500],["Silver",1000],["Gold",2000],["Platinum",3000],["Diamond",5000],
+ ["Sapphire",7500],["Ruby",10000],["Emerald",12000],["Pearl",18000],["Crown",25000]
+];
+
+const showAlert=(title,text,icon="info")=>Swal.fire({title,text,icon,confirmButtonColor:"#2563eb"});
+
+function captureReferralCode() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get('ref');
+  if (ref) {
+    localStorage.setItem('earnova_referredBy', ref);
+  }
+}
+captureReferralCode();
+
+async function fetchGlobalSettings(){
+ try{
+  const snap=await getDoc(doc(db,"settings","general"));
+  if(snap.exists()&&snap.data().paymentNumber)globalPaymentNumber=snap.data().paymentNumber;
+ }catch(e){console.error(e)}
+ const el=document.getElementById("paymentNumber");if(el)el.innerText=globalPaymentNumber;
+}
+
+window.togglePassword=(id,button)=>{
+ const input=document.getElementById(id);
+ input.type=input.type==="password"?"text":"password";
+ button.innerText=input.type==="password"?"👁️":"🙈";
+};
+
+// ১০ জন সফল রেফারেল হলে অটো ৫০ টোকেন বোনাস ফাংশন
+async function processReferralBonus(referrerId) {
+  try {
+    const referrerRef = doc(db, "users", referrerId);
+    const referrerSnap = await getDoc(referrerRef);
+
+    if (referrerSnap.exists()) {
+      const data = referrerSnap.data();
+      const currentCount = Number(data.referralCount || 0) + 1;
+      let bonusToken = 0;
+
+      if (currentCount % 10 === 0) {
+        bonusToken = 50;
+      }
+
+      await updateDoc(referrerRef, {
+        referralCount: increment(1),
+        taskToken: increment(bonusToken)
+      });
+
+      if (bonusToken > 0) {
+        await addDoc(collection(db, "notifications"), {
+          uid: referrerId,
+          icon: "🎁",
+          title: "Referral Milestone Bonus!",
+          text: `🎉 অভিনন্দন! আপনার লিংকে ${currentCount} জন সফলভাবে অ্যাকাউন্ট খোলায় আপনি +${bonusToken} Task Token অটোমেটিক বোনাস পেয়েছেন!`,
+          createdAt: serverTimestamp()
+        });
+      }
+    }
+  } catch (err) {
+    console.error("Referral Bonus Process Error:", err);
+  }
+}
+
+// অ্যাকাউন্ট রেজিস্ট্রেশন
+window.registerUser=async()=>{
+ const name=document.getElementById("registerName").value.trim(),email=document.getElementById("registerEmail").value.trim(),password=document.getElementById("registerPassword").value;
+ if(!name||!email)return showAlert("ভুল তথ্য!","অনুগ্রহ করে আপনার নাম ও জিমেইল দিন।","warning");
+ if(password.length<6)return showAlert("দুর্বল পাসওয়ার্ড","পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।","warning");
+ const btn=document.getElementById("registerBtn");btn.disabled=true;btn.innerText="Processing...";
+ try{
+  const result=await createUserWithEmailAndPassword(auth,email,password),user=result.user;
+  const referrerId = localStorage.getItem('earnova_referredBy') || null;
+
+  await setDoc(doc(db,"users",user.uid),{
+    uid:user.uid,
+    name,
+    email:user.email,
+    role:"user",
+    mobile:"",
+    address:"",
+    district:"",
+    upazila:"",
+    dob:"",
+    packageBalance:0,
+    taskToken:0,
+    activePackage:null,
+    taskTimestamps:{},
+    referralCount: 0,
+    referredBy: referrerId,
+    createdAt:serverTimestamp()
+  });
+
+  if (referrerId) {
+    await processReferralBonus(referrerId);
+    localStorage.removeItem('earnova_referredBy');
+  }
+
+  showAlert("সফল!","অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!","success");showLogin();
+ }catch(e){showAlert("রেজিস্ট্রেশন ব্যর্থ!",e.message,"error")}finally{btn.disabled=false;btn.innerText="Register"}
+};
+
+window.login=async()=>{
+ const email=document.getElementById("loginId").value.trim(),password=document.getElementById("loginPassword").value;
+ if(!email||!password)return showAlert("তথ্য বাকি!","জিমেইল এবং পাসওয়ার্ড দিন।","warning");
+ const btn=document.getElementById("loginBtn");btn.disabled=true;btn.innerText="Logging in...";
+ try{await signInWithEmailAndPassword(auth,email,password)}catch(e){showAlert("লগইন ব্যর্থ!",e.message,"error")}finally{btn.disabled=false;btn.innerText="Login"}
+};
+
+window.resetPassword=async()=>{
+ const email=document.getElementById("loginId").value.trim();
+ if(!email)return showAlert("জিমেইল প্রয়োজন","পাসওয়ার্ড রিসেট করতে আগে আপনার জিমেইল লিখুন।","info");
+ try{await sendPasswordResetEmail(auth,email);showAlert("ইমেইল পাঠানো হয়েছে!","আপনার জিমেইলে পাসওয়ার্ড রিসেট লিঙ্ক পাঠানো হয়েছে।","success")}catch(e){showAlert("ত্রুটি!",e.message,"error")}
+};
+
+onAuthStateChanged(auth,async user=>{
+ if(!user){currentUser=null;document.getElementById("app").style.display="none";document.getElementById("register").style.display="none";document.getElementById("login").style.display="flex";return}
+ currentUser=user;await fetchGlobalSettings();
+ const ref=doc(db,"users",user.uid),snap=await getDoc(ref);
+ if(snap.exists())userData=snap.data();else{userData={uid:user.uid,name:"User",email:user.email,role:"user",packageBalance:0,taskToken:0,activePackage:null,taskTimestamps:{},referralCount:0};await setDoc(ref,userData)}
+ packageBalance=Number(userData.packageBalance||0);taskToken=Number(userData.taskToken||0);activePackage=userData.activePackage;
+ document.getElementById("userName").innerText=userData.name||"User";
+ document.getElementById("profileGmail").innerText=user.email;document.getElementById("profileUID").innerText=user.uid;
+ document.getElementById("editName").value=userData.name||"";document.getElementById("editMobile").value=userData.mobile||"";
+ document.getElementById("editAddress").value=userData.address||"";document.getElementById("editDistrict").value=userData.district||"";
+ document.getElementById("editUpazila").value=userData.upazila||"";document.getElementById("editDOB").value=userData.dob||"";
+ 
+ document.getElementById("referralCount").innerText = (userData.referralCount || 0) + " Person";
+ document.getElementById("refLinkInput").value = `${window.location.origin}${window.location.pathname}?ref=${user.uid}`;
+
+ document.getElementById("login").style.display="none";document.getElementById("register").style.display="none";document.getElementById("app").style.display="block";
+ loadPackages();updateBalance();loadNotifications();loadWithdrawals();loadPaymentRequests();setupChat();checkTaskTimers();
+ if(userData.role==="admin")addAdminNav();
+});
+
+window.showRegister=()=>{document.getElementById("login").style.display="none";document.getElementById("register").style.display="flex"};
+window.showLogin=()=>{document.getElementById("register").style.display="none";document.getElementById("login").style.display="flex"};
+
+window.openPage=(page,button)=>{
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const target=document.getElementById(page);if(target)target.classList.add("active");
+ document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));if(button)button.classList.add("active");
+ if(page==="admin"&&userData.role==="admin")loadAdmin();window.scrollTo(0,0);
+};
+
+function loadPackages(){
+ const box=document.getElementById("packageList");box.innerHTML="";
+ packageList.forEach((p,index)=>{
+  const div=document.createElement("div");div.className="package";if(activePackage===index)div.classList.add("activePackage");
+  div.innerHTML=`<h3>${p[0]}</h3><div class="price">৳${p[1]}</div><div class="status">${activePackage===index?"✓ Active":""}</div>${activePackage===index?`<button disabled>✓ Package Active</button>`:`<button class="requestBtn" onclick="openPaymentRequest(${index})">💳 Payment Request</button>`}`;
+  box.appendChild(div);
+ });updateTaskLock();
+}
+
+window.openPaymentRequest=index=>{
+ if(activePackage!==null)return showAlert("প্যাকেজ একটিভ!","আপনার একটি Package ইতিমধ্যে Active আছে।","warning");
+ selectedPackageIndex=index;const p=packageList[index];
+ document.getElementById("requestUserId").value=currentUser.uid;
+ document.getElementById("requestEmail").value=currentUser.email||"";
+ document.getElementById("requestMobile").value=userData.mobile||"Not Set";
+ document.getElementById("requestPackage").value=p[0];document.getElementById("requestAmount").value=p[1];
+ document.getElementById("requestTransactionNumber").value="";document.getElementById("transactionId").value="";
+ document.getElementById("paymentMethod").value="bKash";
+ document.getElementById("paymentPackageInfo").innerHTML=`<div class="info">আপনি <b>${p[0]}</b> Package-এর জন্য <b>৳${p[1]}</b> Payment Request করছেন।</div>`;
+ document.getElementById("paymentNumber").innerText=globalPaymentNumber;
+ openPage("paymentRequest");loadPaymentRequests();
+};
+
+window.copyText=id=>{
+ const el=document.getElementById(id),value=el?.value||el?.innerText||"";
+ if(!value||value==="Not Set")return showAlert("কপি করা যাচ্ছে না!","তথ্য পাওয়া যায়নি।","warning");
+ navigator.clipboard?.writeText(value).then(()=>showAlert("কপি হয়েছে! 📋","তথ্যটি সফলভাবে কপি হয়েছে।","success")).catch(()=>showAlert("কপি করা যায়নি!","ম্যানুয়ালি কপি করুন।","error"));
+};
+
+window.copyPaymentNumber=()=>{navigator.clipboard?.writeText(globalPaymentNumber).then(()=>showAlert("কপি হয়েছে!","Payment Number কপি হয়েছে।","success")).catch(()=>showAlert("ত্রুটি!","ম্যানুয়ালি কপি করুন।","error"))};
+
+window.submitPaymentRequest=async()=>{
+ if(!currentUser||selectedPackageIndex===null)return;
+ const method=document.getElementById("paymentMethod").value;
+ const transactionNumber=document.getElementById("requestTransactionNumber").value.trim();
+ const transactionId=document.getElementById("transactionId").value.trim();
+ if(!transactionNumber)return showAlert("Transaction Number প্রয়োজন!","Transaction Number লিখুন।","warning");
+ if(!transactionId)return showAlert("TrxID প্রয়োজন!","Transaction ID লিখুন।","warning");
+ const btn=document.getElementById("submitPayBtn");btn.disabled=true;
+ const p=packageList[selectedPackageIndex];
+ try{
+  const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid),where("status","==","pending")),existing=await getDocs(q);
+  if(!existing.empty){showAlert("রিকুয়েস্ট পেন্ডিং!","আপনার একটি Payment Request ইতিমধ্যে Pending আছে।","info");return}
+  await addDoc(collection(db,"paymentRequests"),{uid:currentUser.uid,email:currentUser.email,mobile:userData.mobile||"",transactionNumber,transactionId,packageIndex:selectedPackageIndex,packageName:p[0],amount:p[1],method,status:"pending",createdAt:serverTimestamp()});
+  await addDoc(collection(db,"notifications"),{uid:currentUser.uid,icon:"💳",title:"Payment Request Submitted",text:`${p[0]} প্যাকেজের রিকোয়েস্ট পেন্ডিং আছে। যাচাই শেষে কনফার্ম করা হবে।`,createdAt:serverTimestamp()});
+  showAlert("সফল!","Payment Request সফলভাবে জমা হয়েছে।","success");loadPaymentRequests();openPage("packages");
+ }catch(e){showAlert("ব্যর্থ!",e.message,"error")}finally{btn.disabled=false}
+};
+
+async function loadPaymentRequests(){
+ if(!currentUser)return;const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid));
+ try{
+  const snap=await getDocs(q),box=document.getElementById("paymentRequestHistory");box.innerHTML="";
+  if(snap.empty){box.innerHTML='<p style="color:#777;margin-top:10px">No payment request yet.</p>';return}
+  const arr=[];snap.forEach(x=>arr.push({id:x.id,...x.data()}));arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  arr.forEach(d=>{const status=d.status==="pending"?`<div class="requestStatus requestPending">⏳ Pending</div>`:d.status==="approved"?`<div class="requestStatus requestApproved">✅ Approved</div>`:`<div class="requestStatus requestRejected">❌ Rejected</div>`;
+   box.innerHTML+=`<div class="history"><b>${d.packageName||"Package"}</b><p>Amount: ৳${d.amount||0}</p><p>Mobile: ${d.mobile||""}</p><p>Transaction Number: ${d.transactionNumber||""}</p><p>TrxID: ${d.transactionId||""}</p>${status}</div>`;
+  });
+ }catch(e){console.error(e)}
+}
+
+function updateBalance(){
+ document.getElementById("packageBalance").innerText=packageBalance;document.getElementById("taskToken").innerText=taskToken;document.getElementById("withdrawBalance").innerText=taskToken;
+ document.getElementById("profilePackage").innerText=packageBalance;document.getElementById("profileTask").innerText=taskToken;
+ document.getElementById("activePackageName").innerText=activePackage!==null&&packageList[activePackage]?packageList[activePackage][0]:"None";
+}
+function updateTaskLock(){document.getElementById("taskLocked").style.display=activePackage===null?"block":"none";document.getElementById("taskArea").style.display=activePackage===null?"none":"block"}
+
+function checkTaskTimers(){
+ const timestamps=userData.taskTimestamps||{},now=Date.now(),day=24*60*60*1000;
+ [1,2,3].forEach(id=>{const btn=document.getElementById(`task${id}Btn`);if(!btn)return;const last=timestamps[id]||0;btn.innerText=now-last<day?"Completed ✓":"Start";btn.disabled=now-last<day})
+}
+
+window.completeTask=async taskId=>{
+ if(!currentUser)return;if(activePackage===null)return showAlert("প্যাকেজ লক!","টাস্ক পূরণ করতে আগে প্যাকেজ অ্যাক্টিভ করুন।","warning");
+ const timestamps=userData.taskTimestamps||{},last=timestamps[taskId]||0;
+ if(Date.now()-last<24*60*60*1000)return showAlert("অপেক্ষা করুন","এই Task ২৪ ঘণ্টায় একবার করা যাবে।","info");
+ const reward=20;taskToken+=reward;timestamps[taskId]=Date.now();
+ try{await updateDoc(doc(db,"users",currentUser.uid),{taskToken,taskTimestamps:timestamps});userData.taskTimestamps=timestamps;updateBalance();checkTaskTimers();document.getElementById("taskCount").innerText=(parseInt(document.getElementById("taskCount").innerText)||0)+1;showAlert("অভিনন্দন!",`Task ${taskId} সম্পন্ন হয়েছে! পেয়েছ +${reward} Task Tokens।`,"success")}catch(e){taskToken-=reward;showAlert("ত্রুটি!",e.message,"error")}
+};
+
+window.withdraw=async()=>{
+ if(!currentUser)return;const method=document.getElementById("method").value,number=document.getElementById("number").value.trim(),amount=parseInt(document.getElementById("amount").value);
+ if(!/^01\d{9}$/.test(number))return showAlert("ভুল নম্বর!","সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।","warning");
+ if(!amount||amount<=0)return showAlert("ভুল পরিমাণ!","সঠিক টোকেন পরিমাণ দিন।","warning");
+ if(amount>taskToken)return showAlert("পর্যাপ্ত টোকেন নেই!","আপনার একাউন্টে পর্যাপ্ত ব্যালেন্স নেই।","error");
+ const btn=document.getElementById("withdrawBtn");btn.disabled=true;
+ try{
+  taskToken-=amount;await updateDoc(doc(db,"users",currentUser.uid),{taskToken});
+  await addDoc(collection(db,"withdrawals"),{uid:currentUser.uid,email:currentUser.email,method,number,amount,status:"pending",createdAt:serverTimestamp()});
+  await addDoc(collection(db,"notifications"),{uid:currentUser.uid,icon:"💸",title:"Withdrawal Requested",text:`${amount} টোকেন উত্তোলনের রিকোয়েস্ট সফলভাবে জমা হয়েছে।`,createdAt:serverTimestamp()});
+  updateBalance();loadWithdrawals();document.getElementById("number").value="";document.getElementById("amount").value="";showAlert("রিকোয়েস্ট জমা হয়েছে!","আপনার উইথড্রয়াল আবেদনটি সফল হয়েছে।","success");
+ }catch(e){showAlert("ত্রুটি!",e.message,"error")}finally{btn.disabled=false}
+};
+
+async function loadWithdrawals(){
+ if(!currentUser)return;const q=query(collection(db,"withdrawals"),where("uid","==",currentUser.uid));
+ try{const snap=await getDocs(q),box=document.getElementById("withdrawHistory");box.innerHTML="";
+  if(snap.empty){box.innerHTML='<p style="color:#777;margin-top:10px">No request yet.</p>';return}
+  const arr=[];snap.forEach(d=>arr.push({id:d.id,...d.data()}));arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  arr.forEach(w=>box.innerHTML+=`<div class="history"><b>${w.method} - ${w.number}</b><p>Tokens: 🪙 ${w.amount}</p><p class="${w.status}">${w.status.toUpperCase()}</p></div>`)
+ }catch(e){console.error(e)}
+}
+
+window.saveProfile=async()=>{
+ if(!currentUser)return;const name=document.getElementById("editName").value.trim(),mobile=document.getElementById("editMobile").value.trim(),address=document.getElementById("editAddress").value.trim(),district=document.getElementById("editDistrict").value.trim(),upazila=document.getElementById("editUpazila").value.trim(),dob=document.getElementById("editDOB").value;
+ try{await updateDoc(doc(db,"users",currentUser.uid),{name,mobile,address,district,upazila,dob});userData={...userData,name,mobile,address,district,upazila,dob};document.getElementById("userName").innerText=name||"User";showAlert("সেভ হয়েছে!","প্রোফাইল তথ্য আপডেট করা হয়েছে।","success")}catch(e){showAlert("ত্রুটি!",e.message,"error")}
+};
+
+async function loadNotifications(){
+ if(!currentUser)return;const q=query(collection(db,"notifications"),where("uid","==",currentUser.uid));
+ try{const snap=await getDocs(q),box=document.getElementById("notificationList");box.innerHTML="";if(snap.empty){box.innerHTML='<p style="color:#777">No notifications yet.</p>';return}
+  const arr=[];snap.forEach(d=>arr.push(d.data()));arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  arr.forEach(n=>box.innerHTML+=`<div class="notification"><div class="notificationIcon">${n.icon||"🔔"}</div><div><b>${n.title}</b><p style="font-size:13px;color:#555;margin-top:2px">${n.text}</p></div></div>`)
+ }catch(e){console.error(e)}
+}
+window.logout=()=>signOut(auth);
+
+// --- 💬 LIVE CHAT LOGIC WITH DATABASE ---
+window.toggleChat=()=>{
+ const win=document.getElementById("chatWindow");
+ win.style.display=win.style.display==="block"?"none":"block";
+};
+window.closeChat=()=>{document.getElementById("chatWindow").style.display="none"};
+
+function setupChat(){
+ if(!currentUser)return;
+ const q=query(collection(db,"chats"),where("uid","==",currentUser.uid));
+ if(chatUnsubscribe)chatUnsubscribe();
+ chatUnsubscribe=onSnapshot(q,snap=>{
+  const box=document.getElementById("chatMessages");box.innerHTML="";
+  const arr=[];snap.forEach(d=>arr.push(d.data()));
+  arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
+  arr.forEach(m=>{
+   const div=document.createElement("div");
+   div.className=`chatMsg ${m.sender==="admin"?"chatAdmin":"chatUser"}`;
+   div.innerText=m.text;
+   box.appendChild(div);
+  });
+  box.scrollTop=box.scrollHeight;
+ });
+}
+
+window.sendChat=async()=>{
+ const input=document.getElementById("chatText"),text=input.value.trim();
+ if(!text||!currentUser)return;
+ try{
+  // ডাটাবেসে মেসেজ স্টোর হচ্ছে 'chats' কলেকশনে
+  await addDoc(collection(db,"chats"),{
+    uid:currentUser.uid,
+    userEmail:currentUser.email,
+    userName:userData.name||"User",
+    sender:"user",
+    text,
+    createdAt:serverTimestamp()
+  });
+  input.value="";
+ }catch(e){
+  showAlert("ত্রুটি!","মেসেজ পাঠানো যায়নি।","error");
+  console.error(e);
+ }
+};
+
+// --- ADMIN PANEL FUNCTIONS ---
+function addAdminNav(){
+ const nav=document.querySelector(".bottom");if(document.getElementById("adminNavBtn"))return;
+ const btn=document.createElement("button");btn.id="adminNavBtn";btn.className="nav";btn.onclick=()=>openPage("admin",btn);btn.innerHTML="<span>👑</span>Admin";nav.appendChild(btn);
+}
+async function loadAdmin(){loadAdminPaymentRequests();loadAdminUsers();loadAdminWithdrawals()}
+
+window.updateAdminPaymentNumber=async()=>{
+ const newNum=document.getElementById("adminPayNumInput").value.trim();if(!newNum)return showAlert("নম্বর দিন!","সঠিক পেমেন্ট নম্বর ইনপুট দিন।","warning");
+ try{await setDoc(doc(db,"settings","general"),{paymentNumber:newNum},{merge:true});globalPaymentNumber=newNum;document.getElementById("paymentNumber").innerText=newNum;showAlert("সফল!","পেমেন্ট নম্বর আপডেট করা হয়েছে!","success")}catch(e){showAlert("ত্রুটি!",e.message,"error")}
+};
+
+async function loadAdminPaymentRequests(){
+ const box=document.getElementById("adminPaymentRequests");box.innerHTML="Loading...";
+ try{const snap=await getDocs(query(collection(db,"paymentRequests"),where("status","==","pending")));if(snap.empty){box.innerHTML="<p class='small'>No pending payment requests.</p>";return}
+  box.innerHTML="";snap.forEach(d=>{const r=d.data();box.innerHTML+=`<div class="adminUser"><b>${r.email}</b><br><small>UID: ${r.uid}</small><br><small>Mobile: ${r.mobile||"Not Set"}</small><br><small>Package: ${r.packageName} (৳${r.amount})</small><br><small>Transaction Number: ${r.transactionNumber||""}</small><br><small>TrxID: ${r.transactionId||""} (${r.method})</small><div class="adminActions"><button class="success" onclick="approvePayment('${d.id}','${r.uid}',${r.packageIndex},${r.amount})">Approve</button><button class="danger" onclick="rejectPayment('${d.id}')">Reject</button></div></div>`})
+ }catch(e){box.innerHTML=`<p class="small">${e.message}</p>`}
+}
+
+window.approvePayment=async(reqId,targetUid,packageIndex,amount)=>{
+ try{await updateDoc(doc(db,"paymentRequests",reqId),{status:"approved"});await updateDoc(doc(db,"users",targetUid),{activePackage:packageIndex,packageBalance:amount});await addDoc(collection(db,"notifications"),{uid:targetUid,icon:"✅",title:"Payment Approved",text:"আপনার Package Active করা হয়েছে!",createdAt:serverTimestamp()});showAlert("অনুমোদিত!","Payment Request Approved করা হয়েছে!","success");loadAdminPaymentRequests()}catch(e){showAlert("ত্রুটি!",e.message,"error")}
+};
+window.rejectPayment=async reqId=>{try{await updateDoc(doc(db,"paymentRequests",reqId),{status:"rejected"});showAlert("বাতিল!","Payment Request Rejected করা হয়েছে।","info");loadAdminPaymentRequests()}catch(e){showAlert("ত্রুটি!",e.message,"error")}};
+
+async function loadAdminUsers(){
+ const box=document.getElementById("adminUsers"),snap=await getDocs(collection(db,"users"));box.innerHTML="";
+ snap.forEach(d=>{const u=d.data();box.innerHTML+=`<div class="adminUser"><b>${u.name||"User"}</b> (${u.email})<br><small>UID: ${u.uid}</small><br><small>Mobile: ${u.mobile||"Not Set"}</small><br><small>Tokens: 🪙${u.taskToken||0} | Balance: ৳${u.packageBalance||0} | Referrals: 👥${u.referralCount||0}</small></div>`})
+}
+async function loadAdminWithdrawals(){
+ const box=document.getElementById("adminWithdrawals"),snap=await getDocs(query(collection(db,"withdrawals"),where("status","==","pending")));
+ if(snap.empty){box.innerHTML="<p class='small'>No pending withdrawals.</p>";return}box.innerHTML="";
+ snap.forEach(d=>{const w=d.data();box.innerHTML+=`<div class="adminUser"><b>${w.email}</b><br><small>${w.method}: ${w.number} | Tokens: ${w.amount}</small><div class="adminActions"><button class="success" onclick="approveWithdrawal('${d.id}')">Approve</button><button class="danger" onclick="rejectWithdrawal('${d.id}')">Reject</button></div></div>`})
+}
+window.approveWithdrawal=async id=>{try{await updateDoc(doc(db,"withdrawals",id),{status:"approved"});showAlert("অনুমোদিত!","Withdrawal Request Approved!","success");loadAdminWithdrawals()}catch(e){showAlert("ত্রুটি!",e.message,"error")}};
+window.rejectWithdrawal=async id=>{try{await updateDoc(doc(db,"withdrawals",id),{status:"rejected"});showAlert("বাতিল!","Withdrawal Request Rejected!","info");loadAdminWithdrawals()}catch(e){showAlert("ত্রুটি!",e.message,"error")}};
+</script>
+</body>
+</html>
