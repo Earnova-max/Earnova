@@ -89,19 +89,35 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 .chatWindow{position:fixed;right:15px;bottom:85px;width:calc(100% - 30px);max-width:380px;height:480px;background:#fff;border-radius:18px;box-shadow:0 10px 35px #0003;z-index:50;display:none;overflow:hidden}
 .chatHeader{background:#2563eb;color:#fff;padding:12px 15px;display:flex;justify-content:space-between;align-items:center}
 .chatHeader .agentTitle{font-size:11px;opacity:0.9;display:block;font-weight:normal}
+.closeChatBtn{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;line-height:1;padding:0 5px}
 .chatMessages{height:360px;overflow-y:auto;padding:12px;background:#f8fafc}.chatMsg{padding:9px 12px;border-radius:12px;margin-bottom:8px;max-width:85%;font-size:14px;word-break:break-word;position:relative}
-.chatMsg .editMsgBtn{display:none;font-size:10px;color:#666;background:none;border:none;margin-left:5px;cursor:pointer}
-.chatMsg:hover .editMsgBtn{display:inline}
 .chatMsg .seenStatus{display:block;font-size:10px;color:#2563eb;text-align:right;margin-top:2px;font-weight:bold}
 .chatMsg .agentNameTag{display:block;font-size:10px;color:#16a34a;font-weight:bold;margin-bottom:2px}
 .chatUser{background:#dbeafe;margin-left:auto}.chatAdmin{background:#dcfce7;margin-right:auto}
 .chatInput{display:flex;gap:7px;padding:10px;border-top:1px solid #eee}.chatInput input{margin:0;flex:1}.chatInput button{padding:10px 14px;background:#2563eb;color:#fff;border-radius:99px}
 
-.chatUserItem{padding:10px;border-bottom:1px solid #eee;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.adminMsgActions{display:flex;gap:8px;margin-top:4px;justify-content:flex-end}
+.adminMsgBtn{background:none;border:none;font-size:11px;cursor:pointer;color:#2563eb;font-weight:bold}
+.adminMsgBtn.del{color:#dc2626}
+
+.chatUserItem{padding:10px;border-bottom:1px solid #eee;cursor:pointer;display:flex;justify-space:between;align-items:center}
 .chatUserItem.unread{background:#fef2f2;border-left:4px solid #ef4444}
 .unreadBadge{background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:99px;font-weight:bold}
 
 .chatTimeoutNotice{text-align:center;background:#fee2e2;color:#dc2626;padding:10px;border-radius:10px;font-size:12px;margin:10px 0;font-weight:bold}
+
+/* ADMIN MENU GRID STYLES */
+.adminMenuGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.adminMenuCard{background:#fff;padding:16px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 2px 8px #0000000d;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;position:relative;transition:.2s}
+.adminMenuCard:hover{transform:translateY(-2px);box-shadow:0 5px 15px #00000015}
+.adminMenuCard .icon{font-size:28px;margin-bottom:8px}
+.adminMenuCard h4{font-size:13px;color:#1e293b;font-weight:600}
+.adminAlertDot{position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#ef4444;border-radius:50%;border:2px solid #fff;display:none}
+
+.adminSubPage{display:none}
+.adminSubPage.active{display:block}
+
+.searchInput{margin-bottom:12px;padding:10px 14px;border-radius:8px;border:1px solid #cbd5e1;font-size:13px;width:100%}
 
 @media(max-width:380px){.packages{grid-template-columns:1fr}.copyBtn{padding:0 8px;font-size:12px}}
 </style>
@@ -134,7 +150,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 <div id="app" style="display:none">
 <div class="header">
   <div class="userCountBox">
-    <div class="userCountBar">👥 Total Users - <span id="headerTotalUsers">1,00,000</span></div>
+    <div class="userCountBar">👥 Total Users - <span id="headerTotalUsers">27,890</span></div>
   </div>
   
   <div class="top">
@@ -344,7 +360,89 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <span class="adminBadge">ADMIN</span>
   </div>
   
-  <div class="card" style="border-top:4px solid #16a34a">
+  <!-- ADMIN MAIN DASHBOARD GRID (BUTTONS) -->
+  <div id="adminMainGrid" class="adminMenuGrid">
+    <div class="adminMenuCard" onclick="openAdminSubPage('adminPaySub')">
+      <div class="adminAlertDot" id="adminPayAlertDot"></div>
+      <div class="icon">💳</div>
+      <h4>Payment Requests</h4>
+    </div>
+    <div class="adminMenuCard" onclick="openAdminSubPage('adminWithSub')">
+      <div class="adminAlertDot" id="adminWithAlertDot"></div>
+      <div class="icon">💸</div>
+      <h4>Withdraw Requests</h4>
+    </div>
+    <div class="adminMenuCard" onclick="openAdminSubPage('adminUserSub')">
+      <div class="icon">👥</div>
+      <h4>User Management</h4>
+    </div>
+    <div class="adminMenuCard" onclick="openAdminSubPage('adminChatSub')">
+      <div class="adminAlertDot" id="adminChatAlertDot"></div>
+      <div class="icon">💬</div>
+      <h4>Live Support Desk</h4>
+    </div>
+  </div>
+
+  <!-- ADMIN SUB PAGES -->
+
+  <!-- 1. PAYMENT REQUESTS SUB PAGE -->
+  <div id="adminPaySub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>💳 Pending Payment Requests</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+    <input type="text" class="searchInput" id="searchPayInput" placeholder="🔍 Search email, TrxID, Mobile..." onkeyup="filterAdminList('adminPaymentRequests', this.value)">
+    <div class="card">
+      <div id="adminPaymentRequests">Loading...</div>
+    </div>
+  </div>
+
+  <!-- 2. WITHDRAW REQUESTS SUB PAGE -->
+  <div id="adminWithSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>💸 Pending Withdrawal Requests</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+    <input type="text" class="searchInput" id="searchWithInput" placeholder="🔍 Search email or number..." onkeyup="filterAdminList('adminWithdrawals', this.value)">
+    <div class="card">
+      <div id="adminWithdrawals">Loading...</div>
+    </div>
+  </div>
+
+  <!-- 3. USER MANAGEMENT SUB PAGE -->
+  <div id="adminUserSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>👥 User Management</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+    <input type="text" class="searchInput" id="searchUserInput" placeholder="🔍 Search user name or email..." onkeyup="filterAdminList('adminUsers', this.value)">
+    <div class="card">
+      <div id="adminUsers">Loading...</div>
+    </div>
+  </div>
+
+  <!-- 4. LIVE CHAT SUB PAGE -->
+  <div id="adminChatSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>💬 Live Support Desk (User Chats)</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+    <input type="text" class="searchInput" id="searchChatInput" placeholder="🔍 Search user chat..." onkeyup="filterAdminList('adminChatUserList', this.value)">
+    <div class="card">
+      <div id="adminChatUserList">Loading active chats...</div>
+      <div id="adminChatBox" style="display:none;margin-top:15px;border-top:2px solid #2563eb;padding-top:10px">
+        <h4 id="currentChatUserTitle">Chatting with User</h4>
+        <div id="adminChatMessages" style="height:250px;overflow-y:auto;background:#f8fafc;padding:10px;border-radius:10px;margin:10px 0"></div>
+        <div style="display:flex;gap:5px">
+          <input id="adminChatInput" type="text" placeholder="Type reply as Earnova Agent..." style="margin:0">
+          <button class="primary" onclick="sendAdminChatReply()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTHER GENERAL ADMIN CARDS -->
+  <div class="card" style="border-top:4px solid #16a34a; margin-top:20px;">
     <h3>➕ Add New Task (Any Type)</h3>
     <p style="font-size:12px;color:#666;margin:4px 0 10px">ভিডিও, পেজ লাইক, টেলিগ্রাম জয়েনসহ যেকোনো কাজ যুক্ত করুন। (ডিফল্ট: 10 Tokens)</p>
     
@@ -396,33 +494,6 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <button class="primary" style="width:100%" onclick="updateAdminPaymentNumbers()">Save Numbers</button>
   </div>
 
-  <div class="card">
-    <h3>💳 Pending Package Payment Requests</h3>
-    <div id="adminPaymentRequests">Loading...</div>
-  </div>
-  <div class="card">
-    <h3>💸 Pending Withdrawal Requests</h3>
-    <div id="adminWithdrawals">Loading...</div>
-  </div>
-  <div class="card">
-    <h3>👥 User Management</h3>
-    <div id="adminUsers">Loading...</div>
-  </div>
-
-  <div class="card" style="border-top:4px solid #8b5cf6">
-    <h3>💬 Live Support Desk (User Chats)</h3>
-    <p style="font-size:12px;color:#666;margin-bottom:10px">ইউজার মেসেজ দিলে লাল ডট সহ হাইলাইট হবে।</p>
-    <div id="adminChatUserList">Loading active chats...</div>
-    <div id="adminChatBox" style="display:none;margin-top:15px;border-top:2px solid #2563eb;padding-top:10px">
-      <h4 id="currentChatUserTitle">Chatting with User</h4>
-      <div id="adminChatMessages" style="height:250px;overflow-y:auto;background:#f8fafc;padding:10px;border-radius:10px;margin:10px 0"></div>
-      <div style="display:flex;gap:5px">
-        <input id="adminChatInput" type="text" placeholder="Type reply as Earnova Agent..." style="margin:0">
-        <button class="primary" onclick="sendAdminChatReply()">Send</button>
-      </div>
-    </div>
-  </div>
-
 </div>
 
 </div>
@@ -446,7 +517,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <b>💬 Earnova Support</b>
       <span class="agentTitle">Earnova Agent 🎧 (Online)</span>
     </div>
-    <button onclick="closeChat()" style="background:none;color:#fff;font-size:20px">×</button>
+    <button class="closeChatBtn" onclick="closeChat()">×</button>
   </div>
   <div id="chatMessages" class="chatMessages"></div>
   <div class="chatInput" id="chatInputArea">
@@ -498,26 +569,24 @@ const taskIcons = {
 
 const showAlert=(title,text,icon="info")=>Swal.fire({title,text,icon,confirmButtonColor:"#2563eb"});
 
+/* 🔴 UPDATE 1: Perfectly Synchronized Global User Counter */
 function startAutoUserCounter() {
-  const BASE_USERS = 100000;
+  const BASE_USERS = 27890;
   const INCREMENT_PER_MIN = 1;
   const INTERVAL_MS = 60000;
-
-  let startTime = localStorage.getItem("earnova_counter_start_time");
-  if (!startTime) {
-    startTime = Date.now();
-    localStorage.setItem("earnova_counter_start_time", startTime);
-  }
+  
+  // Fixed Global Reference Timestamp (Jan 1, 2026 00:00:00 UTC)
+  const FIXED_GLOBAL_START = new Date('2026-01-01T00:00:00Z').getTime();
 
   function updateDisplay() {
-    const elapsedMinutes = Math.floor((Date.now() - startTime) / INTERVAL_MS);
+    const elapsedMinutes = Math.max(0, Math.floor((Date.now() - FIXED_GLOBAL_START) / INTERVAL_MS));
     const totalUsers = BASE_USERS + (elapsedMinutes * INCREMENT_PER_MIN);
     const el = document.getElementById("headerTotalUsers");
     if (el) el.innerText = totalUsers.toLocaleString("en-US");
   }
 
   updateDisplay();
-  setInterval(updateDisplay, INTERVAL_MS);
+  setInterval(updateDisplay, 1000);
 }
 startAutoUserCounter();
 
@@ -566,16 +635,21 @@ async function processReferralBonus(referrerId) {
       const data = referrerSnap.data();
       const currentCount = Number(data.referralCount || 0) + 1;
       let bonusToken = (currentCount % 10 === 0) ? 50 : 0;
-      await updateDoc(referrerRef, { referralCount: increment(1), taskToken: increment(bonusToken) });
+      
+      await updateDoc(referrerRef, { 
+        referralCount: increment(1), 
+        taskToken: increment(bonusToken) 
+      });
+
       if (bonusToken > 0) {
         await addDoc(collection(db, "notifications"), {
           uid: referrerId, icon: "🎁", title: "Referral Bonus!",
-          text: `🎉 আপনার লিংকে ১০ জন ইউজার জয়েন করায় আপনি +${bonusToken} Task Token বোনাস পেয়েছেন!`,
+          text: `🎉 আপনার রেফারেল লিংকে ১০ জন ইউজার সম্পূর্ণভাবে যুক্ত হওয়ায় আপনি +${bonusToken} Task Token অটোমেটিক বোনাস পেয়েছেন!`,
           createdAt: serverTimestamp()
         });
       }
     }
-  } catch (err) { console.error(err); }
+  } catch (err) { console.error("Referral process error:", err); }
 }
 
 window.registerUser=async()=>{
@@ -586,11 +660,16 @@ window.registerUser=async()=>{
  try{
   const result=await createUserWithEmailAndPassword(auth,email,password),user=result.user;
   const referrerId = localStorage.getItem('earnova_referredBy') || null;
+  
   await setDoc(doc(db,"users",user.uid),{
     uid:user.uid, name, email:user.email, role:"user", mobile:"", address:"", district:"", upazila:"", dob:"",
     packageBalance:0, taskToken:0, activePackage:null, taskTimestamps:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, createdAt:serverTimestamp()
   });
-  if (referrerId) { await processReferralBonus(referrerId); localStorage.removeItem('earnova_referredBy'); }
+
+  if (referrerId) { 
+    await processReferralBonus(referrerId); 
+    localStorage.removeItem('earnova_referredBy'); 
+  }
   showAlert("সফল!","অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!","success");showLogin();
  }catch(e){showAlert("রেজিস্ট্রেশন ব্যর্থ!",e.message,"error")}finally{btn.disabled=false;btn.innerText="Register"}
 };
@@ -630,7 +709,10 @@ onAuthStateChanged(auth,async user=>{
 
  document.getElementById("login").style.display="none";document.getElementById("register").style.display="none";document.getElementById("app").style.display="block";
  loadPackages();updateBalance();loadNotifications();loadWithdrawals();loadPaymentRequests();setupChat();checkProfitTimer();listenNotificationsRedDot();listenTasks();
- if(userData.role==="admin")addAdminNav();
+ if(userData.role==="admin"){
+   addAdminNav();
+   listenAdminBadges();
+ }
 });
 
 window.changePasswordFromSettings = async () => {
@@ -911,18 +993,32 @@ window.claimDailyProfit=async()=>{
  
  const pkgAmount=packageList[activePackage][1];
  const profit=pkgAmount * 0.10;
- taskToken += profit;
- userData.lastProfitClaim = now;
+ 
+ const btn=document.getElementById("claimProfitBtn");
+ btn.disabled=true;
 
  try{
-  await updateDoc(doc(db,"users",currentUser.uid),{taskToken, lastProfitClaim:now});
-  updateBalance();checkProfitTimer();
+  await updateDoc(doc(db,"users",currentUser.uid),{
+    taskToken: increment(profit), 
+    lastProfitClaim: now
+  });
+
+  taskToken += profit;
+  userData.taskToken = taskToken;
+  userData.lastProfitClaim = now;
+
+  updateBalance();
+  checkProfitTimer();
+
   await addDoc(collection(db,"notifications"),{
     uid:currentUser.uid, icon:"📈", title:"Daily Profit Claimed!",
-    text:`অভিনন্দন! আপনার প্যাকেজ থেকে ১০% প্রফিট বাবদ +${profit} Task Token ওয়ালেটে যোগ হয়েছে।`, createdAt:serverTimestamp()
+    text:`অভিনন্দন! আপনার প্যাকেজ থেকে ১০% প্রফিট বাবদ +${profit} Task Token ওয়ালেটে স্বয়ংক্রিয়ভাবে যোগ হয়েছে।`, createdAt:serverTimestamp()
   });
   showAlert("সফল!",`ডেইলি ১০% প্রফিট থেকে +${profit} Task Token যোগ হয়েছে!`,"success");
- }catch(e){taskToken-=profit;showAlert("ত্রুটি!",e.message,"error")}
+ }catch(e){
+  checkProfitTimer();
+  showAlert("ত্রুটি!",e.message,"error");
+ }
 };
 
 window.withdraw=async()=>{
@@ -1007,10 +1103,9 @@ window.toggleChat=()=>{
 };
 window.closeChat=()=>{document.getElementById("chatWindow").style.display="none"};
 
-// 10 MIN TIMEOUT LOGIC
 function resetChatInactivityTimer() {
   if (chatInactivityTimer) clearTimeout(chatInactivityTimer);
-  const TEN_MINUTES_MS = 10 * 60 * 1000; // 10 min
+  const TEN_MINUTES_MS = 10 * 60 * 1000;
 
   chatInactivityTimer = setTimeout(() => {
     handleChatTimeout();
@@ -1069,13 +1164,12 @@ function setupChat(){
    let agentNameHtml = !isUser ? `<span class="agentNameTag">Earnova Agent 🎧</span>` : '';
    let seenHtml = (isUser && m.readByAdmin) ? `<span class="seenStatus">Seen ✓✓</span>` : '';
 
-   div.innerHTML=`${agentNameHtml}<span>${m.text}</span> ${seenHtml} <button class="editMsgBtn" onclick="editChatMessage('${m.id}', \`${m.text}\`)">✏️</button>`;
+   div.innerHTML=`${agentNameHtml}<span>${m.text}</span> ${seenHtml}`;
    box.appendChild(div);
   });
   
   box.scrollTop=box.scrollHeight;
 
-  // Check 10-min timeout: User's last message pending without admin reply for 10 mins
   if(lastUserMsgTime > lastAdminMsgTime) {
     const nowSec = Math.floor(Date.now() / 1000);
     const elapsedSec = nowSec - lastUserMsgTime;
@@ -1099,7 +1193,6 @@ window.sendChat=async()=>{
   });
   input.value="";
   
-  // Remove previous timeout notice if any when new message is sent
   const oldNotice = document.querySelector(".chatTimeoutNotice");
   if(oldNotice) oldNotice.remove();
 
@@ -1107,28 +1200,54 @@ window.sendChat=async()=>{
  }catch(e){showAlert("ত্রুটি!","মেসেজ পাঠানো যায়নি।","error")}
 };
 
-window.editChatMessage=async(msgId, oldText)=>{
- const { value: newText } = await Swal.fire({
-   title: 'Edit Message',
-   input: 'text',
-   inputValue: oldText,
-   showCancelButton: true,
-   inputValidator: (value) => {
-     if (!value) return 'মেসেজ খালি রাখা যাবে না!';
-   }
- });
- if(newText && newText !== oldText){
-   try{
-     await updateDoc(doc(db,"chats",msgId),{ text: newText });
-     showAlert("আপডেট হয়েছে!","মেসেজ সংশোধন করা হয়েছে।","success");
-   }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
- }
-};
-
 function addAdminNav(){
  const nav=document.querySelector(".bottom");if(document.getElementById("adminNavBtn"))return;
  const btn=document.createElement("button");btn.id="adminNavBtn";btn.className="nav";btn.onclick=()=>openPage("admin",btn);btn.innerHTML="<span>👑</span>Admin";nav.appendChild(btn);
 }
+
+window.openAdminSubPage = (subId) => {
+  document.querySelectorAll(".adminSubPage").forEach(p => p.classList.remove("active"));
+  const target = document.getElementById(subId);
+  if (target) target.classList.add("active");
+};
+
+window.closeAdminSubPage = () => {
+  document.querySelectorAll(".adminSubPage").forEach(p => p.classList.remove("active"));
+};
+
+window.filterAdminList = (containerId, queryVal) => {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const items = container.getElementsByClassName("adminUser");
+  const q = queryVal.toLowerCase();
+
+  Array.from(items).forEach(item => {
+    const text = item.innerText.toLowerCase();
+    if (text.includes(q)) {
+      item.style.display = "";
+    } else {
+      item.style.display = "none";
+    }
+  });
+};
+
+function listenAdminBadges(){
+  onSnapshot(query(collection(db, "paymentRequests"), where("status", "==", "pending")), snap => {
+    const el = document.getElementById("adminPayAlertDot");
+    if (el) el.style.display = !snap.empty ? "block" : "none";
+  });
+
+  onSnapshot(query(collection(db, "withdrawals"), where("status", "==", "pending")), snap => {
+    const el = document.getElementById("adminWithAlertDot");
+    if (el) el.style.display = !snap.empty ? "block" : "none";
+  });
+
+  onSnapshot(query(collection(db, "chats"), where("readByAdmin", "==", false)), snap => {
+    const el = document.getElementById("adminChatAlertDot");
+    if (el) el.style.display = !snap.empty ? "block" : "none";
+  });
+}
+
 async function loadAdmin(){
   loadAdminPaymentRequests();
   loadAdminUsers();
@@ -1168,14 +1287,69 @@ async function loadAdminTasks(){
    snap.forEach(d=>{
      const t=d.data();
      const icon = taskIcons[t.category] || "🎯";
-     box.innerHTML+=`<div class="adminUser"><b>${icon} ${t.title}</b> (${(t.category||'').toUpperCase()}) - (+${t.reward||10} Token)<br><small>Link: ${t.link||'No Link'}</small><div class="adminActions"><button class="danger" onclick="deleteTask('${d.id}')">Delete Task</button></div></div>`;
+     box.innerHTML+=`
+       <div class="adminUser">
+         <b>${icon} ${t.title}</b> (${(t.category||'').toUpperCase()}) - (+${t.reward||10} Token)<br>
+         <small>Link: ${t.link||'No Link'}</small>
+         <div class="adminActions">
+           <button class="primary" onclick="editTask('${d.id}', \`${t.title}\`, '${t.category||'youtube'}', ${t.reward||10}, \`${t.link||''}\`)">✏️ Edit</button>
+           <button class="danger" onclick="deleteTask('${d.id}')">🗑️ Delete</button>
+         </div>
+       </div>`;
    });
  }catch(e){box.innerHTML=`<p class='small'>${e.message}</p>`}
 }
 
+window.editTask=async(taskId, oldTitle, oldCategory, oldReward, oldLink)=>{
+ const { value: formValues } = await Swal.fire({
+   title: 'Edit Task Info',
+   html: `
+     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Task Title</label>
+     <input id="edit-task-title" class="swal2-input" value="${oldTitle}">
+     
+     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Category</label>
+     <select id="edit-task-category" class="swal2-input" style="height:45px">
+       <option value="youtube" ${oldCategory==='youtube'?'selected':''}>YouTube Video</option>
+       <option value="facebook" ${oldCategory==='facebook'?'selected':''}>Facebook Page/Post</option>
+       <option value="telegram" ${oldCategory==='telegram'?'selected':''}>Telegram Channel</option>
+       <option value="website" ${oldCategory==='website'?'selected':''}>Website Article</option>
+       <option value="app" ${oldCategory==='app'?'selected':''}>App Download</option>
+       <option value="other" ${oldCategory==='other'?'selected':''}>Other</option>
+     </select>
+     
+     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Reward Tokens</label>
+     <input id="edit-task-reward" type="number" class="swal2-input" value="${oldReward}">
+     
+     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Task Link</label>
+     <input id="edit-task-link" class="swal2-input" value="${oldLink}">
+   `,
+   focusConfirm: false,
+   showCancelButton: true,
+   preConfirm: () => [
+     document.getElementById('edit-task-title').value.trim(),
+     document.getElementById('edit-task-category').value,
+     Number(document.getElementById('edit-task-reward').value) || 10,
+     document.getElementById('edit-task-link').value.trim()
+   ]
+ });
+
+ if (formValues && formValues[0]) {
+   try{
+     await updateDoc(doc(db,"tasks",taskId),{ 
+       title: formValues[0], 
+       category: formValues[1],
+       reward: formValues[2],
+       link: formValues[3]
+     });
+     showAlert("সফল!","টাস্কটি সফলভাবে আপডেট করা হয়েছে।","success");
+     loadAdminTasks();
+   }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
+ }
+};
+
 window.deleteTask=async(taskId)=>{
  try{
-   await deleteDoc(doc(doc(db,"tasks",taskId)));
+   await deleteDoc(doc(db,"tasks",taskId));
    showAlert("ডিলিট হয়েছে!","টাস্কটি সফলভাবে মুছে ফেলা হয়েছে।","info");
    loadAdminTasks();
  }catch(e){showAlert("ত্রুটি!",e.message,"error")}
@@ -1348,7 +1522,7 @@ function listenAdminChats(){
    sortedUids.forEach(uid=>{
      const u = userList[uid];
      const div = document.createElement("div");
-     div.className = `chatUserItem ${u.unread?'unread':''}`;
+     div.className = `adminUser chatUserItem ${u.unread?'unread':''}`;
      div.onclick = ()=>openAdminChatWithUser(uid, u.name);
      div.innerHTML = `<div><b>${u.name}</b><br><small style="color:#777">${u.email}</small></div>${u.unread ? '<span class="unreadBadge">NEW</span>' : ''}`;
      box.appendChild(div);
@@ -1368,7 +1542,6 @@ window.openAdminChatWithUser=(uid, name)=>{
    snap.forEach(d=>{
      const data = d.data();
      arr.push({id: d.id, ...data});
-     // Mark user message as READ/SEEN when Admin opens chat
      if(data.sender === "user" && data.readByAdmin === false){
        updateDoc(doc(db,"chats",d.id),{ readByAdmin: true });
      }
@@ -1376,12 +1549,63 @@ window.openAdminChatWithUser=(uid, name)=>{
    arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
    arr.forEach(m=>{
      const div = document.createElement("div");
-     div.className = `chatMsg ${m.sender==="admin"?"chatUser":"chatAdmin"}`;
-     div.innerHTML = `<span>${m.text}</span> <button class="editMsgBtn" onclick="editChatMessage('${m.id}', \`${m.text}\`)">✏️</button>`;
+     const isAdmin = m.sender === "admin";
+     div.className = `chatMsg ${isAdmin?"chatUser":"chatAdmin"}`;
+     
+     /* 🔴 UPDATE 2: Enable Edit & Delete options ONLY for Admin Messages in Admin Desk */
+     let actionsHtml = "";
+     if (isAdmin) {
+       actionsHtml = `
+         <div class="adminMsgActions">
+           <button class="adminMsgBtn" onclick="editAdminChatMessage('${m.id}', \`${m.text.replace(/`/g, '\\`')}\`)">✏️ Edit</button>
+           <button class="adminMsgBtn del" onclick="deleteAdminChatMessage('${m.id}')">🗑️ Delete</button>
+         </div>
+       `;
+     }
+
+     div.innerHTML = `<span>${m.text}</span> ${actionsHtml}`;
      msgBox.appendChild(div);
    });
    msgBox.scrollTop = msgBox.scrollHeight;
  });
+};
+
+/* 🔴 UPDATE 2 Helper Functions: Admin Live Chat Edit & Delete */
+window.editAdminChatMessage = async (msgId, oldText) => {
+  const { value: newText } = await Swal.fire({
+    title: 'Edit Message',
+    input: 'text',
+    inputValue: oldText,
+    showCancelButton: true,
+    confirmButtonText: 'Update'
+  });
+
+  if (newText && newText.trim() !== '') {
+    try {
+      await updateDoc(doc(db, "chats", msgId), { text: newText.trim() });
+    } catch (e) {
+      showAlert("ত্রুটি!", e.message, "error");
+    }
+  }
+};
+
+window.deleteAdminChatMessage = async (msgId) => {
+  const result = await Swal.fire({
+    title: 'মেসেজ ডিলিট করবেন?',
+    text: 'এই মেসেজটি স্থায়ীভাবে মুছে ফেলা হবে।',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc2626',
+    confirmButtonText: 'হ্যাঁ, ডিলিট করুন'
+  });
+
+  if (result.isConfirmed) {
+    try {
+      await deleteDoc(doc(db, "chats", msgId));
+    } catch (e) {
+      showAlert("ত্রুটি!", e.message, "error");
+    }
+  }
 };
 
 window.sendAdminChatReply=async()=>{
