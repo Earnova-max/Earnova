@@ -36,25 +36,35 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 .topRightActions{display:flex;gap:10px;align-items:center}
 .bellContainer{position:relative;display:inline-block}
 .bell{width:40px;height:40px;border-radius:50%;background:#ffffff22;color:#fff;font-size:18px;position:relative}
-.menuBtn{width:40px;height:40px;border-radius:50%;background:#ffffff22;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
+.menuBtn{width:40px;height:40px;border-radius:50%;background:#ffffff22;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;position:relative}
 .redDot{position:absolute;top:2px;right:2px;width:11px;height:11px;background:#ef4444;border-radius:50%;border:2px solid #fff;display:none}
+
+/* History Red Alert Badge */
+.historyBtnContainer{position:relative;display:inline-block}
+.historyBtn{background:#2563eb;color:#fff;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;position:relative;box-shadow:0 2px 6px #00000022}
+.historyRedDot{position:absolute;top:-4px;right:-4px;width:12px;height:12px;background:#ef4444;border-radius:50%;border:2px solid #fff;display:none;box-shadow:0 0 5px #ef4444}
 
 .balanceBox{background:#fff;color:#172033;margin-top:18px;padding:17px;border-radius:18px;box-shadow:0 8px 20px #0002}
 .moneyBox{padding:12px 0}.moneyBox+.moneyBox{border-top:1px solid #eee}.moneyBox small{color:#777}.moneyBox h2{margin-top:5px}
 .packageMoney{color:#2563eb}.taskMoney{color:#16a34a}
 .container{padding:18px}.card{background:#fff;padding:18px;border-radius:17px;margin-bottom:15px;box-shadow:0 3px 12px #0001}
 
-/* PAGE SECTION TITLE WITH CLOSE BUTTON OPTION */
+/* PAGE SECTION TITLE */
 .sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:8px 0 15px;position:relative}
 .closePageBtn{width:32px;height:32px;border-radius:50%;background:#f1f5f9;color:#475569;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid #cbd5e1}
 .closePageBtn:hover{background:#e2e8f0}
 
 .packages{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .package{background:#fff;padding:15px;border-radius:17px;box-shadow:0 3px 12px #0001;border-top:4px solid #2563eb}
-.package.activePackage{border-top-color:#16a34a}.package h3{margin-bottom:7px}
+.package.activePackage{border-top-color:#16a34a}.package.pendingPackage{border-top-color:#ea580c}
+.package h3{margin-bottom:4px}
+.pkgSubTitle{font-size:11px;color:#666;margin-bottom:6px;display:block;min-height:16px}
 .price{font-size:19px;font-weight:bold;color:#2563eb;margin-bottom:10px}.package button{width:100%;background:#2563eb;color:#fff;padding:10px;border-radius:99px}
 .requestBtn{width:100%;background:#16a34a!important;margin-top:7px}
+.pendingBtn{width:100%;background:#ea580c!important;color:#fff!important;margin-top:7px}
 .status{font-size:12px;color:#16a34a;font-weight:bold;margin-bottom:8px}
+.status.pendingStatus{color:#ea580c}
+.pkgTimer{font-size:10px;color:#dc2626;display:block;margin-top:2px}
 .locked{text-align:center;background:#fff7ed;padding:28px 18px;border-radius:17px}.lockIcon{font-size:42px;margin-bottom:10px}
 .task{display:flex;align-items:center;gap:12px;margin-bottom:12px}.taskIcon{width:48px;height:48px;border-radius:13px;background:#eef3ff;display:flex;align-items:center;justify-content:center;font-size:23px}
 .taskInfo{flex:1}.reward{color:#16a34a;font-weight:bold;margin-top:4px}.task button{background:#2563eb;color:#fff;padding:9px 13px;border-radius:99px}
@@ -100,19 +110,22 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 .adminMsgBtn{background:none;border:none;font-size:11px;cursor:pointer;color:#2563eb;font-weight:bold}
 .adminMsgBtn.del{color:#dc2626}
 
-.chatUserItem{padding:10px;border-bottom:1px solid #eee;cursor:pointer;display:flex;justify-space:between;align-items:center}
+.chatUserItem{padding:10px;border-bottom:1px solid #eee;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .chatUserItem.unread{background:#fef2f2;border-left:4px solid #ef4444}
 .unreadBadge{background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:99px;font-weight:bold}
 
 .chatTimeoutNotice{text-align:center;background:#fee2e2;color:#dc2626;padding:10px;border-radius:10px;font-size:12px;margin:10px 0;font-weight:bold}
 
-/* ADMIN MENU GRID STYLES */
+/* ADMIN MENU GRID & VISUAL CLICK INDICATORS */
 .adminMenuGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
-.adminMenuCard{background:#fff;padding:16px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 2px 8px #0000000d;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;position:relative;transition:.2s}
+.adminMenuCard{background:#fff;padding:16px;border-radius:16px;border:2px solid #e2e8f0;box-shadow:0 2px 8px #0000000d;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;position:relative;transition:.2s}
 .adminMenuCard:hover{transform:translateY(-2px);box-shadow:0 5px 15px #00000015}
+.adminMenuCard:active, .adminMenuCard.selectedCard{border-color:#2563eb;background:#eff6ff;transform:scale(0.97)}
 .adminMenuCard .icon{font-size:28px;margin-bottom:8px}
 .adminMenuCard h4{font-size:13px;color:#1e293b;font-weight:600}
 .adminAlertDot{position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#ef4444;border-radius:50%;border:2px solid #fff;display:none}
+
+.navAdminRedDot{position:absolute;top:4px;right:22%;width:11px;height:11px;background:#ef4444;border-radius:50%;border:2px solid #fff;display:none}
 
 .adminSubPage{display:none}
 .adminSubPage.active{display:block}
@@ -162,7 +175,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <button class="menuBtn" onclick="openPage('threeDotSettings')">⋮</button>
     </div>
   </div>
-  <div class="balanceBox">
+  <div class="balanceBox" id="headerBalanceBox">
     <div class="moneyBox"><small>📦 Package Balance</small><h2 class="packageMoney">৳ <span id="packageBalance">0</span></h2></div>
     <div class="moneyBox"><small>🎯 Task Token</small><h2 class="taskMoney">🪙 <span id="taskToken">0</span></h2></div>
   </div>
@@ -177,20 +190,16 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   </div>
   
   <div class="card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7); border:1px solid #bbf7d0">
-    <h3>📈 Daily Package 10% Profit</h3>
-    <p style="font-size:13px; color:#166534; margin: 6px 0 12px">আপনার অ্যাক্টিভ প্যাকেজের ওপর প্রতিদিন ১০% প্রফিট টোকেন ক্লেইম করুন!</p>
-    <button class="primary" style="background:#16a34a; width:100%" id="claimProfitBtn" onclick="claimDailyProfit()">🎁 Claim Daily 10% Profit</button>
+    <h3>📈 Daily Package Profit (<span id="dailyProfitPercentageText">10</span>%)</h3>
+    <p style="font-size:13px; color:#166534; margin: 6px 0 12px">আপনার অ্যাক্টিভ প্যাকেজের ওপর প্রতিদিন <span id="dailyProfitPercentageText2">10</span>% প্রফিট টোকেন ক্লেইম করুন!</p>
+    <button class="primary" style="background:#16a34a; width:100%" id="claimProfitBtn" onclick="claimDailyProfit()">🎁 Claim Daily Profit</button>
   </div>
 
   <div class="card" style="border-left:5px solid #2563eb">
     <h3>📜 নিয়ম-কানুন ও গাইডলাইন (Rules & Terms)</h3>
     <p style="margin: 8px 0 12px; color:#666; font-size:13px;">Earnova প্ল্যাটফর্মে নিরাপদে কাজ করতে নিচের নিয়মগুলো অনুসরন করুন:</p>
-    <ul class="rulesList">
-      <li><b>১টি অ্যাকাউন্ট:</b> একজন ইউজার একটির বেশি অ্যাকাউন্ট তৈরি করতে পারবেন না।</li>
-      <li><b>প্যাকেজ ডেইলি প্রফিট:</b> প্রতিদিন প্যাকেজ মূল্যের ১০% প্রফিট হোম পেজ থেকে ক্লেইম করা যাবে।</li>
-      <li><b>টাস্ক রিওয়ার্ড:</b> প্রতিটি কাজের জন্য ১০ Task Tokens বোনাস পাবেন।</li>
-      <li><b>উইথড্র লিমিট:</b> সর্বনিম্ন ১,০০০ টাকা থেকে সর্বোচ্চ ১২,০০০ টাকা পর্যন্ত উইথড্র করতে পারবেন।</li>
-      <li><b>রেফারেল বোনাস:</b> আপনার লিংক থেকে ১০ জন সফল ইউজার জয়েন করলে স্বয়ংক্রিয়ভাবে +৫০ Task Token বোনাস পাবেন।</li>
+    <ul class="rulesList" id="dynamicRulesContainer">
+      <li>Loading rules...</li>
     </ul>
   </div>
 
@@ -210,28 +219,19 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   </div>
 </div>
 
-<!-- THREE-DOT SETTINGS PAGE (WITH CLOSE BUTTON) -->
+<!-- THREE-DOT SETTINGS PAGE -->
 <div id="threeDotSettings" class="page">
   <div class="sectionTitle">
     <h3>⚙️ Account Overview</h3>
     <button class="closePageBtn" onclick="openPage('home')">✕</button>
   </div>
   <div class="card">
-    <div class="profileRow">
-      <small>👤 Account Holder Name</small>
-      <strong id="tdName">Loading...</strong>
-    </div>
-    <div class="profileRow">
-      <small>📧 Gmail Address</small>
-      <strong id="tdGmail">Loading...</strong>
-    </div>
-    <div class="profileRow">
-      <small>🆔 Firebase User ID (UID)</small>
-      <strong id="tdUID">Loading...</strong>
-    </div>
+    <div class="profileRow"><small>👤 Account Holder Name</small><strong id="tdName">Loading...</strong></div>
+    <div class="profileRow"><small>📧 Gmail Address</small><strong id="tdGmail">Loading...</strong></div>
+    <div class="profileRow"><small>🆔 User ID</small><strong id="tdUID">Loading...</strong></div>
     <hr style="margin: 20px 0 15px; border:0; border-top:1px solid #eee">
     <h4 style="margin-bottom:8px">🔐 Security & Password</h4>
-    <p style="font-size:12px; color:#666; margin-bottom:12px">পাসওয়ার্ড পরিবর্তন করতে নিচের বাটনে ক্লিক করুন। আপনার রেজিস্টার্ড জিমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হবে।</p>
+    <p style="font-size:12px; color:#666; margin-bottom:12px">পাসওয়ার্ড পরিবর্তন করতে নিচের বাটনে ক্লিক করুন।</p>
     <button class="secondary" style="width:100%; border:1px solid #2563eb;" onclick="changePasswordFromSettings()">🔑 Change Password</button>
   </div>
 </div>
@@ -240,8 +240,15 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 <div id="packages" class="page">
   <div class="sectionTitle">
     <h3>📦 Packages</h3>
+    <!-- History Button with Red Alert Badge for Pending Status -->
+    <div class="historyBtnContainer">
+      <button class="historyBtn" onclick="showMyPaymentRequestHistory()" title="Payment Request History">
+        📋 History
+        <div class="historyRedDot" id="pkgHistoryRedDot"></div>
+      </button>
+    </div>
   </div>
-  <div class="info">Package নিতে হলে প্রথমে <b>Payment Request</b> বাটনে ক্লিক করুন। Payment করার পর প্রয়োজনীয় তথ্য দিয়ে submit করুন।</div>
+  <div class="info">Package নিতে হলে <b>Payment Request</b> দিন। প্রতিটি প্যাকেজের মেয়াদ ক্রয় থেকে <b>৩০ দিন</b>। সর্বোচ্চ ২টি প্যাকেজ একসাথে একটিভ রাখতে পারবেন।</div>
   <div class="packages" id="packageList"></div>
 </div>
 
@@ -285,8 +292,6 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 
     <button class="primary" style="width:100%" id="submitPayBtn" onclick="submitPaymentRequest()">📤 Submit Payment Request</button>
   </div>
-
-  <div id="myPaymentRequests" class="card"><h3>📋 My Payment Request</h3><div id="paymentRequestHistory"></div></div>
 </div>
 
 <!-- TASKS PAGE -->
@@ -294,9 +299,14 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   <div class="sectionTitle">
     <h3>🎯 Daily Tasks</h3>
   </div>
-  <div id="taskLocked" class="locked"><div class="lockIcon">🔒</div><h3>Tasks Locked</h3><p style="color:#777;margin:10px 0 18px">Admin আপনার Package confirm করার পর Tasks unlock হবে।</p><button class="primary" onclick="openPage('packages')">📦 View Packages</button></div>
+  <div id="taskLocked" class="locked">
+    <div class="lockIcon">🔒</div>
+    <h3>Tasks Locked</h3>
+    <p style="color:#777;margin:10px 0 18px">আপনার কোনো Active Package নেই অথবা মেয়াদ (30 Days) শেষ হয়ে গেছে। নতুন প্যাকেজ কিনে Task Unlock করুন।</p>
+    <button class="primary" onclick="openPage('packages')">📦 View Packages</button>
+  </div>
   <div id="taskArea" style="display:none">
-    <div class="card"><h3>🟢 Available Tasks</h3><p style="color:#777;margin-top:4px;font-size:13px">নিচের টাস্কগুলো সম্পন্ন করে ১০ টোকেন আর্ন করুন। প্রতিটি টাস্ক ২৪ ঘণ্টায় একবার করা যাবে।</p></div>
+    <div class="card"><h3>🟢 Available Tasks</h3><p style="color:#777;margin-top:4px;font-size:13px">নিচের টাস্কগুলো সম্পন্ন করে টোকেন আর্ন করুন। প্রতিটি টাস্ক ২৪ ঘণ্টায় একবার করা যাবে।</p></div>
     <div id="dynamicTaskContainer">Loading tasks...</div>
   </div>
 </div>
@@ -309,20 +319,20 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   <div class="card">
     <h3>Token Redemption</h3>
     <p style="color:#777;margin:6px 0">Available Task Token: <b id="withdrawBalance">0</b></p>
-    <div class="info" style="margin-top:10px">⚠️ <b>Withdraw Limit:</b> সর্বনিম্ন ১,০০০ থেকে সর্বোচ্চ ১২,০০০ টোকেন তুলতে পারবেন।</div>
+    <div class="info" style="margin-top:10px">⚠️ <b>Withdraw Limit:</b> সর্বনিম্ন <span id="minWithdrawText">1000</span> থেকে সর্বোচ্চ <span id="maxWithdrawText">12000</span> টোকেন।</div>
 
     <label>Method</label><select id="method"><option>bKash</option><option>Nagad</option></select>
     <label>Account Number</label><input id="number" type="text" placeholder="01XXXXXXXXX">
     
-    <label>Token Amount (Min: 1000, Max: 12000)</label>
-    <input id="amount" type="number" min="1000" max="12000" placeholder="Enter amount (1000 - 12000)">
+    <label>Token Amount</label>
+    <input id="amount" type="number" placeholder="Enter amount">
     
     <button class="primary" style="width:100%" id="withdrawBtn" onclick="withdraw()">Submit Withdrawal Request</button>
   </div>
   <div class="card"><h3>📋 Withdrawal History</h3><div id="withdrawHistory"><p style="color:#777;margin-top:10px">No request yet.</p></div></div>
 </div>
 
-<!-- NOTIFICATIONS PAGE (WITH CLOSE BUTTON) -->
+<!-- NOTIFICATIONS PAGE -->
 <div id="notifications" class="page">
   <div class="sectionTitle">
     <h3>🔔 Notifications & Announcements</h3>
@@ -338,7 +348,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   </div>
   <div class="card">
     <div class="profileRow"><small>📧 Gmail 🔒</small><strong id="profileGmail">Not Set</strong></div>
-    <div class="profileRow"><small>🆔 Firebase UID 🔒</small><strong id="profileUID">Not Set</strong></div>
+    <div class="profileRow"><small>🆔 User ID 🔒</small><strong id="profileUID">Not Set</strong></div>
     <div class="profileRow"><small>👤 Name</small><input id="editName" placeholder="Your Name"></div>
     <div class="profileRow"><small>📱 Mobile Number</small><input id="editMobile" placeholder="01XXXXXXXXX"></div>
     <div class="profileRow"><small>🏠 Address</small><input id="editAddress" placeholder="Your Address"></div>
@@ -348,7 +358,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <button class="primary" style="width:100%;margin-top:15px" onclick="saveProfile()">💾 Save Profile</button>
     <div class="profileRow" style="margin-top:15px"><small>📦 Package Balance</small><strong>৳ <span id="profilePackage">0</span></strong></div>
     <div class="profileRow"><small>🎯 Task Token</small><strong>🪙 <span id="profileTask">0</span></strong></div>
-    <div class="profileRow"><small>📦 Active Package</small><strong id="activePackageName">None</strong></div>
+    <div class="profileRow"><small>📦 Active Packages Count</small><strong id="activePackagesCount">0 / 2</strong></div>
   </div>
   <button class="logout" onclick="logout()">Logout</button>
 </div>
@@ -359,27 +369,35 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <h3>👑 Admin Control Center</h3>
     <span class="adminBadge">ADMIN</span>
   </div>
-  
-  <!-- ADMIN MAIN DASHBOARD GRID (BUTTONS) -->
+
+  <!-- CONTROL CENTER BUTTONS -->
   <div id="adminMainGrid" class="adminMenuGrid">
-    <div class="adminMenuCard" onclick="openAdminSubPage('adminPaySub')">
+    <div class="adminMenuCard" id="card_adminPaySub" onclick="openAdminSubPage('adminPaySub', this)">
       <div class="adminAlertDot" id="adminPayAlertDot"></div>
       <div class="icon">💳</div>
       <h4>Payment Requests</h4>
     </div>
-    <div class="adminMenuCard" onclick="openAdminSubPage('adminWithSub')">
+    <div class="adminMenuCard" id="card_adminWithSub" onclick="openAdminSubPage('adminWithSub', this)">
       <div class="adminAlertDot" id="adminWithAlertDot"></div>
       <div class="icon">💸</div>
       <h4>Withdraw Requests</h4>
     </div>
-    <div class="adminMenuCard" onclick="openAdminSubPage('adminUserSub')">
+    <div class="adminMenuCard" id="card_adminUserSub" onclick="openAdminSubPage('adminUserSub', this)">
       <div class="icon">👥</div>
       <h4>User Management</h4>
     </div>
-    <div class="adminMenuCard" onclick="openAdminSubPage('adminChatSub')">
+    <div class="adminMenuCard" id="card_adminChatSub" onclick="openAdminSubPage('adminChatSub', this)">
       <div class="adminAlertDot" id="adminChatAlertDot"></div>
       <div class="icon">💬</div>
       <h4>Live Support Desk</h4>
+    </div>
+    <div class="adminMenuCard" id="card_adminRefSub" onclick="openAdminSubPage('adminRefSub', this)">
+      <div class="icon">🏆</div>
+      <h4>Referral Leaderboard</h4>
+    </div>
+    <div class="adminMenuCard" id="card_adminPagesSub" onclick="openAdminSubPage('adminPagesSub', this)">
+      <div class="icon">⚙️</div>
+      <h4>Page Management</h4>
     </div>
   </div>
 
@@ -409,10 +427,10 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     </div>
   </div>
 
-  <!-- 3. USER MANAGEMENT SUB PAGE -->
+  <!-- 3. USER MANAGEMENT SUB PAGE (Point 3: Packages listed separately with Edit/Delete) -->
   <div id="adminUserSub" class="adminSubPage">
     <div class="sectionTitle">
-      <h4>👥 User Management</h4>
+      <h4>👥 User Management & Control</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
     </div>
     <input type="text" class="searchInput" id="searchUserInput" placeholder="🔍 Search user name or email..." onkeyup="filterAdminList('adminUsers', this.value)">
@@ -441,12 +459,74 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     </div>
   </div>
 
-  <!-- OTHER GENERAL ADMIN CARDS -->
-  <div class="card" style="border-top:4px solid #16a34a; margin-top:20px;">
-    <h3>➕ Add New Task (Any Type)</h3>
-    <p style="font-size:12px;color:#666;margin:4px 0 10px">ভিডিও, পেজ লাইক, টেলিগ্রাম জয়েনসহ যেকোনো কাজ যুক্ত করুন। (ডিফল্ট: 10 Tokens)</p>
+  <!-- 5. TOP REFERRAL LEADERBOARD -->
+  <div id="adminRefSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>🏆 Top Referral Leaderboard</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+    <div class="card">
+      <p style="font-size:12px;color:#666;margin-bottom:10px">সর্বোচ্চ রেফারেল প্রদানকারী ইউজারদের তালিকা ও বিস্তারিত তথ্য:</p>
+      <div id="adminReferralList">Loading leaderboard...</div>
+    </div>
+  </div>
+
+  <!-- 6. PAGES & SYSTEM SETTINGS SUB PAGE -->
+  <div id="adminPagesSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>⚙️ Page & Settings Management</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
     
-    <label>Task Type / Category</label>
+    <!-- Home Page Rules & Terms Edit/Add/Delete Management -->
+    <div class="card" style="border-left:5px solid #2563eb">
+      <h3>📜 Home Page Rules & Terms Management</h3>
+      <p style="font-size:12px; color:#666; margin: 5px 0 12px">হোম পেজের নিয়ম-কানুন এডিট, ডিলিট এবং নতুন নিয়ম যোগ করুন:</p>
+      
+      <div style="border:1px dashed #2563eb;padding:12px;border-radius:10px;margin-bottom:15px;background:#f8fafc">
+        <h4>➕ Add New Rule Item</h4>
+        <input id="newRuleText" type="text" placeholder="Enter new rule or guidelines text...">
+        <button class="primary" style="width:100%;background:#16a34a" onclick="addNewRuleByAdmin()">Add Rule Item</button>
+      </div>
+
+      <div id="adminRulesEditContainer">Loading rules list...</div>
+    </div>
+
+    <!-- Home Page Settings -->
+    <div class="card">
+      <h3>🏠 Home Page Settings</h3>
+      <label>Daily Claim Profit Percentage (%)</label>
+      <input id="adminDailyProfitInput" type="number" placeholder="10">
+      <button class="primary" style="width:100%" onclick="saveDailyProfitPercentage()">Save Daily Profit %</button>
+    </div>
+
+    <!-- Package Page Settings & Add/Edit/Delete Packages -->
+    <div class="card">
+      <h3>📦 Package Page & Edit Packages List</h3>
+      <div style="border:1px dashed #2563eb;padding:12px;border-radius:10px;margin-bottom:15px;background:#f8fafc">
+        <h4>➕ Add New Package</h4>
+        <input id="newPkgTitle" type="text" placeholder="Package Title (e.g. Bronze Plus)">
+        <input id="newPkgSubTitle" type="text" placeholder="Sub Title / Description">
+        <input id="newPkgPrice" type="number" placeholder="Price in BDT (৳)">
+        <button class="primary" style="width:100%;background:#16a34a" onclick="addNewPackageByAdmin()">Create Package</button>
+      </div>
+      <div id="adminPackagesEditList">Loading packages...</div>
+    </div>
+
+    <!-- Withdraw Page Settings -->
+    <div class="card">
+      <h3>💸 Withdraw Page Settings</h3>
+      <label>Minimum Withdraw Tokens</label>
+      <input id="adminMinWithdraw" type="number" placeholder="1000">
+      <label>Maximum Withdraw Tokens</label>
+      <input id="adminMaxWithdraw" type="number" placeholder="12000">
+      <button class="primary" style="width:100%" onclick="saveWithdrawLimits()">Save Withdraw Limits</button>
+    </div>
+  </div>
+
+  <!-- GENERAL ADMIN CARDS -->
+  <div class="card" style="border-top:4px solid #16a34a; margin-top:20px;">
+    <h3>➕ Add New Task</h3>
     <select id="adminTaskCategory">
       <option value="youtube">📺 Watch YouTube Video</option>
       <option value="facebook">👍 Facebook Page / Post Like</option>
@@ -455,16 +535,12 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <option value="app">📲 Download / Install App</option>
       <option value="other">📌 Other Task</option>
     </select>
-
     <label>Task Title</label>
-    <input id="adminTaskTitle" type="text" placeholder="যেমন: Subscribe Telegram / Like Facebook Page">
-    
-    <label>Reward Tokens (ডিফল্ট ১০ টোকেন)</label>
+    <input id="adminTaskTitle" type="text" placeholder="Title">
+    <label>Reward Tokens</label>
     <input id="adminTaskReward" type="number" placeholder="10" value="10">
-    
     <label>Task Target Link / URL</label>
     <input id="adminTaskLink" type="text" placeholder="https://...">
-    
     <button class="primary" style="width:100%;background:#16a34a" id="addTaskBtn" onclick="addDynamicTask()">🚀 Add Task</button>
   </div>
 
@@ -476,9 +552,9 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   <div class="card" style="border-top:4px solid #2563eb">
     <h3>📢 Send Announcement Notice</h3>
     <label>Notice Title</label>
-    <input id="adminNoticeTitle" type="text" placeholder="যেমন: জরুরি আপডেট / বোনাস ঘোষণা">
+    <input id="adminNoticeTitle" type="text" placeholder="Title">
     <label>Notice Details</label>
-    <textarea id="adminNoticeText" rows="3" placeholder="নোটিশের তথ্য বিস্তারিত লিখুন..."></textarea>
+    <textarea id="adminNoticeText" rows="3" placeholder="Notice Details..."></textarea>
     <button class="primary" style="width:100%" id="sendNoticeBtn" onclick="sendGlobalNotice()">🚀 Broadcast Notice</button>
     <hr style="margin:15px 0;border:0;border-top:1px solid #eee">
     <h4>📋 Posted Announcements</h4>
@@ -487,11 +563,20 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 
   <div class="card">
     <h3>⚙️ Payment Number Settings</h3>
-    <label style="margin-top:10px;display:block">bKash Number</label>
-    <input id="adminBkashInput" type="text" placeholder="bKash Number">
-    <label style="margin-top:5px;display:block">Nagad Number</label>
-    <input id="adminNagadInput" type="text" placeholder="Nagad Number">
+    <label>bKash Number</label>
+    <input id="adminBkashInput" type="text">
+    <label>Nagad Number</label>
+    <input id="adminNagadInput" type="text">
     <button class="primary" style="width:100%" onclick="updateAdminPaymentNumbers()">Save Numbers</button>
+  </div>
+
+  <!-- Total Users Count Settings (Moved to the end) -->
+  <div class="card" style="border-top:4px solid #2563eb; margin-top:20px">
+    <h3>👥 Total Users Count Settings</h3>
+    <p style="font-size:12px; color:#666; margin: 4px 0 10px">এখানে আপনি যে বেস সংখ্যাটি সেট করবেন, সেটি সকল ইউজারের হেডারে আপডেট হবে এবং সেখান থেকে প্রতি মিনিটে ১ করে কাউন্ট হতে থাকবে।</p>
+    <label>Base User Count</label>
+    <input id="adminBaseUserCountInput" type="number" placeholder="27890">
+    <button class="primary" style="width:100%" onclick="saveBaseUserCount()">Save Total Users Count</button>
   </div>
 
 </div>
@@ -544,51 +629,58 @@ const firebaseConfig={
 const firebaseApp=initializeApp(firebaseConfig),auth=getAuth(firebaseApp),db=getFirestore(firebaseApp);
 
 let globalBkashNumber="01XXXXXXXXX", globalNagadNumber="01XXXXXXXXX";
-let packageBalance=0,taskToken=0,activePackage=null,currentUser=null,userData={},chatUnsubscribe=null,selectedPackageIndex=null;
+let globalDailyProfitPercent = 10;
+let globalMinWithdraw = 1000, globalMaxWithdraw = 12000;
+let globalBaseUserCount = 27890;
+let globalBaseUserCountTime = new Date('2026-01-01T00:00:00Z').getTime();
+
+let packageBalance=0,taskToken=0,currentUser=null,userData={},chatUnsubscribe=null,selectedPackageIndex=null;
 let activeAdminChatUid=null, adminChatUnsub=null;
 let lastUserChatReadTime = 0;
 let countdownIntervals = {};
 let activeTaskTimers = {};
 let chatInactivityTimer = null;
+let profitCountdownTimer = null;
+let myPendingPaymentRequests = []; 
+let userCountInterval = null;
 
-const packageList=[
- ["Starter", 300], ["Basic", 500], ["Standard", 1000], ["Bronze", 1500], ["Silver", 2000],
- ["Gold", 3000], ["Platinum", 4000], ["Diamond", 5000], ["Sapphire", 6500], ["Ruby", 8000],
- ["Emerald", 10000], ["Pearl", 12000], ["Crown", 15000], ["Master", 18000], ["VIP 1", 20000],
- ["VIP 2", 25000], ["VIP 3", 30000], ["Executive", 35000], ["Elite", 40000], ["Ultimate", 50000]
+// Dynamic Rules & Terms Array Default
+let dynamicRulesList = [
+  "১টি অ্যাকাউন্ট: একজন ইউজার একটির বেশি অ্যাকাউন্ট তৈরি করতে পারবেন না।",
+  "প্যাকেজ ডেইলি প্রফিট: প্রতিদিন (২৪ ঘণ্টা পর পর) প্যাকেজ মূল্যের প্রফিট ক্লেইম করা যাবে।",
+  "প্যাকেজ লিমিট: একজন ইউজার সর্বোচ্চ ২ টি প্যাকেজ একটিভ রাখতে পারবেন (মেয়াদ ৩০ দিন)। ৩০ দিন শেষ হলে কেবল সেই নির্দিষ্ট প্যাকেজের ব্যালেন্স 0 হবে।",
+  "উইথড্র লিমিট: সর্বনিম্ন ১,০০০ টাকা থেকে সর্বোচ্চ ১২,০০০ টাকা পর্যন্ত উইথড্র শুধুমাত্র Task Token থেকে কাটা হবে।",
+  "রেফারেল বোনাস: আপনার লিংক থেকে ১০ জন সফল ইউজার জয়েন করলে স্বয়ংক্রিয়ভাবে +৫০ Task Token বোনাস পাবেন।"
 ];
 
-const taskIcons = {
-  youtube: "📺",
-  facebook: "👍",
-  telegram: "📢",
-  website: "🌐",
-  app: "📲",
-  other: "📌"
-};
+// Dynamic packages list structure: [Title, Price, SubTitle]
+let packageList = [
+ ["Starter", 300, "Daily High Returns"], ["Basic", 500, "Standard Package"], ["Standard", 1000, "Best Seller"],
+ ["Bronze", 1500, "Popular Choice"], ["Silver", 2000, "Pro Level"], ["Gold", 3000, "Advanced Earning"],
+ ["Platinum", 4000, "Premium Plan"], ["Diamond", 5000, "Ultra Profit"], ["Sapphire", 6500, "High Yield"],
+ ["Ruby", 8000, "Elite Plan"], ["Emerald", 10000, "VIP Access"], ["Pearl", 12000, "Super Plan"],
+ ["Crown", 15000, "Master Earning"], ["Master", 18000, "Supreme Plan"], ["VIP 1", 20000, "VIP Level 1"],
+ ["VIP 2", 25000, "VIP Level 2"], ["VIP 3", 30000, "VIP Level 3"], ["Executive", 35000, "Corporate Level"],
+ ["Elite", 40000, "Max Yield"], ["Ultimate", 50000, "Ultimate Freedom"]
+];
+
+const taskIcons = { youtube: "📺", facebook: "👍", telegram: "📢", website: "🌐", app: "📲", other: "📌" };
 
 const showAlert=(title,text,icon="info")=>Swal.fire({title,text,icon,confirmButtonColor:"#2563eb"});
 
-/* 🔴 UPDATE 1: Perfectly Synchronized Global User Counter */
+/* Point 1: Dynamic User Counter based on Admin Settings */
 function startAutoUserCounter() {
-  const BASE_USERS = 27890;
-  const INCREMENT_PER_MIN = 1;
-  const INTERVAL_MS = 60000;
-  
-  // Fixed Global Reference Timestamp (Jan 1, 2026 00:00:00 UTC)
-  const FIXED_GLOBAL_START = new Date('2026-01-01T00:00:00Z').getTime();
+  if (userCountInterval) clearInterval(userCountInterval);
 
   function updateDisplay() {
-    const elapsedMinutes = Math.max(0, Math.floor((Date.now() - FIXED_GLOBAL_START) / INTERVAL_MS));
-    const totalUsers = BASE_USERS + (elapsedMinutes * INCREMENT_PER_MIN);
+    const elapsedMinutes = Math.max(0, Math.floor((Date.now() - globalBaseUserCountTime) / 60000));
+    const totalUsers = globalBaseUserCount + elapsedMinutes;
     const el = document.getElementById("headerTotalUsers");
     if (el) el.innerText = totalUsers.toLocaleString("en-US");
   }
-
   updateDisplay();
-  setInterval(updateDisplay, 1000);
+  userCountInterval = setInterval(updateDisplay, 1000);
 }
-startAutoUserCounter();
 
 function captureReferralCode() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -597,15 +689,63 @@ function captureReferralCode() {
 }
 captureReferralCode();
 
-async function fetchGlobalSettings(){
- try{
-  const snap=await getDoc(doc(db,"settings","general"));
+// Real-time listener for Settings and General Rules
+function listenGlobalSettings(){
+ onSnapshot(doc(db,"settings","general"), snap => {
   if(snap.exists()){
-    if(snap.data().bkashNumber) globalBkashNumber = snap.data().bkashNumber;
-    if(snap.data().nagadNumber) globalNagadNumber = snap.data().nagadNumber;
+    const d = snap.data();
+    if(d.bkashNumber) globalBkashNumber = d.bkashNumber;
+    if(d.nagadNumber) globalNagadNumber = d.nagadNumber;
+    if(d.dailyProfitPercent !== undefined) globalDailyProfitPercent = d.dailyProfitPercent;
+    if(d.minWithdraw !== undefined) globalMinWithdraw = d.minWithdraw;
+    if(d.maxWithdraw !== undefined) globalMaxWithdraw = d.maxWithdraw;
+    if(d.packageList) packageList = d.packageList;
+    if(d.rulesList) dynamicRulesList = d.rulesList;
+    if(d.baseUserCount !== undefined) {
+      globalBaseUserCount = d.baseUserCount;
+      globalBaseUserCountTime = d.baseUserCountTime || Date.now();
+      startAutoUserCounter();
+    } else {
+      startAutoUserCounter();
+    }
+  } else {
+    startAutoUserCounter();
   }
- }catch(e){console.error(e)}
- updateSelectedPaymentNumber();
+  updateSelectedPaymentNumber();
+  updateDynamicSystemTexts();
+  renderDynamicRules();
+  if(userData && userData.role === "admin") loadAdminRulesEditList();
+ });
+}
+
+/* Save Base User Count from Admin Panel */
+window.saveBaseUserCount = async () => {
+  const countVal = parseInt(document.getElementById("adminBaseUserCountInput").value);
+  if (isNaN(countVal)) return showAlert("ত্রুটি!", "সঠিক সংখ্যা লিখুন", "warning");
+
+  try {
+    await setDoc(doc(db, "settings", "general"), {
+      baseUserCount: countVal,
+      baseUserCountTime: Date.now()
+    }, { merge: true });
+    showAlert("সফল!", "Total Users Count সফলভাবে আপডেট করা হয়েছে!", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+function renderDynamicRules() {
+  const container = document.getElementById("dynamicRulesContainer");
+  if (!container) return;
+  container.innerHTML = "";
+  dynamicRulesList.forEach(rule => {
+    container.innerHTML += `<li>${rule}</li>`;
+  });
+}
+
+function updateDynamicSystemTexts() {
+  document.getElementById("dailyProfitPercentageText").innerText = globalDailyProfitPercent;
+  document.getElementById("dailyProfitPercentageText2").innerText = globalDailyProfitPercent;
+  document.getElementById("minWithdrawText").innerText = globalMinWithdraw;
+  document.getElementById("maxWithdrawText").innerText = globalMaxWithdraw;
 }
 
 window.updateSelectedPaymentNumber=()=>{
@@ -644,7 +784,7 @@ async function processReferralBonus(referrerId) {
       if (bonusToken > 0) {
         await addDoc(collection(db, "notifications"), {
           uid: referrerId, icon: "🎁", title: "Referral Bonus!",
-          text: `🎉 আপনার রেফারেল লিংকে ১০ জন ইউজার সম্পূর্ণভাবে যুক্ত হওয়ায় আপনি +${bonusToken} Task Token অটোমেটিক বোনাস পেয়েছেন!`,
+          text: `🎉 আপনার রেফারেল লিংকে ১০ জন ইউজার যুক্ত হওয়ায় +${bonusToken} Task Token বোনাস পেয়েছেন!`,
           createdAt: serverTimestamp()
         });
       }
@@ -663,7 +803,7 @@ window.registerUser=async()=>{
   
   await setDoc(doc(db,"users",user.uid),{
     uid:user.uid, name, email:user.email, role:"user", mobile:"", address:"", district:"", upazila:"", dob:"",
-    packageBalance:0, taskToken:0, activePackage:null, taskTimestamps:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, createdAt:serverTimestamp()
+    packageBalance:0, taskToken:0, activePackages:[], taskTimestamps:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, isDisabled: false, createdAt:serverTimestamp()
   });
 
   if (referrerId) { 
@@ -689,40 +829,129 @@ window.resetPassword=async()=>{
 
 onAuthStateChanged(auth,async user=>{
  if(!user){currentUser=null;document.getElementById("app").style.display="none";document.getElementById("register").style.display="none";document.getElementById("login").style.display="flex";return}
- currentUser=user;await fetchGlobalSettings();
- const ref=doc(db,"users",user.uid),snap=await getDoc(ref);
- if(snap.exists())userData=snap.data();else{userData={uid:user.uid,name:"User",email:user.email,role:"user",packageBalance:0,taskToken:0,activePackage:null,taskTimestamps:{},lastProfitClaim:0,referralCount:0,lastReadNotification:0};await setDoc(ref,userData)}
- packageBalance=Number(userData.packageBalance||0);taskToken=Number(userData.taskToken||0);activePackage=userData.activePackage;
- document.getElementById("userName").innerText=userData.name||"User";
- document.getElementById("profileGmail").innerText=user.email;document.getElementById("profileUID").innerText=user.uid;
- 
- document.getElementById("tdName").innerText = userData.name || "User";
- document.getElementById("tdGmail").innerText = user.email;
- document.getElementById("tdUID").innerText = user.uid;
+ currentUser=user;
+ listenGlobalSettings();
 
- document.getElementById("editName").value=userData.name||"";document.getElementById("editMobile").value=userData.mobile||"";
- document.getElementById("editAddress").value=userData.address||"";document.getElementById("editDistrict").value=userData.district||"";
- document.getElementById("editUpazila").value=userData.upazila||"";document.getElementById("editDOB").value=userData.dob||"";
- 
- document.getElementById("referralCount").innerText = (userData.referralCount || 0) + " Person";
- document.getElementById("refLinkInput").value = `${window.location.origin}${window.location.pathname}?ref=${user.uid}`;
+ // Real-time listener for current user document
+ onSnapshot(doc(db,"users",user.uid), async snap => {
+   if(!snap.exists()){
+     userData={uid:user.uid,name:"User",email:user.email,role:"user",packageBalance:0,taskToken:0,activePackages:[],taskTimestamps:{},lastProfitClaim:0,referralCount:0,isDisabled:false,lastReadNotification:0};
+     await setDoc(doc(db,"users",user.uid),userData);
+     return;
+   }
+   
+   userData=snap.data();
+   if(userData.isDisabled){
+     showAlert("Account Disabled! 🚫", "আপনার একাউন্টটি এডমিন কর্তৃক ডিসেবল করা হয়েছে। বিস্তারিত জানার জন্য সাপোর্টে যোগাযোগ করুন।", "error");
+     signOut(auth);
+     return;
+   }
 
- document.getElementById("login").style.display="none";document.getElementById("register").style.display="none";document.getElementById("app").style.display="block";
- loadPackages();updateBalance();loadNotifications();loadWithdrawals();loadPaymentRequests();setupChat();checkProfitTimer();listenNotificationsRedDot();listenTasks();
- if(userData.role==="admin"){
-   addAdminNav();
-   listenAdminBadges();
- }
+   checkPackageExpirations();
+   calculateTotalPackageBalance();
+   taskToken=Number(userData.taskToken||0);
+   document.getElementById("userName").innerText=userData.name||"User";
+   document.getElementById("profileGmail").innerText=user.email;document.getElementById("profileUID").innerText=user.uid;
+   
+   document.getElementById("tdName").innerText = userData.name || "User";
+   document.getElementById("tdGmail").innerText = user.email;
+   document.getElementById("tdUID").innerText = user.uid;
+
+   document.getElementById("editName").value=userData.name||"";document.getElementById("editMobile").value=userData.mobile||"";
+   document.getElementById("editAddress").value=userData.address||"";document.getElementById("editDistrict").value=userData.district||"";
+   document.getElementById("editUpazila").value=userData.upazila||"";document.getElementById("editDOB").value=userData.dob||"";
+   
+   document.getElementById("referralCount").innerText = (userData.referralCount || 0) + " Person";
+   document.getElementById("refLinkInput").value = `${window.location.origin}${window.location.pathname}?ref=${user.uid}`;
+
+   document.getElementById("login").style.display="none";document.getElementById("register").style.display="none";document.getElementById("app").style.display="block";
+   
+   listenUserPaymentRequests();
+   updateBalance();loadNotifications();loadWithdrawals();setupChat();checkProfitTimer();listenNotificationsRedDot();listenTasks();
+   
+   if(userData.role==="admin"){
+     addAdminNav();
+     listenAdminBadges();
+   }
+ });
 });
+
+/* Realtime listener for User Payment Requests (To handle History Red Alert Badge & Pending Package Lock) */
+function listenUserPaymentRequests() {
+  if (!currentUser) return;
+  onSnapshot(query(collection(db, "paymentRequests"), where("uid", "==", currentUser.uid)), snap => {
+    myPendingPaymentRequests = [];
+    let hasPending = false;
+    snap.forEach(docSnap => {
+      const data = docSnap.data();
+      if (data.status === "pending") {
+        hasPending = true;
+        myPendingPaymentRequests.push(data);
+      }
+    });
+
+    // Red alert badge on History button when there is a pending payment request
+    const historyDot = document.getElementById("pkgHistoryRedDot");
+    if (historyDot) {
+      historyDot.style.display = hasPending ? "block" : "none";
+    }
+
+    loadPackages();
+  });
+}
+
+function calculateTotalPackageBalance(){
+  let total = 0;
+  const activePkgs = userData.activePackages || [];
+  activePkgs.forEach(pkg => {
+    total += Number(pkg.amount || 0);
+  });
+  packageBalance = total;
+  return total;
+}
+
+async function checkPackageExpirations(){
+  if(!currentUser || !userData.activePackages) return;
+  const now = Date.now();
+  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+  
+  let validPackages = [];
+  let expiredFound = false;
+
+  userData.activePackages.forEach(pkg => {
+    if (now - pkg.activatedAt < THIRTY_DAYS_MS) {
+      validPackages.push(pkg);
+    } else {
+      expiredFound = true;
+    }
+  });
+
+  if (expiredFound) {
+    userData.activePackages = validPackages;
+    calculateTotalPackageBalance();
+    await updateDoc(doc(db, "users", currentUser.uid), { 
+      activePackages: validPackages,
+      packageBalance: packageBalance 
+    });
+    
+    await addDoc(collection(db, "notifications"), {
+      uid: currentUser.uid, icon: "⌛", title: "Package Expired",
+      text: "আপনার একটি প্যাকেজের ৩০ দিনের মেয়াদ শেষ হওয়ার ফলে সেই প্যাকেজ ব্যালেন্স ০ হয়ে গেছে।", createdAt: serverTimestamp()
+    });
+
+    showAlert("প্যাকেজ মেয়াদ শেষ!", "আপনার প্যাকেজের ৩০ দিনের মেয়াদ পূর্ণ হওয়ায় উক্ত প্যাকেজ ব্যালেন্স 0 হয়ে গেছে। পুনরায় কাজ শুরু করতে প্যাকেজ কিনুন।", "info");
+    updateBalance();
+    updateTaskLock();
+    loadPackages();
+  }
+}
 
 window.changePasswordFromSettings = async () => {
   if (!currentUser || !currentUser.email) return;
   try {
     await sendPasswordResetEmail(auth, currentUser.email);
     showAlert("ইমেইল পাঠানো হয়েছে! 📧", `আপনার জিমেইল (${currentUser.email})-এ পাসওয়ার্ড পরিবর্তনের লিঙ্ক পাঠানো হয়েছে।`, "success");
-  } catch (e) {
-    showAlert("ত্রুটি!", e.message, "error");
-  }
+  } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
 
 window.showRegister=()=>{document.getElementById("login").style.display="none";document.getElementById("register").style.display="flex"};
@@ -736,7 +965,15 @@ window.openPage=(page,button)=>{
    button.classList.add("active");
  } else if(page === 'home') {
    document.getElementById("homeNavBtn")?.classList.add("active");
+ } else if(page === 'admin') {
+   document.getElementById("adminNavBtn")?.classList.add("active");
  }
+ 
+ const balanceBox = document.getElementById("headerBalanceBox");
+ if (balanceBox) {
+   balanceBox.style.display = (page === "admin") ? "none" : "block";
+ }
+ 
  if(page==="admin"&&userData.role==="admin")loadAdmin();window.scrollTo(0,0);
 };
 
@@ -769,17 +1006,93 @@ async function checkUnreadStatus(){
  }catch(e){console.error(e)}
 }
 
+/* Load Packages with Active & Pending Lock Status */
 function loadPackages(){
- const box=document.getElementById("packageList");box.innerHTML="";
+ const box=document.getElementById("packageList"); if(!box) return;
+ box.innerHTML="";
+ const userActivePkgs = userData.activePackages || [];
+ const now = Date.now();
+ const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+ const totalActiveCount = userActivePkgs.length;
+
  packageList.forEach((p,index)=>{
-  const div=document.createElement("div");div.className="package";if(activePackage===index)div.classList.add("activePackage");
-  div.innerHTML=`<h3>${p[0]}</h3><div class="price">৳${p[1]}</div><div class="status">${activePackage===index?"✓ Active":""}</div>${activePackage===index?`<button disabled>✓ Package Active</button>`:`<button class="requestBtn" onclick="openPaymentRequest(${index})">💳 Payment Request</button>`}`;
+  const activePkgObj = userActivePkgs.find(item => item.index === index);
+  const isActivated = !!activePkgObj;
+
+  // Check if this package has a pending payment request
+  const isPending = myPendingPaymentRequests.some(req => req.packageIndex === index);
+
+  let remainingDaysText = "";
+  if(isActivated && activePkgObj.activatedAt) {
+    const elapsed = now - activePkgObj.activatedAt;
+    const daysLeft = Math.max(0, Math.ceil((THIRTY_DAYS_MS - elapsed) / (1000 * 60 * 60 * 24)));
+    remainingDaysText = `<span class="pkgTimer">⏳ Term: ${daysLeft} Days left</span>`;
+  }
+
+  const subTitleText = p[2] || "";
+  const div=document.createElement("div");
+  div.className="package";
+  
+  if(isActivated) div.classList.add("activePackage");
+  else if(isPending) div.classList.add("pendingPackage");
+
+  let actionButtonHtml = "";
+
+  if(isActivated) {
+    actionButtonHtml = `<button disabled>✓ Active</button>`;
+  } else if(isPending) {
+    // Cannot open package page if request is pending
+    actionButtonHtml = `<button class="pendingBtn" disabled>⏳ Request Pending</button>`;
+  } else if(totalActiveCount >= 2) {
+    actionButtonHtml = `<button disabled style="background:#64748b!important;">🔒 Limit Reached (Max 2 Active)</button>`;
+  } else if(myPendingPaymentRequests.length > 0) {
+    // Point 2: Rule restriction (if already 1 active, and 1 request pending, cannot make 2nd request)
+    actionButtonHtml = `<button disabled style="background:#64748b!important;">🔒 Request Pending</button>`;
+  } else {
+    actionButtonHtml = `<button class="requestBtn" onclick="openPaymentRequest(${index})">💳 Payment Request</button>`;
+  }
+
+  let statusHtml = "";
+  if(isActivated) statusHtml = `<div class="status">✓ Active (30 Days) ${remainingDaysText}</div>`;
+  else if(isPending) statusHtml = `<div class="status pendingStatus">⏳ Request Pending</div>`;
+
+  div.innerHTML=`
+    <h3>${p[0]}</h3>
+    <span class="pkgSubTitle">${subTitleText}</span>
+    <div class="price">৳${p[1]}</div>
+    ${statusHtml}
+    ${actionButtonHtml}
+  `;
   box.appendChild(div);
- });updateTaskLock();
+ });
+ updateTaskLock();
 }
 
+/* Point 2: Package Request Logic Update */
 window.openPaymentRequest=index=>{
- if(activePackage!==null)return showAlert("প্যাকেজ একটিভ!","আপনার একটি Package ইতিমধ্যে Active আছে।","warning");
+ const currentActiveList = userData.activePackages || [];
+ const activeCount = currentActiveList.length;
+ const pendingCount = myPendingPaymentRequests.length;
+
+ // Rule Check 1: Maximum 2 active packages
+ if (activeCount >= 2) {
+   return showAlert("প্যাকেজ লিমিট পূর্ণ!", "আপনি একসাথে সর্বোচ্চ ২টি প্যাকেজ একটিভ রাখতে পারবেন।", "warning");
+ }
+
+ // Rule Check 2: Maximum 2 pending/active total requests (Active + Pending cannot exceed 2)
+ if (activeCount + pendingCount >= 2) {
+   return showAlert("সীমা অতিক্রম!", "আপনার ইতিমধ্যে একটিভ/পেন্ডিং রিকোয়েস্ট মিলে ২টি রয়েছে। নতুন রিকোয়েস্ট দিতে পারবেন না।", "warning");
+ }
+
+ // Rule Check 3: Cannot send payment request if already 1 request is pending
+ if (pendingCount >= 1) {
+   return showAlert("পেমেন্ট রিকোয়েস্ট সীমাবদ্ধতা!", "আপনার ইতিমধ্যে একটি পেমেন্ট রিকোয়েস্ট পেন্ডিং আছে। সেটি নিস্পত্তি হওয়ার পরই কেবল আরেকটি রিকোয়েস্ট দেওয়া সম্ভব।", "warning");
+ }
+
+ if(currentActiveList.some(item => item.index === index)){
+   return showAlert("প্যাকেজ একটিভ আছে!","এই প্যাকেজটি আপনার ইতিমধ্যে Active আছে।","warning");
+ }
+
  selectedPackageIndex=index;const p=packageList[index];
  document.getElementById("requestUserId").value=currentUser.uid;
  document.getElementById("requestEmail").value=currentUser.email||"";
@@ -788,8 +1101,8 @@ window.openPaymentRequest=index=>{
  document.getElementById("requestTransactionNumber").value="";document.getElementById("transactionId").value="";
  document.getElementById("paymentMethod").value="bKash";
  updateSelectedPaymentNumber();
- document.getElementById("paymentPackageInfo").innerHTML=`<div class="info">আপনি <b>${p[0]}</b> Package-এর জন্য <b>৳${p[1]}</b> Payment Request করছেন।</div>`;
- openPage("paymentRequest");loadPaymentRequests();
+ document.getElementById("paymentPackageInfo").innerHTML=`<div class="info">আপনি <b>${p[0]}</b> Package-এর জন্য <b>৳${p[1]}</b> Payment Request করছেন। (মেয়াদ: ৩০ দিন)</div>`;
+ openPage("paymentRequest");
 };
 
 window.copyText=id=>{
@@ -806,6 +1119,15 @@ window.copyPaymentNumber=()=>{
 
 window.submitPaymentRequest=async()=>{
  if(!currentUser||selectedPackageIndex===null)return;
+
+ const currentActiveList = userData.activePackages || [];
+ if (currentActiveList.length >= 2) {
+   return showAlert("প্যাকেজ লিমিট পূর্ণ!", "আপনি একসাথে সর্বোচ্চ ২টি প্যাকেজ একটিভ রাখতে পারবেন।", "warning");
+ }
+ if (myPendingPaymentRequests.length > 0) {
+   return showAlert("পেমেন্ট রিকোয়েস্ট সীমাবদ্ধতা!", "আপনার ইতিমধ্যে একটি পেমেন্ট রিকোয়েস্ট পেন্ডিং রয়েছে। সেটি রিজেক্ট বা এপ্রুভ না হওয়া পর্যন্ত নতুন রিকোয়েস্ট দিতে পারবেন না।", "warning");
+ }
+
  const method=document.getElementById("paymentMethod").value;
  const transactionNumber=document.getElementById("requestTransactionNumber").value.trim();
  const transactionId=document.getElementById("transactionId").value.trim();
@@ -814,8 +1136,8 @@ window.submitPaymentRequest=async()=>{
  const btn=document.getElementById("submitPayBtn");btn.disabled=true;
  const p=packageList[selectedPackageIndex];
  try{
-  const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid),where("status","==","pending")),existing=await getDocs(q);
-  if(!existing.empty){showAlert("রিকুয়েস্ট পেন্ডিং!","আপনার একটি Payment Request ইতিমধ্যে Pending আছে।","info");return}
+  const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid),where("packageIndex","==",selectedPackageIndex),where("status","==","pending")),existing=await getDocs(q);
+  if(!existing.empty){showAlert("রিকুয়েস্ট পেন্ডিং!","এই প্যাকেজের একটি Payment Request ইতিমধ্যে Pending আছে।","info");return}
   
   await addDoc(collection(db,"paymentRequests"),{
     uid:currentUser.uid, email:currentUser.email, mobile:userData.mobile||"", transactionNumber, transactionId,
@@ -827,28 +1149,62 @@ window.submitPaymentRequest=async()=>{
     text:`${p[0]} প্যাকেজের (৳${p[1]}) রিকোয়েস্ট পেন্ডিং আছে। যাচাই শেষে কনফার্ম করা হবে।`, createdAt:serverTimestamp()
   });
 
-  showAlert("সফল!","Payment Request সফলভাবে জমা হয়েছে।","success");loadPaymentRequests();openPage("packages");
+  showAlert("সফল!","Payment Request সফলভাবে জমা হয়েছে।","success");openPage("packages");
  }catch(e){showAlert("ব্যর্থ!",e.message,"error")}finally{btn.disabled=false}
 };
 
-async function loadPaymentRequests(){
- if(!currentUser)return;const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid));
- try{
-  const snap=await getDocs(q),box=document.getElementById("paymentRequestHistory");box.innerHTML="";
-  if(snap.empty){box.innerHTML='<p style="color:#777;margin-top:10px">No payment request yet.</p>';return}
-  const arr=[];snap.forEach(x=>arr.push({id:x.id,...x.data()}));arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  arr.forEach(d=>{const status=d.status==="pending"?`<div class="requestStatus requestPending">⏳ Pending</div>`:d.status==="approved"?`<div class="requestStatus requestApproved">✅ Approved</div>`:`<div class="requestStatus requestRejected">❌ Rejected</div>`;
-   box.innerHTML+=`<div class="history"><b>${d.packageName||"Package"}</b><p>Amount: ৳${d.amount||0}</p><p>Method: ${d.method||'bKash'}</p><p>Sender Num: ${d.transactionNumber||""}</p><p>TrxID: ${d.transactionId||""}</p>${status}</div>`;
-  });
- }catch(e){console.error(e)}
-}
+/* Package Payment Request History Modal */
+window.showMyPaymentRequestHistory = async () => {
+  if (!currentUser) return;
+  try {
+    const q = query(collection(db, "paymentRequests"), where("uid", "==", currentUser.uid));
+    const snap = await getDocs(q);
+    let htmlContent = '<div style="text-align:left;max-height:350px;overflow-y:auto;font-size:13px;">';
+    
+    if (snap.empty) {
+      htmlContent += '<p style="color:#777;text-align:center;">কোনো Payment Request পাওয়া যায়নি।</p>';
+    } else {
+      let arr = [];
+      snap.forEach(x => arr.push({ id: x.id, ...x.data() }));
+      arr.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+      arr.forEach(d => {
+        const statusClass = d.status === "pending" ? "color:#ea580c;font-weight:bold" : d.status === "approved" ? "color:#16a34a;font-weight:bold" : "color:#dc2626;font-weight:bold";
+        const statusText = d.status === "pending" ? "⏳ Pending" : d.status === "approved" ? "✅ Approved" : "❌ Rejected";
+        htmlContent += `
+          <div style="border-bottom:1px solid #eee;padding:10px 0;">
+            <b>${d.packageName || "Package"}</b> (৳${d.amount || 0})<br>
+            <small style="color:#666">Method: ${d.method || 'bKash'} | Sender: ${d.transactionNumber || ''}</small><br>
+            <small style="color:#666">TrxID: ${d.transactionId || ''}</small><br>
+            Status: <span style="${statusClass}">${statusText}</span>
+          </div>
+        `;
+      });
+    }
+    htmlContent += '</div>';
+
+    Swal.fire({
+      title: '📋 All Payment Requests',
+      html: htmlContent,
+      confirmButtonText: 'ঠিক আছে',
+      confirmButtonColor: '#2563eb'
+    });
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
 
 function updateBalance(){
+ calculateTotalPackageBalance();
  document.getElementById("packageBalance").innerText=packageBalance;document.getElementById("taskToken").innerText=taskToken;document.getElementById("withdrawBalance").innerText=taskToken;
  document.getElementById("profilePackage").innerText=packageBalance;document.getElementById("profileTask").innerText=taskToken;
- document.getElementById("activePackageName").innerText=activePackage!==null&&packageList[activePackage]?packageList[activePackage][0]:"None";
+ const activeCount = userData.activePackages ? userData.activePackages.length : 0;
+ document.getElementById("activePackagesCount").innerText = `${activeCount} / 2 Active`;
 }
-function updateTaskLock(){document.getElementById("taskLocked").style.display=activePackage===null?"block":"none";document.getElementById("taskArea").style.display=activePackage===null?"none":"block"}
+
+function updateTaskLock(){
+ const activeCount = userData.activePackages ? userData.activePackages.length : 0;
+ document.getElementById("taskLocked").style.display = activeCount === 0 ? "block" : "none";
+ document.getElementById("taskArea").style.display = activeCount === 0 ? "none" : "block";
+}
 
 function listenTasks(){
  onSnapshot(collection(db,"tasks"), snap=>{
@@ -919,7 +1275,8 @@ function startCountdownTimer(btnId, targetTime) {
 
 window.startTaskTimer = (taskId, reward, link) => {
   if(!currentUser) return;
-  if(activePackage === null) return showAlert("লক!","টাস্ক করতে প্যাকেজ অ্যাক্টিভ করুন।","warning");
+  const activeCount = userData.activePackages ? userData.activePackages.length : 0;
+  if(activeCount === 0) return showAlert("লক!","টাস্ক করতে কমপক্ষে ১টি প্যাকেজ অ্যাক্টিভ করুন।","warning");
 
   const timestamps = userData.taskTimestamps || {};
   const lastDone = timestamps[taskId] || 0;
@@ -978,22 +1335,57 @@ async function finalizeDynamicTask(taskId, reward) {
 }
 
 function checkProfitTimer(){
- const lastClaim=userData.lastProfitClaim||0,now=Date.now(),day=24*60*60*1000;
+ const lastClaim=userData.lastProfitClaim||0, now=Date.now(), day=24*60*60*1000;
  const btn=document.getElementById("claimProfitBtn");
+ const activeCount = userData.activePackages ? userData.activePackages.length : 0;
  if(!btn)return;
- if(activePackage===null){ btn.innerText="❌ No Active Package";btn.disabled=true;return; }
- if(now-lastClaim<day){ btn.innerText="⏳ Claimed Today (Ready in 24h)";btn.disabled=true; }
- else { btn.innerText="🎁 Claim Daily 10% Profit";btn.disabled=false; }
+ 
+ if(profitCountdownTimer) clearInterval(profitCountdownTimer);
+
+ if(activeCount === 0){ 
+   btn.innerText="❌ No Active Package";
+   btn.disabled=true;
+   return; 
+ }
+
+ const targetTime = lastClaim + day;
+ const diff = targetTime - now;
+
+ if(diff > 0){
+   btn.disabled = true;
+   const updateProfitTimerText = () => {
+     const curDiff = targetTime - Date.now();
+     if(curDiff <= 0){
+       clearInterval(profitCountdownTimer);
+       btn.innerText = `🎁 Claim Daily ${globalDailyProfitPercent}% Profit`;
+       btn.disabled = false;
+     } else {
+       const h = Math.floor(curDiff / (1000 * 60 * 60));
+       const m = Math.floor((curDiff % (1000 * 60 * 60)) / (1000 * 60));
+       const s = Math.floor((curDiff % (1000 * 60)) / 1000);
+       btn.innerText = `⏳ Ready in ${h}h ${m}m ${s}s`;
+     }
+   };
+   updateProfitTimerText();
+   profitCountdownTimer = setInterval(updateProfitTimerText, 1000);
+ } else {
+   btn.innerText = `🎁 Claim Daily ${globalDailyProfitPercent}% Profit`;
+   btn.disabled = false;
+ }
 }
 
 window.claimDailyProfit=async()=>{
- if(!currentUser||activePackage===null)return;
+ const activeList = userData.activePackages || [];
+ if(!currentUser||activeList.length === 0)return;
  const lastClaim=userData.lastProfitClaim||0,now=Date.now(),day=24*60*60*1000;
  if(now-lastClaim<day)return showAlert("অপেক্ষা করুন","আজকের প্রফিট ইতিমধ্যে ক্লেইম করা হয়েছে। ২৪ ঘণ্টা পর আবার করতে পারবেন।","info");
  
- const pkgAmount=packageList[activePackage][1];
- const profit=pkgAmount * 0.10;
- 
+ let totalPkgAmount = 0;
+ activeList.forEach(pkg => {
+   totalPkgAmount += (packageList[pkg.index] ? packageList[pkg.index][1] : Number(pkg.amount || 0));
+ });
+
+ const profit = (totalPkgAmount * globalDailyProfitPercent) / 100;
  const btn=document.getElementById("claimProfitBtn");
  btn.disabled=true;
 
@@ -1012,9 +1404,9 @@ window.claimDailyProfit=async()=>{
 
   await addDoc(collection(db,"notifications"),{
     uid:currentUser.uid, icon:"📈", title:"Daily Profit Claimed!",
-    text:`অভিনন্দন! আপনার প্যাকেজ থেকে ১০% প্রফিট বাবদ +${profit} Task Token ওয়ালেটে স্বয়ংক্রিয়ভাবে যোগ হয়েছে।`, createdAt:serverTimestamp()
+    text:`অভিনন্দন! আপনার প্যাকেজ থেকে ${globalDailyProfitPercent}% প্রফিট বাবদ +${profit} Task Token ওয়ালেটে যোগ হয়েছে।`, createdAt:serverTimestamp()
   });
-  showAlert("সফল!",`ডেইলি ১০% প্রফিট থেকে +${profit} Task Token যোগ হয়েছে!`,"success");
+  showAlert("সফল!",`ডেইলি ${globalDailyProfitPercent}% প্রফিট থেকে +${profit} Task Token যোগ হয়েছে!`,"success");
  }catch(e){
   checkProfitTimer();
   showAlert("ত্রুটি!",e.message,"error");
@@ -1026,8 +1418,8 @@ window.withdraw=async()=>{
  const method=document.getElementById("method").value,number=document.getElementById("number").value.trim(),amount=parseInt(document.getElementById("amount").value);
  
  if(!/^01\d{9}$/.test(number))return showAlert("ভুল নম্বর!","সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।","warning");
- if(isNaN(amount)||amount<1000||amount>12000)return showAlert("সীমা লঙ্ঘন!","উইথড্র করার পরিমাণ অবশ্যই সর্বনিম্ন ১,০০০ এবং সর্বোচ্চ ১২,০০০ টোকেন হতে হবে।","warning");
- if(amount>taskToken)return showAlert("পর্যাপ্ত টোকেন নেই!","আপনার একাউন্টে পর্যাপ্ত টোকেন ব্যালেন্স নেই।","error");
+ if(isNaN(amount)||amount<globalMinWithdraw||amount>globalMaxWithdraw) return showAlert("সীমা লঙ্ঘন!",`উইথড্র করার পরিমাণ অবশ্যই সর্বনিম্ন ${globalMinWithdraw} এবং সর্বোচ্চ ${globalMaxWithdraw} টোকেন হতে হবে।`,"warning");
+ if(amount>taskToken)return showAlert("পর্যাপ্ত টোকেন নেই!","আপনার Task Token অ্যাকাউন্টে পর্যাপ্ত টোকেন ব্যালেন্স নেই।","error");
  
  const btn=document.getElementById("withdrawBtn");btn.disabled=true;
  try{
@@ -1045,13 +1437,14 @@ window.withdraw=async()=>{
  }catch(e){taskToken+=amount;showAlert("ত্রুটি!",e.message,"error")}finally{btn.disabled=false}
 };
 
-async function loadWithdrawals(){
- if(!currentUser)return;const q=query(collection(db,"withdrawals"),where("uid","==",currentUser.uid));
- try{const snap=await getDocs(q),box=document.getElementById("withdrawHistory");box.innerHTML="";
+function loadWithdrawals(){
+ if(!currentUser)return;
+ onSnapshot(query(collection(db,"withdrawals"),where("uid","==",currentUser.uid)), snap => {
+  const box=document.getElementById("withdrawHistory");box.innerHTML="";
   if(snap.empty){box.innerHTML='<p style="color:#777;margin-top:10px">No request yet.</p>';return}
   const arr=[];snap.forEach(d=>arr.push({id:d.id,...d.data()}));arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  arr.forEach(w=>box.innerHTML+=`<div class="history"><b>${w.method} - ${w.number}</b><p>Tokens: 🪙 ${w.amount}</p><p class="${w.status}">${w.status.toUpperCase()}</p></div>`)
- }catch(e){console.error(e)}
+  arr.forEach(w=>box.innerHTML+=`<div class="history"><b>${w.method} - ${w.number}</b><p>Tokens: 🪙 ${w.amount}</p><p class="${w.status}">${w.status.toUpperCase()}</p></div>`);
+ });
 }
 
 window.saveProfile=async()=>{
@@ -1066,28 +1459,27 @@ window.saveProfile=async()=>{
  }catch(e){showAlert("ত্রুটি!",e.message,"error")}
 };
 
-async function loadNotifications(){
+function loadNotifications(){
  if(!currentUser)return;
- try{
-  const snapUser=await getDocs(query(collection(db,"notifications"),where("uid","==",currentUser.uid)));
-  const snapGlobal=await getDocs(collection(db,"announcements"));
-  const box=document.getElementById("notificationList");box.innerHTML="";
-  
-  const arr=[];
-  snapUser.forEach(d=>arr.push({type:"user", ...d.data()}));
-  snapGlobal.forEach(d=>arr.push({type:"global", ...d.data()}));
+ onSnapshot(query(collection(db,"notifications"),where("uid","==",currentUser.uid)), snapUser => {
+  onSnapshot(collection(db,"announcements"), snapGlobal => {
+    const box=document.getElementById("notificationList");box.innerHTML="";
+    const arr=[];
+    snapUser.forEach(d=>arr.push({type:"user", ...d.data()}));
+    snapGlobal.forEach(d=>arr.push({type:"global", ...d.data()}));
 
-  if(arr.length===0){box.innerHTML='<p style="color:#777">No notifications yet.</p>';return}
-  arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  
-  arr.forEach(n=>{
-    if(n.type==="global"){
-      box.innerHTML+=`<div class="announcementCard"><span class="announcementTag">📢 Announcement</span><h4 style="color:#1e40af;margin-bottom:4px">${n.title||"Notice"}</h4><p style="font-size:13px;color:#334155">${n.text||""}</p></div>`;
-    }else{
-      box.innerHTML+=`<div class="notification"><div class="notificationIcon">${n.icon||"🔔"}</div><div><b>${n.title}</b><p style="font-size:13px;color:#555;margin-top:2px">${n.text}</p></div></div>`;
-    }
+    if(arr.length===0){box.innerHTML='<p style="color:#777">No notifications yet.</p>';return}
+    arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+    
+    arr.forEach(n=>{
+      if(n.type==="global"){
+        box.innerHTML+=`<div class="announcementCard"><span class="announcementTag">📢 Announcement</span><h4 style="color:#1e40af;margin-bottom:4px">${n.title||"Notice"}</h4><p style="font-size:13px;color:#334155">${n.text||""}</p></div>`;
+      }else{
+        box.innerHTML+=`<div class="notification"><div class="notificationIcon">${n.icon||"🔔"}</div><div><b>${n.title}</b><p style="font-size:13px;color:#555;margin-top:2px">${n.text}</p></div></div>`;
+      }
+    });
   });
- }catch(e){console.error(e)}
+ });
 }
 
 window.logout=()=>signOut(auth);
@@ -1105,16 +1497,11 @@ window.closeChat=()=>{document.getElementById("chatWindow").style.display="none"
 
 function resetChatInactivityTimer() {
   if (chatInactivityTimer) clearTimeout(chatInactivityTimer);
-  const TEN_MINUTES_MS = 10 * 60 * 1000;
-
-  chatInactivityTimer = setTimeout(() => {
-    handleChatTimeout();
-  }, TEN_MINUTES_MS);
+  chatInactivityTimer = setTimeout(() => { handleChatTimeout(); }, 10 * 60 * 1000);
 }
 
 function handleChatTimeout() {
   const box = document.getElementById("chatMessages");
-  
   if (box && !document.querySelector(".chatTimeoutNotice")) {
     const timeoutMsg = document.createElement("div");
     timeoutMsg.className = "chatTimeoutNotice";
@@ -1130,24 +1517,16 @@ function setupChat(){
  chatUnsubscribe=onSnapshot(query(collection(db,"chats"),where("uid","==",currentUser.uid)),snap=>{
   const box=document.getElementById("chatMessages");box.innerHTML="";
   const arr=[]; let hasNewAdminMsg = false;
-  let lastUserMsgTime = 0;
-  let lastAdminMsgTime = 0;
+  let lastUserMsgTime = 0, lastAdminMsgTime = 0;
 
   snap.forEach(d=> {
     const data = d.data();
     arr.push({id: d.id, ...data});
     const msgTime = data.createdAt?.seconds || 0;
     
-    if(data.sender === "user" && msgTime > lastUserMsgTime) {
-      lastUserMsgTime = msgTime;
-    }
-    if(data.sender === "admin" && msgTime > lastAdminMsgTime) {
-      lastAdminMsgTime = msgTime;
-    }
-
-    if(data.sender === "admin" && msgTime > lastUserChatReadTime){
-      hasNewAdminMsg = true;
-    }
+    if(data.sender === "user" && msgTime > lastUserMsgTime) lastUserMsgTime = msgTime;
+    if(data.sender === "admin" && msgTime > lastAdminMsgTime) lastAdminMsgTime = msgTime;
+    if(data.sender === "admin" && msgTime > lastUserChatReadTime) hasNewAdminMsg = true;
   });
   
   if(hasNewAdminMsg && document.getElementById("chatWindow").style.display !== "block"){
@@ -1160,7 +1539,6 @@ function setupChat(){
    const div=document.createElement("div");
    const isUser = m.sender === "user";
    div.className=`chatMsg ${isUser?"chatUser":"chatAdmin"}`;
-   
    let agentNameHtml = !isUser ? `<span class="agentNameTag">Earnova Agent 🎧</span>` : '';
    let seenHtml = (isUser && m.readByAdmin) ? `<span class="seenStatus">Seen ✓✓</span>` : '';
 
@@ -1171,16 +1549,9 @@ function setupChat(){
   box.scrollTop=box.scrollHeight;
 
   if(lastUserMsgTime > lastAdminMsgTime) {
-    const nowSec = Math.floor(Date.now() / 1000);
-    const elapsedSec = nowSec - lastUserMsgTime;
-    if(elapsedSec >= 600) {
-      handleChatTimeout();
-    } else {
-      resetChatInactivityTimer();
-    }
-  } else if (chatInactivityTimer) {
-    clearTimeout(chatInactivityTimer);
-  }
+    if(Math.floor(Date.now() / 1000) - lastUserMsgTime >= 600) handleChatTimeout();
+    else resetChatInactivityTimer();
+  } else if (chatInactivityTimer) clearTimeout(chatInactivityTimer);
  });
 }
 
@@ -1192,27 +1563,34 @@ window.sendChat=async()=>{
     uid:currentUser.uid, userEmail:currentUser.email, userName:userData.name||"User", sender:"user", text, createdAt:serverTimestamp(), readByAdmin:false
   });
   input.value="";
-  
   const oldNotice = document.querySelector(".chatTimeoutNotice");
   if(oldNotice) oldNotice.remove();
-
   resetChatInactivityTimer();
  }catch(e){showAlert("ত্রুটি!","মেসেজ পাঠানো যায়নি।","error")}
 };
 
 function addAdminNav(){
  const nav=document.querySelector(".bottom");if(document.getElementById("adminNavBtn"))return;
- const btn=document.createElement("button");btn.id="adminNavBtn";btn.className="nav";btn.onclick=()=>openPage("admin",btn);btn.innerHTML="<span>👑</span>Admin";nav.appendChild(btn);
+ const btn=document.createElement("button");
+ btn.id="adminNavBtn";
+ btn.className="nav";
+ btn.onclick=()=>openPage("admin",btn);
+ btn.innerHTML=`<span>👑</span>Admin<div class="navAdminRedDot" id="adminNavRedDot"></div>`;
+ nav.appendChild(btn);
 }
 
-window.openAdminSubPage = (subId) => {
+window.openAdminSubPage = (subId, cardEl) => {
   document.querySelectorAll(".adminSubPage").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".adminMenuCard").forEach(c => c.classList.remove("selectedCard"));
+  
   const target = document.getElementById(subId);
   if (target) target.classList.add("active");
+  if (cardEl) cardEl.classList.add("selectedCard");
 };
 
 window.closeAdminSubPage = () => {
   document.querySelectorAll(".adminSubPage").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".adminMenuCard").forEach(c => c.classList.remove("selectedCard"));
 };
 
 window.filterAdminList = (containerId, queryVal) => {
@@ -1222,29 +1600,38 @@ window.filterAdminList = (containerId, queryVal) => {
   const q = queryVal.toLowerCase();
 
   Array.from(items).forEach(item => {
-    const text = item.innerText.toLowerCase();
-    if (text.includes(q)) {
-      item.style.display = "";
-    } else {
-      item.style.display = "none";
-    }
+    item.style.display = item.innerText.toLowerCase().includes(q) ? "" : "none";
   });
 };
 
 function listenAdminBadges(){
+  let payAlert = false, withAlert = false, chatAlert = false;
+
+  const updateRedDots = () => {
+    const hasAnyAlert = payAlert || withAlert || chatAlert;
+    const navDot = document.getElementById("adminNavRedDot");
+    if (navDot) navDot.style.display = hasAnyAlert ? "block" : "none";
+  };
+
   onSnapshot(query(collection(db, "paymentRequests"), where("status", "==", "pending")), snap => {
+    payAlert = !snap.empty;
     const el = document.getElementById("adminPayAlertDot");
-    if (el) el.style.display = !snap.empty ? "block" : "none";
+    if (el) el.style.display = payAlert ? "block" : "none";
+    updateRedDots();
   });
 
   onSnapshot(query(collection(db, "withdrawals"), where("status", "==", "pending")), snap => {
+    withAlert = !snap.empty;
     const el = document.getElementById("adminWithAlertDot");
-    if (el) el.style.display = !snap.empty ? "block" : "none";
+    if (el) el.style.display = withAlert ? "block" : "none";
+    updateRedDots();
   });
 
   onSnapshot(query(collection(db, "chats"), where("readByAdmin", "==", false)), snap => {
+    chatAlert = !snap.empty;
     const el = document.getElementById("adminChatAlertDot");
-    if (el) el.style.display = !snap.empty ? "block" : "none";
+    if (el) el.style.display = chatAlert ? "block" : "none";
+    updateRedDots();
   });
 }
 
@@ -1254,429 +1641,857 @@ async function loadAdmin(){
   loadAdminWithdrawals();
   loadAdminTasks();
   loadAdminAnnouncements();
+  loadAdminReferralLeaderboard();
+  loadAdminPackageEditList();
+  loadAdminRulesEditList();
   listenAdminChats();
   document.getElementById("adminBkashInput").value = globalBkashNumber;
   document.getElementById("adminNagadInput").value = globalNagadNumber;
+  document.getElementById("adminDailyProfitInput").value = globalDailyProfitPercent;
+  document.getElementById("adminMinWithdraw").value = globalMinWithdraw;
+  document.getElementById("adminMaxWithdraw").value = globalMaxWithdraw;
+  document.getElementById("adminBaseUserCountInput").value = globalBaseUserCount;
 }
 
-window.addDynamicTask=async()=>{
- const category=document.getElementById("adminTaskCategory").value;
- const title=document.getElementById("adminTaskTitle").value.trim();
- const rewardInput=document.getElementById("adminTaskReward").value;
- const reward = rewardInput ? Number(rewardInput) : 10;
- const link=document.getElementById("adminTaskLink").value.trim();
- if(!title)return showAlert("তথ্য বাকি!","টাস্ক টাইটেল প্রদান করুন।","warning");
- 
- const btn=document.getElementById("addTaskBtn");btn.disabled=true;
- try{
-   await addDoc(collection(db,"tasks"),{ category, title, reward, link, createdAt:serverTimestamp() });
-   document.getElementById("adminTaskTitle").value="";
-   document.getElementById("adminTaskReward").value="10";
-   document.getElementById("adminTaskLink").value="";
-   showAlert("সফল!","নতুন টাস্ক যুক্ত হয়েছে।","success");
-   loadAdminTasks();
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}finally{btn.disabled=false}
-};
-
-async function loadAdminTasks(){
- const box=document.getElementById("adminTaskList");box.innerHTML="Loading tasks...";
- try{
-   const snap=await getDocs(collection(db,"tasks"));
-   if(snap.empty){box.innerHTML="<p class='small'>No active dynamic tasks.</p>";return}
-   box.innerHTML="";
-   snap.forEach(d=>{
-     const t=d.data();
-     const icon = taskIcons[t.category] || "🎯";
-     box.innerHTML+=`
-       <div class="adminUser">
-         <b>${icon} ${t.title}</b> (${(t.category||'').toUpperCase()}) - (+${t.reward||10} Token)<br>
-         <small>Link: ${t.link||'No Link'}</small>
-         <div class="adminActions">
-           <button class="primary" onclick="editTask('${d.id}', \`${t.title}\`, '${t.category||'youtube'}', ${t.reward||10}, \`${t.link||''}\`)">✏️ Edit</button>
-           <button class="danger" onclick="deleteTask('${d.id}')">🗑️ Delete</button>
-         </div>
-       </div>`;
-   });
- }catch(e){box.innerHTML=`<p class='small'>${e.message}</p>`}
-}
-
-window.editTask=async(taskId, oldTitle, oldCategory, oldReward, oldLink)=>{
- const { value: formValues } = await Swal.fire({
-   title: 'Edit Task Info',
-   html: `
-     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Task Title</label>
-     <input id="edit-task-title" class="swal2-input" value="${oldTitle}">
-     
-     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Category</label>
-     <select id="edit-task-category" class="swal2-input" style="height:45px">
-       <option value="youtube" ${oldCategory==='youtube'?'selected':''}>YouTube Video</option>
-       <option value="facebook" ${oldCategory==='facebook'?'selected':''}>Facebook Page/Post</option>
-       <option value="telegram" ${oldCategory==='telegram'?'selected':''}>Telegram Channel</option>
-       <option value="website" ${oldCategory==='website'?'selected':''}>Website Article</option>
-       <option value="app" ${oldCategory==='app'?'selected':''}>App Download</option>
-       <option value="other" ${oldCategory==='other'?'selected':''}>Other</option>
-     </select>
-     
-     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Reward Tokens</label>
-     <input id="edit-task-reward" type="number" class="swal2-input" value="${oldReward}">
-     
-     <label style="text-align:left;display:block;font-size:12px;margin-top:5px">Task Link</label>
-     <input id="edit-task-link" class="swal2-input" value="${oldLink}">
-   `,
-   focusConfirm: false,
-   showCancelButton: true,
-   preConfirm: () => [
-     document.getElementById('edit-task-title').value.trim(),
-     document.getElementById('edit-task-category').value,
-     Number(document.getElementById('edit-task-reward').value) || 10,
-     document.getElementById('edit-task-link').value.trim()
-   ]
- });
-
- if (formValues && formValues[0]) {
-   try{
-     await updateDoc(doc(db,"tasks",taskId),{ 
-       title: formValues[0], 
-       category: formValues[1],
-       reward: formValues[2],
-       link: formValues[3]
-     });
-     showAlert("সফল!","টাস্কটি সফলভাবে আপডেট করা হয়েছে।","success");
-     loadAdminTasks();
-   }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
- }
-};
-
-window.deleteTask=async(taskId)=>{
- try{
-   await deleteDoc(doc(db,"tasks",taskId));
-   showAlert("ডিলিট হয়েছে!","টাস্কটি সফলভাবে মুছে ফেলা হয়েছে।","info");
-   loadAdminTasks();
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
-};
-
-window.sendGlobalNotice=async()=>{
- const title=document.getElementById("adminNoticeTitle").value.trim();
- const text=document.getElementById("adminNoticeText").value.trim();
- if(!title||!text)return showAlert("তথ্য খালি!","নোটিশের টাইটেল ও বিবরণ সম্পূর্ণ লিখুন।","warning");
- 
- const btn=document.getElementById("sendNoticeBtn");btn.disabled=true;
- try{
-   await addDoc(collection(db,"announcements"),{ title, text, createdAt:serverTimestamp() });
-   document.getElementById("adminNoticeTitle").value="";
-   document.getElementById("adminNoticeText").value="";
-   showAlert("নোটিশ সফল!","গ্লোবাল নোটিশটি সব ইউজারের কাছে সম্প্রচারিত হয়েছে।","success");
-   loadAdminAnnouncements();
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}finally{btn.disabled=false}
-};
-
-async function loadAdminAnnouncements(){
- const box = document.getElementById("adminNoticeList"); if(!box) return;
- try{
-  const snap = await getDocs(collection(db,"announcements"));
-  if(snap.empty){ box.innerHTML = "<p class='small'>No active announcements.</p>"; return; }
+function loadAdminRulesEditList(){
+  const box = document.getElementById("adminRulesEditContainer");
+  if (!box) return;
   box.innerHTML = "";
-  snap.forEach(d=>{
-    const a = d.data();
+  dynamicRulesList.forEach((rule, index) => {
     box.innerHTML += `
       <div class="adminUser">
-        <b>${a.title}</b><p style="font-size:12px;color:#555">${a.text}</p>
+        <b>Rule #${index + 1}:</b> ${rule}
         <div class="adminActions">
-          <button class="primary" onclick="editAnnouncement('${d.id}', \`${a.title}\`, \`${a.text}\`)">✏️ Edit</button>
-          <button class="danger" onclick="deleteAnnouncement('${d.id}')">🗑️ Delete</button>
+          <button class="primary" onclick="editRuleByAdmin(${index})">✏️ Edit Rule</button>
+          <button class="danger" onclick="deleteRuleByAdmin(${index})">🗑️ Delete</button>
         </div>
       </div>
     `;
   });
- }catch(e){ box.innerHTML = `<p class='small'>${e.message}</p>`; }
 }
 
-window.editAnnouncement=async(id, oldTitle, oldText)=>{
- const { value: formValues } = await Swal.fire({
-   title: 'Edit Announcement',
-   html: `<input id="swal-input1" class="swal2-input" value="${oldTitle}"><textarea id="swal-input2" class="swal2-textarea">${oldText}</textarea>`,
-   focusConfirm: false,
-   preConfirm: () => [
-     document.getElementById('swal-input1').value,
-     document.getElementById('swal-input2').value
-   ]
- });
- if (formValues && formValues[0] && formValues[1]) {
-   try{
-     await updateDoc(doc(db,"announcements",id),{ title: formValues[0], text: formValues[1] });
-     showAlert("আপডেট হয়েছে!","নোটিশ সফলভাবে সংশোধন করা হয়েছে।","success");
-     loadAdminAnnouncements();
-   }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
- }
+window.addNewRuleByAdmin = async () => {
+  const input = document.getElementById("newRuleText");
+  const text = input ? input.value.trim() : "";
+  if (!text) return showAlert("ইনপুট প্রয়োজন!", "নিয়ম-কানুনের তথ্য লিখুন।", "warning");
+
+  dynamicRulesList.push(text);
+  try {
+    await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
+    if (input) input.value = "";
+    showAlert("সফল!", "নতুন রুলস যুক্ত করা হয়েছে।", "success");
+    loadAdminRulesEditList();
+  } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
 
-window.deleteAnnouncement=async(id)=>{
- try{
-   await deleteDoc(doc(db,"announcements",id));
-   showAlert("মুছে ফেলা হয়েছে!","নোটিশটি ডিলিট করা হয়েছে।","info");
-   loadAdminAnnouncements();
- }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
-};
-
-window.updateAdminPaymentNumbers=async()=>{
- const bkash=document.getElementById("adminBkashInput").value.trim();
- const nagad=document.getElementById("adminNagadInput").value.trim();
- if(!bkash||!nagad)return showAlert("নম্বর দিন!","bKash ও Nagad উভয় পেমেন্ট নম্বর দিন।","warning");
- try{
-   await setDoc(doc(db,"settings","general"),{bkashNumber:bkash, nagadNumber:nagad},{merge:true});
-   globalBkashNumber=bkash; globalNagadNumber=nagad;
-   updateSelectedPaymentNumber();
-   showAlert("সফল!","পেমেন্ট নম্বরসমূহ আপডেট করা হয়েছে!","success");
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
-};
-
-async function loadAdminUsers(){
- const box=document.getElementById("adminUsers"),snap=await getDocs(collection(db,"users"));box.innerHTML="";
- snap.forEach(d=>{
-   const u=d.data();
-   box.innerHTML+=`
-     <div class="adminUser">
-       <b>${u.name||"User"}</b> (${u.email})<br>
-       <small>Tokens: 🪙${u.taskToken||0} | Balance: ৳${u.packageBalance||0}</small>
-       <div class="adminActions">
-         <button class="primary" onclick="adminAddTokens('${u.uid}')">+ Tokens</button>
-         <button class="secondary" onclick="viewUserDetails('${u.uid}')">👁️ Details</button>
-         <button class="success" onclick="sendPersonalNotice('${u.uid}')">✉️ Notice</button>
-       </div>
-     </div>`;
- });
-}
-
-window.viewUserDetails=async(targetUid)=>{
- try{
-   const snap = await getDoc(doc(db,"users",targetUid));
-   if(snap.exists()){
-     const u = snap.data();
-     Swal.fire({
-       title: `👤 User Details`,
-       html: `
-         <div style="text-align:left;font-size:13px;line-height:1.8">
-           <p><b>Name:</b> ${u.name||'N/A'}</p>
-           <p><b>Email:</b> ${u.email}</p>
-           <p><b>UID:</b> ${u.uid}</p>
-           <p><b>Mobile:</b> ${u.mobile||'Not set'}</p>
-           <p><b>District:</b> ${u.district||'Not set'}</p>
-           <p><b>Upazila:</b> ${u.upazila||'Not set'}</p>
-           <p><b>Address:</b> ${u.address||'Not set'}</p>
-           <p><b>DOB:</b> ${u.dob||'Not set'}</p>
-           <p><b>Active Package:</b> ${u.activePackage!==null&&packageList[u.activePackage]?packageList[u.activePackage][0]:'None'}</p>
-           <p><b>Total Referrals:</b> ${u.referralCount||0}</p>
-         </div>
-       `,
-       confirmButtonText: 'Close'
-     });
-   }
- }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
-};
-
-window.sendPersonalNotice=async(targetUid)=>{
- const { value: formValues } = await Swal.fire({
-   title: 'Send Personal Notification',
-   html: '<input id="swal-title" class="swal2-input" placeholder="Title"><textarea id="swal-text" class="swal2-textarea" placeholder="Message details..."></textarea>',
-   focusConfirm: false,
-   preConfirm: () => [ document.getElementById('swal-title').value, document.getElementById('swal-text').value ]
- });
- if(formValues && formValues[0] && formValues[1]){
-   try{
-     await addDoc(collection(db,"notifications"),{
-       uid: targetUid, icon:"📩", title: formValues[0], text: formValues[1], createdAt: serverTimestamp()
-     });
-     showAlert("পাঠানো হয়েছে!","ইউজারকে পার্সোনাল নোটিফিকেশন পাঠানো হয়েছে।","success");
-   }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
- }
-};
-
-window.adminAddTokens=async(targetUid)=>{
- const amount=prompt("কত টোকেন যোগ করতে চান?");
- if(!amount||isNaN(amount))return;
- try{
-  await updateDoc(doc(db,"users",targetUid),{taskToken:increment(parseInt(amount))});
-  await addDoc(collection(db,"notifications"),{
-    uid:targetUid, icon:"🎁", title:"Reward Received!",
-    text:`অ্যাডমিন আপনার একাউন্টে +${amount} Task Token যোগ করেছেন!`, createdAt:serverTimestamp()
-  });
-  showAlert("সফল!","টোকেন যোগ করা হয়েছে।","success");loadAdminUsers();
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
-}
-
-function listenAdminChats(){
- onSnapshot(collection(db,"chats"), snap=>{
-   const userList = {};
-   snap.forEach(d=>{
-     const c = d.data();
-     if(!userList[c.uid]) userList[c.uid] = { name: c.userName||'User', email: c.userEmail, unread: false, lastMsg: c.createdAt?.seconds||0 };
-     if(c.sender === "user" && c.readByAdmin === false) userList[c.uid].unread = true;
-     if((c.createdAt?.seconds||0) > userList[c.uid].lastMsg) userList[c.uid].lastMsg = c.createdAt?.seconds||0;
-   });
-   
-   const box = document.getElementById("adminChatUserList"); if(!box) return;
-   box.innerHTML = "";
-   const sortedUids = Object.keys(userList).sort((a,b)=>userList[b].lastMsg - userList[a].lastMsg);
-   if(sortedUids.length === 0){ box.innerHTML = "<p class='small'>No active user messages.</p>"; return; }
-   
-   sortedUids.forEach(uid=>{
-     const u = userList[uid];
-     const div = document.createElement("div");
-     div.className = `adminUser chatUserItem ${u.unread?'unread':''}`;
-     div.onclick = ()=>openAdminChatWithUser(uid, u.name);
-     div.innerHTML = `<div><b>${u.name}</b><br><small style="color:#777">${u.email}</small></div>${u.unread ? '<span class="unreadBadge">NEW</span>' : ''}`;
-     box.appendChild(div);
-   });
- });
-}
-
-window.openAdminChatWithUser=(uid, name)=>{
- activeAdminChatUid = uid;
- document.getElementById("adminChatBox").style.display = "block";
- document.getElementById("currentChatUserTitle").innerText = `Chatting with: ${name}`;
- 
- if(adminChatUnsub) adminChatUnsub();
- adminChatUnsub = onSnapshot(query(collection(db,"chats"), where("uid","==",uid)), snap=>{
-   const msgBox = document.getElementById("adminChatMessages"); msgBox.innerHTML = "";
-   const arr = [];
-   snap.forEach(d=>{
-     const data = d.data();
-     arr.push({id: d.id, ...data});
-     if(data.sender === "user" && data.readByAdmin === false){
-       updateDoc(doc(db,"chats",d.id),{ readByAdmin: true });
-     }
-   });
-   arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
-   arr.forEach(m=>{
-     const div = document.createElement("div");
-     const isAdmin = m.sender === "admin";
-     div.className = `chatMsg ${isAdmin?"chatUser":"chatAdmin"}`;
-     
-     /* 🔴 UPDATE 2: Enable Edit & Delete options ONLY for Admin Messages in Admin Desk */
-     let actionsHtml = "";
-     if (isAdmin) {
-       actionsHtml = `
-         <div class="adminMsgActions">
-           <button class="adminMsgBtn" onclick="editAdminChatMessage('${m.id}', \`${m.text.replace(/`/g, '\\`')}\`)">✏️ Edit</button>
-           <button class="adminMsgBtn del" onclick="deleteAdminChatMessage('${m.id}')">🗑️ Delete</button>
-         </div>
-       `;
-     }
-
-     div.innerHTML = `<span>${m.text}</span> ${actionsHtml}`;
-     msgBox.appendChild(div);
-   });
-   msgBox.scrollTop = msgBox.scrollHeight;
- });
-};
-
-/* 🔴 UPDATE 2 Helper Functions: Admin Live Chat Edit & Delete */
-window.editAdminChatMessage = async (msgId, oldText) => {
-  const { value: newText } = await Swal.fire({
-    title: 'Edit Message',
-    input: 'text',
-    inputValue: oldText,
+window.editRuleByAdmin = async (index) => {
+  const currentRule = dynamicRulesList[index];
+  const { value: newRule } = await Swal.fire({
+    title: 'Edit Rule / Guideline',
+    input: 'textarea',
+    inputValue: currentRule,
     showCancelButton: true,
-    confirmButtonText: 'Update'
+    confirmButtonText: 'Save Changes'
   });
 
-  if (newText && newText.trim() !== '') {
+  if (newRule && newRule.trim() !== "") {
+    dynamicRulesList[index] = newRule.trim();
     try {
-      await updateDoc(doc(db, "chats", msgId), { text: newText.trim() });
-    } catch (e) {
-      showAlert("ত্রুটি!", e.message, "error");
-    }
+      await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
+      showAlert("সফল!", "রুলস আপডেট করা হয়েছে।", "success");
+      loadAdminRulesEditList();
+    } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
   }
 };
 
-window.deleteAdminChatMessage = async (msgId) => {
-  const result = await Swal.fire({
-    title: 'মেসেজ ডিলিট করবেন?',
-    text: 'এই মেসেজটি স্থায়ীভাবে মুছে ফেলা হবে।',
+window.deleteRuleByAdmin = async (index) => {
+  const res = await Swal.fire({
+    title: 'রুলসটি মুছে ফেলবেন?',
+    text: 'এই রুলসটি হোম পেজ থেকে ডিলিট হয়ে যাবে।',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#dc2626',
-    confirmButtonText: 'হ্যাঁ, ডিলিট করুন'
+    confirmButtonText: 'হ্যাঁ, Delete করুন'
   });
 
-  if (result.isConfirmed) {
+  if (res.isConfirmed) {
+    dynamicRulesList.splice(index, 1);
     try {
-      await deleteDoc(doc(db, "chats", msgId));
-    } catch (e) {
-      showAlert("ত্রুটি!", e.message, "error");
-    }
+      await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
+      showAlert("ডিলিট হয়েছে!", "রুলসটি মুছে ফেলা হয়েছে।", "success");
+      loadAdminRulesEditList();
+    } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
   }
 };
 
-window.sendAdminChatReply=async()=>{
- const input = document.getElementById("adminChatInput"), text = input.value.trim();
- if(!text || !activeAdminChatUid) return;
- try{
-   await addDoc(collection(db,"chats"),{
-     uid: activeAdminChatUid, sender: "admin", text, createdAt: serverTimestamp(), readByAdmin: true
+function loadAdminPaymentRequests(){
+  onSnapshot(query(collection(db, "paymentRequests")), snap => {
+    const box = document.getElementById("adminPaymentRequests");
+    box.innerHTML = "";
+    let arr = [];
+    snap.forEach(d => arr.push({ id: d.id, ...d.data() }));
+    arr.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+    if(arr.length === 0){ box.innerHTML = "<p class='small'>No payment requests.</p>"; return; }
+
+    arr.forEach(r => {
+      box.innerHTML += `
+        <div class="adminUser">
+          <b>${r.packageName || 'Package'} (৳${r.amount})</b> - ${r.email}<br>
+          <small>Sender: ${r.transactionNumber} | TrxID: ${r.transactionId} | Method: ${r.method}</small><br>
+          <small>Status: <b>${r.status.toUpperCase()}</b></small>
+          ${r.status === 'pending' ? `
+            <div class="adminActions">
+              <button class="success" onclick="approvePaymentRequest('${r.id}', '${r.uid}', ${r.packageIndex}, ${r.amount}, '${r.packageName}')">✅ Approve</button>
+              <button class="danger" onclick="rejectPaymentRequest('${r.id}', '${r.uid}', '${r.packageName}')">❌ Reject</button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    });
+  });
+}
+
+window.approvePaymentRequest = async (reqId, targetUid, pkgIndex, amount, pkgName) => {
+  try {
+    const userRef = doc(db, "users", targetUid);
+    const userSnap = await getDoc(userRef);
+    if (!userSnap.exists()) return showAlert("ত্রুটি!", "ইউজার পাওয়া যায়নি।", "error");
+
+    const uData = userSnap.data();
+    let currentActive = uData.activePackages || [];
+    
+    currentActive.push({
+      index: pkgIndex,
+      packageName: pkgName,
+      amount: amount,
+      activatedAt: Date.now()
+    });
+
+    let newPackageBalance = 0;
+    currentActive.forEach(p => newPackageBalance += Number(p.amount || 0));
+
+    await updateDoc(userRef, {
+      activePackages: currentActive,
+      packageBalance: newPackageBalance
+    });
+
+    await updateDoc(doc(db, "paymentRequests", reqId), { status: "approved" });
+
+    await addDoc(collection(db, "notifications"), {
+      uid: targetUid, icon: "✅", title: "Payment Request Approved",
+      text: `আপনার ${pkgName} প্যাকেজের (৳${amount}) পেমেন্ট রিকোয়েস্ট অনুমোদিত হয়েছে! প্যাকেজ সক্রিয় করা হয়েছে।`, createdAt: serverTimestamp()
+    });
+
+    showAlert("Approved!", "পেমেন্ট রিকোয়েস্ট সফলভাবে এপ্রুভ করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+window.rejectPaymentRequest = async (reqId, targetUid, pkgName) => {
+  try {
+    await updateDoc(doc(db, "paymentRequests", reqId), { status: "rejected" });
+    await addDoc(collection(db, "notifications"), {
+      uid: targetUid, icon: "❌", title: "Payment Request Rejected",
+      text: `আপনার ${pkgName} প্যাকেজের পেমেন্ট রিকোয়েস্টটি বাতিল করা হয়েছে।`, createdAt: serverTimestamp()
+    });
+    showAlert("Rejected!", "পেমেন্ট রিকোয়েস্ট রিজেক্ট করা হয়েছে।", "info");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+function loadAdminWithdrawals(){
+  onSnapshot(collection(db, "withdrawals"), snap => {
+    const box = document.getElementById("adminWithdrawals");
+    box.innerHTML = "";
+    let arr = [];
+    snap.forEach(d => arr.push({ id: d.id, ...d.data() }));
+    arr.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+    if(arr.length === 0){ box.innerHTML = "<p class='small'>No withdrawal requests.</p>"; return; }
+
+    arr.forEach(w => {
+      box.innerHTML += `
+        <div class="adminUser">
+          <b>🪙 ${w.amount} Tokens (${w.method})</b> - ${w.email}<br>
+          <small>Account Number: ${w.number} | Status: <b>${w.status.toUpperCase()}</b></small>
+          ${w.status === 'pending' ? `
+            <div class="adminActions">
+              <button class="success" onclick="approveWithdrawal('${w.id}', '${w.uid}', ${w.amount})">✅ Complete</button>
+              <button class="danger" onclick="rejectWithdrawal('${w.id}', '${w.uid}', ${w.amount})">❌ Reject & Refund</button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    });
+  });
+}
+
+window.approveWithdrawal = async (wId, targetUid, amount) => {
+  try {
+    await updateDoc(doc(db, "withdrawals", wId), { status: "approved" });
+    await addDoc(collection(db, "notifications"), {
+      uid: targetUid, icon: "💸", title: "Withdrawal Completed",
+      text: `আপনার ${amount} টোকেনের উত্তোলন রিকোয়েস্টটি সম্পন্ন হয়েছে।`, createdAt: serverTimestamp()
+    });
+    showAlert("Approved!", "উইথড্র রিকোয়েস্ট এপ্রুভ করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+window.rejectWithdrawal = async (wId, targetUid, amount) => {
+  try {
+    await updateDoc(doc(db, "users", targetUid), { taskToken: increment(amount) });
+    await updateDoc(doc(db, "withdrawals", wId), { status: "rejected" });
+    await addDoc(collection(db, "notifications"), {
+      uid: targetUid, icon: "❌", title: "Withdrawal Rejected",
+      text: `আপনার ${amount} টোকেনের উইথড্র রিকোয়েস্ট রিজেক্ট করা হয়েছে। 🪙 ${amount} টোকেন পুনরায় আপনার Task Token ব্যালেন্সে ফেরত দেওয়া হয়েছে।`, createdAt: serverTimestamp()
+    });
+    showAlert("Rejected & Refunded!", "উইথড্র বাতিল করে টোকেন ফেরত দেওয়া হয়েছে।", "info");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+/* Point 3: User Management with Separate Packages Control (Edit & Delete) */
+/* Updated: Users sorted by Active Packages count (highest first / serial wise) */
+async function loadAdminUsers(){
+ onSnapshot(collection(db,"users"), snap => {
+   const box=document.getElementById("adminUsers"); box.innerHTML="";
+   
+   // Collect all users into array for sorting
+   let usersArr = [];
+   snap.forEach(d => {
+     usersArr.push({ id: d.id, ...d.data() });
    });
-   input.value = "";
- }catch(e){ showAlert("ত্রুটি!",e.message,"error"); }
-};
 
-async function loadAdminPaymentRequests(){
- const box=document.getElementById("adminPaymentRequests");box.innerHTML="Loading...";
- try{const snap=await getDocs(query(collection(db,"paymentRequests"),where("status","==","pending")));if(snap.empty){box.innerHTML="<p class='small'>No pending payment requests.</p>";return}
-  box.innerHTML="";snap.forEach(d=>{const r=d.data();box.innerHTML+=`<div class="adminUser"><b>${r.email}</b><br><small>UID: ${r.uid}</small><br><small>Package: ${r.packageName} (৳${r.amount})</small><br><small>Method: ${r.method||'bKash'}</small><br><small>Sender Num: ${r.transactionNumber||''}</small><br><small>TrxID: ${r.transactionId||''}</small><div class="adminActions"><button class="success" onclick="approvePayment('${d.id}','${r.uid}',${r.packageIndex},${r.amount},'${r.packageName}')">Approve</button><button class="danger" onclick="rejectPayment('${d.id}','${r.uid}','${r.packageName}')">Reject</button></div></div>`})
- }catch(e){box.innerHTML=`<p class='small'>${e.message}</p>`}
+   // Sort by number of active packages (descending) - most packages first
+   usersArr.sort((a, b) => {
+     const aCount = (a.activePackages || []).length;
+     const bCount = (b.activePackages || []).length;
+     return bCount - aCount; // Highest active packages first
+   });
+
+   if(usersArr.length === 0){
+     box.innerHTML = "<p class='small'>No users found.</p>";
+     return;
+   }
+
+   usersArr.forEach((u, serial) => {
+     const isDis = u.isDisabled ? true : false;
+     const activePkgs = u.activePackages || [];
+     const serialNo = serial + 1;
+
+     let pkgHtml = '';
+     if(activePkgs.length === 0) {
+       pkgHtml = '<span style="color:#777;font-size:12px;">No active package</span>';
+     } else {
+       activePkgs.forEach((pkg, index) => {
+         pkgHtml += `
+           <div style="background:#f1f5f9;padding:6px 10px;border-radius:8px;margin-top:5px;display:flex;justify-content:space-between;align-items:center;">
+             <span>📦 <b>${pkg.packageName || 'Package'}</b> (৳${pkg.amount || 0})</span>
+             <div class="adminActions" style="margin-top:0;">
+               <button class="primary" style="padding:3px 8px;font-size:11px;" onclick="editUserPackage('${u.uid}', ${index})">✏️ Edit</button>
+               <button class="danger" style="padding:3px 8px;font-size:11px;" onclick="deleteUserPackage('${u.uid}', ${index})">🗑️ Delete</button>
+             </div>
+           </div>
+         `;
+       });
+     }
+
+     box.innerHTML+=`
+       <div class="adminUser">
+         <b>#${serialNo} | ${u.name || 'No Name'}</b> (${u.email}) <span style="background:#2563eb;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;margin-left:6px;">📦 ${activePkgs.length} Active</span><br>
+         <small>ID: ${u.uid}</small><br>
+         <small>Pkg Bal: ৳${u.packageBalance || 0} | Tokens: 🪙 ${u.taskToken || 0} | Ref Count: ${u.referralCount || 0}</small>
+         
+         <div style="margin-top:8px;border-top:1px dashed #ddd;padding-top:6px;">
+           <small style="font-weight:bold;color:#2563eb">Active Packages Control (${activePkgs.length}/2):</small>
+           ${pkgHtml}
+         </div>
+
+         <div class="adminActions">
+           <button class="primary" onclick="editUserBalance('${u.uid}', ${u.packageBalance||0}, ${u.taskToken||0})">✏️ Edit Tokens/Bal</button>
+           <button class="${isDis?'success':'danger'}" onclick="toggleUserStatus('${u.uid}', ${isDis})">${isDis?'✅ Enable':'🚫 Disable'}</button>
+         </div>
+       </div>
+     `;
+   });
+ });
 }
 
-window.approvePayment=async(reqId,targetUid,packageIndex,amount,packageName)=>{
- try{
-  await updateDoc(doc(db,"paymentRequests",reqId),{status:"approved"});
-  await updateDoc(doc(db,"users",targetUid),{activePackage:packageIndex,packageBalance:amount});
-  await addDoc(collection(db,"notifications"),{
-    uid:targetUid, icon:"✅", title:"Package Payment Approved!",
-    text:`অভিনন্দন! আপনার ${packageName} প্যাকেজ একটিভ করা হয়েছে।`, createdAt:serverTimestamp()
+/* Point 3: Edit Specific User Package */
+window.editUserPackage = async (targetUid, pkgIndex) => {
+  const userRef = doc(db, "users", targetUid);
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) return showAlert("ত্রুটি!", "ইউজার পাওয়া যায়নি।", "error");
+
+  const uData = userSnap.data();
+  let currentActive = uData.activePackages || [];
+  const targetPkg = currentActive[pkgIndex];
+
+  if (!targetPkg) return showAlert("ত্রুটি!", "প্যাকেজ পাওয়া যায়নি।", "error");
+
+  const { value: formValues } = await Swal.fire({
+    title: 'Edit User Package',
+    html:
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Name</label>` +
+      `<input id="swal-pkg-name" class="swal2-input" value="${targetPkg.packageName || ''}" placeholder="Package Name">` +
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Amount (৳)</label>` +
+      `<input id="swal-pkg-amount" type="number" class="swal2-input" value="${targetPkg.amount || 0}" placeholder="Amount">`,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Update Package',
+    preConfirm: () => {
+      return {
+        name: document.getElementById('swal-pkg-name').value.trim(),
+        amount: parseInt(document.getElementById('swal-pkg-amount').value)
+      }
+    }
   });
-  showAlert("অনুমোদিত!","Payment Request Approved করা হয়েছে!","success");loadAdminPaymentRequests()
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
+
+  if (formValues) {
+    if (!formValues.name || isNaN(formValues.amount)) return showAlert("ভুল তথ্য!", "সঠিক তথ্য দিন।", "warning");
+
+    currentActive[pkgIndex].packageName = formValues.name;
+    currentActive[pkgIndex].amount = formValues.amount;
+
+    let newPackageBalance = 0;
+    currentActive.forEach(p => newPackageBalance += Number(p.amount || 0));
+
+    try {
+      await updateDoc(userRef, {
+        activePackages: currentActive,
+        packageBalance: newPackageBalance
+      });
+      showAlert("সফল!", "ইউজারের প্যাকেজ এডিট করা হয়েছে।", "success");
+    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  }
 };
 
-window.rejectPayment=async(reqId,targetUid,packageName)=>{
- try{
-  await updateDoc(doc(db,"paymentRequests",reqId),{status:"rejected"});
-  await addDoc(collection(db,"notifications"),{
-    uid:targetUid, icon:"❌", title:"Payment Request Rejected",
-    text:`আপনার ${packageName} প্যাকেজের পেমেন্ট রিকোয়েস্ট বাতিল করা হয়েছে।`, createdAt:serverTimestamp()
+/* Point 3: Delete Specific User Package */
+window.deleteUserPackage = async (targetUid, pkgIndex) => {
+  const res = await Swal.fire({
+    title: 'প্যাকেজটি মুছে ফেলবেন?',
+    text: 'উক্ত ইউজারের অ্যাকাউন্ট থেকে এই প্যাকেজটি ডিলিট হয়ে যাবে।',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc2626',
+    confirmButtonText: 'হ্যাঁ, Delete করুন'
   });
-  showAlert("বাতিল!","Payment Request Rejected করা হয়েছে।","info");loadAdminPaymentRequests()
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
+
+  if (!res.isConfirmed) return;
+
+  const userRef = doc(db, "users", targetUid);
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) return showAlert("ত্রুটি!", "ইউজার পাওয়া যায়নি।", "error");
+
+  const uData = userSnap.data();
+  let currentActive = uData.activePackages || [];
+  
+  currentActive.splice(pkgIndex, 1);
+
+  let newPackageBalance = 0;
+  currentActive.forEach(p => newPackageBalance += Number(p.amount || 0));
+
+  try {
+    await updateDoc(userRef, {
+      activePackages: currentActive,
+      packageBalance: newPackageBalance
+    });
+    showAlert("সফল!", "প্যাকেজটি সফলভাবে রিমুভ করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
 
-async function loadAdminWithdrawals(){
- const box=document.getElementById("adminWithdrawals"),snap=await getDocs(query(collection(db,"withdrawals"),where("status","==","pending")));
- if(snap.empty){box.innerHTML="<p class='small'>No pending withdrawals.</p>";return}box.innerHTML="";
- snap.forEach(d=>{const w=d.data();box.innerHTML+=`<div class="adminUser"><b>${w.email}</b><br><small>${w.method}: ${w.number} | Tokens: ${w.amount}</small><div class="adminActions"><button class="success" onclick="approveWithdrawal('${d.id}','${w.uid}',${w.amount},'${w.method}')">Approve</button><button class="danger" onclick="rejectWithdrawal('${d.id}','${w.uid}',${w.amount})">Reject</button></div></div>`})
+window.editUserBalance = async (targetUid, curPkg, curTask) => {
+  const { value: formValues } = await Swal.fire({
+    title: 'Edit User Balances',
+    html:
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Balance (৳)</label>` +
+      `<input id="swal-input1" type="number" class="swal2-input" value="${curPkg}">` +
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Task Token (🪙)</label>` +
+      `<input id="swal-input2" type="number" class="swal2-input" value="${curTask}">`,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Save Balances',
+    preConfirm: () => {
+      return [
+        document.getElementById('swal-input1').value,
+        document.getElementById('swal-input2').value
+      ]
+    }
+  });
+
+  if (formValues) {
+    const newPkg = parseInt(formValues[0]);
+    const newTask = parseInt(formValues[1]);
+    if (isNaN(newPkg) || isNaN(newTask)) return showAlert("ত্রুটি!", "সঠিক সংখ্যা দিন।", "warning");
+
+    try {
+      await updateDoc(doc(db, "users", targetUid), {
+        packageBalance: newPkg,
+        taskToken: newTask
+      });
+      showAlert("সফল!", "ইউজারের ব্যালেন্স আপডেট করা হয়েছে।", "success");
+    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  }
+};
+
+window.toggleUserStatus = async (targetUid, currentIsDisabled) => {
+  try {
+    await updateDoc(doc(db, "users", targetUid), { isDisabled: !currentIsDisabled });
+    showAlert("সফল!", `ইউজার অ্যাকাউন্ট ${!currentIsDisabled ? 'ডিসেবল' : 'ইনেবল'} করা হয়েছে।`, "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+function loadAdminAnnouncements(){
+  onSnapshot(collection(db, "announcements"), snap => {
+    const box = document.getElementById("adminNoticeList");
+    if(!box) return;
+    box.innerHTML = "";
+    let arr = [];
+    snap.forEach(d => arr.push({ id: d.id, ...d.data() }));
+    arr.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+    if(arr.length === 0){ box.innerHTML = "<p class='small'>No announcements posted.</p>"; return; }
+
+    arr.forEach(n => {
+      box.innerHTML += `
+        <div class="adminUser">
+          <b>📢 ${n.title}</b><br>
+          <small>${n.text}</small>
+          <div class="adminActions">
+            <button class="danger" onclick="deleteAnnouncement('${n.id}')">🗑️ Delete Notice</button>
+          </div>
+        </div>
+      `;
+    });
+  });
 }
 
-window.approveWithdrawal=async(id,targetUid,amount,method)=>{
- try{
-  await updateDoc(doc(db,"withdrawals",id),{status:"approved"});
-  await addDoc(collection(db,"notifications"),{
-    uid:targetUid, icon:"💰", title:"Withdrawal Approved!",
-    text:`আপনার 🪙 ${amount} টোকেনের উইথড্রয়াল রিকোয়েস্ট (${method}) পরিশোধ করা হয়েছে।`, createdAt:serverTimestamp()
-  });
-  showAlert("অনুমোদিত!","Withdrawal Request Approved!","success");loadAdminWithdrawals()
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
+window.sendGlobalNotice = async () => {
+  const title = document.getElementById("adminNoticeTitle").value.trim();
+  const text = document.getElementById("adminNoticeText").value.trim();
+  if(!title || !text) return showAlert("তথ্য দিন!", "নোটিশের শিরোনাম এবং বিস্তারিত টাইপ করুন।", "warning");
+
+  const btn = document.getElementById("sendNoticeBtn"); btn.disabled = true;
+  try {
+    await addDoc(collection(db, "announcements"), {
+      title, text, createdAt: serverTimestamp()
+    });
+    document.getElementById("adminNoticeTitle").value = "";
+    document.getElementById("adminNoticeText").value = "";
+    showAlert("সফল!", "নোটিশটি সফলভাবে প্রচার করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); } finally { btn.disabled = false; }
 };
 
-window.rejectWithdrawal=async(id,targetUid,amount)=>{
- try{
-  await updateDoc(doc(db,"withdrawals",id),{status:"rejected"});
-  await updateDoc(doc(db,"users",targetUid),{taskToken:increment(amount)});
-  await addDoc(collection(db,"notifications"),{
-    uid:targetUid, icon:"⚠️", title:"Withdrawal Rejected",
-    text:`আপনার 🪙 ${amount} টোকেনের উইথড্রয়াল আবেদনটি বাতিল করে টোকেন ব্যাক দেওয়া হয়েছে।`, createdAt:serverTimestamp()
+window.deleteAnnouncement = async (id) => {
+  try {
+    await deleteDoc(doc(db, "announcements", id));
+    showAlert("মুছে ফেলা হয়েছে!", "নোটিশটি ডিলিট করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+function loadAdminTasks(){
+  onSnapshot(collection(db, "tasks"), snap => {
+    const box = document.getElementById("adminTaskList");
+    if(!box) return;
+    box.innerHTML = "";
+    if(snap.empty){ box.innerHTML = "<p class='small'>No active tasks.</p>"; return; }
+
+    snap.forEach(d => {
+      const t = d.data();
+      const icon = taskIcons[t.category] || "🎯";
+      box.innerHTML += `
+        <div class="adminUser">
+          <b>${icon} ${t.title}</b> (+${t.reward} Tokens)<br>
+          <small>Link: ${t.link || 'N/A'}</small>
+          <div class="adminActions">
+            <button class="danger" onclick="deleteTask('${d.id}')">🗑️ Delete Task</button>
+          </div>
+        </div>
+      `;
+    });
   });
-  showAlert("বাতিল!","Withdrawal Request Rejected এবং টোকেন ব্যাক করা হয়েছে!","info");loadAdminWithdrawals()
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
+}
+
+window.addDynamicTask = async () => {
+  const category = document.getElementById("adminTaskCategory").value;
+  const title = document.getElementById("adminTaskTitle").value.trim();
+  const reward = parseInt(document.getElementById("adminTaskReward").value);
+  const link = document.getElementById("adminTaskLink").value.trim();
+
+  if(!title || isNaN(reward)) return showAlert("তথ্য দিন!", "টাস্ক শিরোনাম এবং রিওয়ার্ড টোকেন টাইপ করুন।", "warning");
+
+  const btn = document.getElementById("addTaskBtn"); btn.disabled = true;
+  try {
+    await addDoc(collection(db, "tasks"), {
+      category, title, reward, link, createdAt: serverTimestamp()
+    });
+    document.getElementById("adminTaskTitle").value = "";
+    document.getElementById("adminTaskLink").value = "";
+    showAlert("সফল!", "নতুন টাস্ক সফলভাবে যুক্ত করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); } finally { btn.disabled = false; }
+};
+
+window.deleteTask = async (id) => {
+  try {
+    await deleteDoc(doc(db, "tasks", id));
+    showAlert("ডিলিট হয়েছে!", "টাস্কটি মুছে ফেলা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+function loadAdminReferralLeaderboard(){
+  onSnapshot(collection(db, "users"), snap => {
+    const box = document.getElementById("adminReferralList");
+    if(!box) return;
+    box.innerHTML = "";
+    
+    let users = [];
+    // Build map: referrerUid -> array of users they referred
+    const referredMap = {};
+
+    snap.forEach(d => {
+      const u = { id: d.id, ...d.data() };
+      users.push(u);
+      
+      if (u.referredBy) {
+        if (!referredMap[u.referredBy]) referredMap[u.referredBy] = [];
+        referredMap[u.referredBy].push(u);
+      }
+    });
+
+    // Sort by referral count (highest first)
+    users.sort((a,b) => (b.referralCount || 0) - (a.referralCount || 0));
+
+    if(users.length === 0){ 
+      box.innerHTML = "<p class='small'>No referral data found.</p>"; 
+      return; 
+    }
+
+    users.forEach((u, i) => {
+      const rankBadge = i === 0 ? "🥇 Rank 1" : i === 1 ? "🥈 Rank 2" : i === 2 ? "🥉 Rank 3" : `#${i+1}`;
+      const activePkgCount = (u.activePackages || []).length;
+      const mobile = u.mobile || "Not Set";
+      const address = u.address || "Not Set";
+      const district = u.district || "Not Set";
+      const upazila = u.upazila || "Not Set";
+      const dob = u.dob || "Not Set";
+      const referredBy = u.referredBy || "None (Direct)";
+      const myReferredList = referredMap[u.uid] || [];
+      const referredCount = myReferredList.length;
+
+      // Store referred list in a global temp object for the Details button
+      if (!window._referralDetailsCache) window._referralDetailsCache = {};
+      window._referralDetailsCache[u.uid] = myReferredList;
+
+      box.innerHTML += `
+        <div class="adminUser" style="background:#f8fafc; border-left:4px solid #2563eb; margin-bottom:12px; padding:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <b style="font-size:15px;">${rankBadge} | ${u.name || 'No Name'}</b>
+              <span style="background:#16a34a;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;margin-left:8px;">👥 ${u.referralCount || 0} Referred</span>
+            </div>
+            <button class="primary" style="padding:6px 14px; font-size:12px; border-radius:8px;" onclick="showReferredUsersDetails('${u.uid}', '${(u.name || 'User').replace(/'/g, "\\'")}')">
+              📋 Details (${referredCount})
+            </button>
+          </div>
+          <br>
+          
+          <div style="font-size:13px; line-height:1.7;">
+            <b>📧 Email:</b> ${u.email || 'N/A'}<br>
+            <b>🆔 User ID:</b> <span style="word-break:break-all;font-size:12px;">${u.uid}</span><br>
+            <b>📱 Mobile:</b> ${mobile}<br>
+            <b>🏠 Address:</b> ${address}<br>
+            <b>📍 District:</b> ${district} | <b>Upazila:</b> ${upazila}<br>
+            <b>🎂 Date of Birth:</b> ${dob}<br>
+            <b>📦 Package Balance:</b> ৳${u.packageBalance || 0}<br>
+            <b>🎯 Task Token:</b> 🪙 ${u.taskToken || 0}<br>
+            <b>📦 Active Packages:</b> ${activePkgCount} / 2<br>
+            <b>🔗 Referred By (Parent):</b> <span style="font-size:11px;word-break:break-all;">${referredBy}</span><br>
+            <b>🚫 Account Status:</b> ${u.isDisabled ? '<span style="color:#dc2626;font-weight:bold;">Disabled</span>' : '<span style="color:#16a34a;font-weight:bold;">Active</span>'}
+          </div>
+        </div>
+      `;
+    });
+  });
+}
+
+/* Show list of users referred by a specific user */
+window.showReferredUsersDetails = (referrerUid, referrerName) => {
+  const list = (window._referralDetailsCache && window._referralDetailsCache[referrerUid]) || [];
+  
+  let htmlContent = `<div style="text-align:left; max-height:400px; overflow-y:auto; font-size:13px;">`;
+  
+  if (list.length === 0) {
+    htmlContent += `<p style="color:#777; text-align:center; padding:20px 0;">এই ইউজার এখনো কাউকে রেফার করেনি।</p>`;
+  } else {
+    htmlContent += `<p style="margin-bottom:12px; color:#555;"><b>${referrerName}</b> মোট <b style="color:#16a34a;">${list.length}</b> জনকে রেফার করেছেন:</p>`;
+    
+    list.forEach((refUser, idx) => {
+      const pkgCount = (refUser.activePackages || []).length;
+      htmlContent += `
+        <div style="border-bottom:1px solid #eee; padding:10px 0;">
+          <b>#${idx + 1} | ${refUser.name || 'No Name'}</b><br>
+          <small style="color:#555;">
+            📧 ${refUser.email || 'N/A'}<br>
+            🆔 ${refUser.uid}<br>
+            📱 ${refUser.mobile || 'Not Set'} | 📦 Active Pkg: ${pkgCount}/2<br>
+            💰 Pkg Bal: ৳${refUser.packageBalance || 0} | 🪙 Token: ${refUser.taskToken || 0}
+          </small>
+        </div>
+      `;
+    });
+  }
+  
+  htmlContent += `</div>`;
+
+  Swal.fire({
+    title: `👥 Referred Users List`,
+    html: htmlContent,
+    width: '480px',
+    confirmButtonText: 'বন্ধ করুন',
+    confirmButtonColor: '#2563eb'
+  });
+};
+
+function loadAdminPackageEditList(){
+  const box = document.getElementById("adminPackagesEditList");
+  if(!box) return;
+  box.innerHTML = "";
+  packageList.forEach((pkg, index) => {
+    box.innerHTML += `
+      <div class="adminUser">
+        <b>${pkg[0]}</b> - ৳${pkg[1]} <small>(${pkg[2]||''})</small>
+        <div class="adminActions">
+          <button class="primary" onclick="editPackageByAdmin(${index})">✏️ Edit</button>
+          <button class="danger" onclick="deletePackageByAdmin(${index})">🗑️ Delete</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+window.addNewPackageByAdmin = async () => {
+  const title = document.getElementById("newPkgTitle").value.trim();
+  const subTitle = document.getElementById("newPkgSubTitle").value.trim();
+  const price = parseInt(document.getElementById("newPkgPrice").value);
+
+  if(!title || isNaN(price)) return showAlert("তথ্য বাকি!", "প্যাকেজের শিরোনাম এবং সঠিক দাম লিখুন।", "warning");
+
+  packageList.push([title, price, subTitle]);
+
+  try {
+    await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
+    document.getElementById("newPkgTitle").value = "";
+    document.getElementById("newPkgSubTitle").value = "";
+    document.getElementById("newPkgPrice").value = "";
+    showAlert("সফল!", "নতুন প্যাকেজ যুক্ত করা হয়েছে।", "success");
+    loadAdminPackageEditList();
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+window.editPackageByAdmin = async (index) => {
+  const currentPkg = packageList[index];
+  const { value: formValues } = await Swal.fire({
+    title: 'Edit Package Information',
+    html:
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Title</label>` +
+      `<input id="swal-pkg-t" class="swal2-input" value="${currentPkg[0]}">` +
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Price in BDT (৳)</label>` +
+      `<input id="swal-pkg-p" type="number" class="swal2-input" value="${currentPkg[1]}">` +
+      `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Sub Title / Description</label>` +
+      `<input id="swal-pkg-s" class="swal2-input" value="${currentPkg[2]||''}">`,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Save Package',
+    preConfirm: () => {
+      return [
+        document.getElementById('swal-pkg-t').value.trim(),
+        document.getElementById('swal-pkg-p').value,
+        document.getElementById('swal-pkg-s').value.trim()
+      ]
+    }
+  });
+
+  if (formValues) {
+    const t = formValues[0];
+    const p = parseInt(formValues[1]);
+    const s = formValues[2];
+
+    if(!t || isNaN(p)) return showAlert("ভুল তথ্য!", "সঠিক তথ্য দিন।", "warning");
+
+    packageList[index] = [t, p, s];
+
+    try {
+      await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
+      showAlert("সফল!", "প্যাকেজ তথ্য আপডেট করা হয়েছে।", "success");
+      loadAdminPackageEditList();
+    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  }
+};
+
+window.deletePackageByAdmin = async (index) => {
+  const res = await Swal.fire({
+    title: 'প্যাকেজটি মুছে ফেলবেন?',
+    text: 'এই প্যাকেজটি লিস্ট থেকে ডিলিট হয়ে যাবে।',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc2626',
+    confirmButtonText: 'হ্যাঁ, Delete করুন'
+  });
+
+  if(res.isConfirmed){
+    packageList.splice(index, 1);
+    try {
+      await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
+      showAlert("ডিলিট হয়েছে!", "প্যাকেজটি রিমুভ করা হয়েছে।", "success");
+      loadAdminPackageEditList();
+    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  }
+};
+
+window.saveDailyProfitPercentage = async () => {
+  const val = parseFloat(document.getElementById("adminDailyProfitInput").value);
+  if (isNaN(val) || val < 0) return showAlert("ভুল ইনপুট!", "সঠিক শতাংশের পরিমাণ টাইপ করুন।", "warning");
+
+  try {
+    await setDoc(doc(db, "settings", "general"), { dailyProfitPercent: val }, { merge: true });
+    showAlert("সফল!", "ডেইলি প্রফিট শতাংশ আপডেট করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+window.saveWithdrawLimits = async () => {
+  const minVal = parseInt(document.getElementById("adminMinWithdraw").value);
+  const maxVal = parseInt(document.getElementById("adminMaxWithdraw").value);
+
+  if (isNaN(minVal) || isNaN(maxVal) || minVal >= maxVal) {
+    return showAlert("ভুল সীমা!", "সঠিক সর্বনিম্ন এবং সর্বোচ্চ উইথড্র লিমিট দিন।", "warning");
+  }
+
+  try {
+    await setDoc(doc(db, "settings", "general"), { minWithdraw: minVal, maxWithdraw: maxVal }, { merge: true });
+    showAlert("সফল!", "উইথড্র লিমিট আপডেট করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+window.updateAdminPaymentNumbers = async () => {
+  const bkash = document.getElementById("adminBkashInput").value.trim();
+  const nagad = document.getElementById("adminNagadInput").value.trim();
+
+  if(!bkash || !nagad) return showAlert("নম্বর প্রয়োজন!", "bKash এবং Nagad নম্বর লিখুন।", "warning");
+
+  try {
+    await setDoc(doc(db, "settings", "general"), { bkashNumber: bkash, nagadNumber: nagad }, { merge: true });
+    showAlert("সফল!", "Payment Numbers সফলভাবে সেভ করা হয়েছে।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+function listenAdminChats(){
+  onSnapshot(collection(db, "chats"), snap => {
+    const box = document.getElementById("adminChatUserList");
+    if(!box) return;
+    box.innerHTML = "";
+
+    const userChatsMap = {};
+    snap.forEach(docSnap => {
+      const data = docSnap.data();
+      const uid = data.uid;
+      if (!userChatsMap[uid]) {
+        userChatsMap[uid] = {
+          uid,
+          userEmail: data.userEmail || "User",
+          userName: data.userName || "User",
+          lastTime: data.createdAt?.seconds || 0,
+          unreadCount: 0
+        };
+      }
+      if (data.createdAt?.seconds > userChatsMap[uid].lastTime) {
+        userChatsMap[uid].lastTime = data.createdAt.seconds;
+      }
+      if (!data.readByAdmin && data.sender === "user") {
+        userChatsMap[uid].unreadCount++;
+      }
+    });
+
+    const userList = Object.values(userChatsMap);
+    userList.sort((a,b) => b.lastTime - a.lastTime);
+
+    if(userList.length === 0){ box.innerHTML = "<p class='small'>No active user support chats.</p>"; return; }
+
+    userList.forEach(u => {
+      const isUnread = u.unreadCount > 0;
+      const item = document.createElement("div");
+      item.className = `adminUser adminUserItem ${isUnread ? 'unread' : ''}`;
+      item.onclick = () => selectAdminChatUser(u.uid, u.userName, u.userEmail);
+      item.innerHTML = `
+        <div>
+          <b>${u.userName}</b> (${u.userEmail})<br>
+          <small>ID: ${u.uid}</small>
+        </div>
+        ${isUnread ? `<span class="unreadBadge">${u.unreadCount} New</span>` : ''}
+      `;
+      box.appendChild(item);
+    });
+  });
+}
+
+function selectAdminChatUser(targetUid, userName, userEmail){
+  activeAdminChatUid = targetUid;
+  document.getElementById("adminChatBox").style.display = "block";
+  document.getElementById("currentChatUserTitle").innerText = `Chatting with: ${userName} (${userEmail})`;
+
+  if (adminChatUnsub) adminChatUnsub();
+
+  adminChatUnsub = onSnapshot(query(collection(db, "chats"), where("uid", "==", targetUid)), snap => {
+    const msgBox = document.getElementById("adminChatMessages");
+    msgBox.innerHTML = "";
+    let msgs = [];
+    snap.forEach(d => {
+      const m = d.data();
+      msgs.push({ id: d.id, ...m });
+      if (!m.readByAdmin && m.sender === "user") {
+        updateDoc(doc(db, "chats", d.id), { readByAdmin: true });
+      }
+    });
+
+    msgs.sort((a,b) => (a.createdAt?.seconds||0) - (b.createdAt?.seconds||0));
+
+    msgs.forEach(m => {
+      const isUser = m.sender === "user";
+      const div = document.createElement("div");
+      div.className = `chatMsg ${isUser ? 'chatUser' : 'chatAdmin'}`;
+      div.innerHTML = `
+        <small style="font-size:10px;color:#666;display:block">${isUser ? 'User' : 'Agent'}</small>
+        <span>${m.text}</span>
+        <div class="adminMsgActions">
+          <button class="adminMsgBtn del" onclick="deleteChatMessage('${m.id}')">Delete</button>
+        </div>
+      `;
+      msgBox.appendChild(div);
+    });
+    msgBox.scrollTop = msgBox.scrollHeight;
+  });
+}
+
+window.sendAdminChatReply = async () => {
+  const input = document.getElementById("adminChatInput");
+  const text = input.value.trim();
+  if(!text || !activeAdminChatUid) return;
+
+  try {
+    await addDoc(collection(db, "chats"), {
+      uid: activeAdminChatUid,
+      sender: "admin",
+      text,
+      createdAt: serverTimestamp(),
+      readByAdmin: true
+    });
+    input.value = "";
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
+window.deleteChatMessage = async (msgId) => {
+  try {
+    await deleteDoc(doc(db, "chats", msgId));
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
 </script>
+
 </body>
 </html>
