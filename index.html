@@ -653,16 +653,45 @@ let dynamicRulesList = [
   "রেফারেল বোনাস: আপনার লিংক থেকে ১০ জন সফল ইউজার জয়েন করলে স্বয়ংক্রিয়ভাবে +৫০ Task Token বোনাস পাবেন।"
 ];
 
-// Dynamic packages list structure: [Title, Price, SubTitle]
+// Dynamic packages list structure: Array of Objects (Firestore does not support nested arrays)
 let packageList = [
- ["Starter", 300, "Daily High Returns"], ["Basic", 500, "Standard Package"], ["Standard", 1000, "Best Seller"],
- ["Bronze", 1500, "Popular Choice"], ["Silver", 2000, "Pro Level"], ["Gold", 3000, "Advanced Earning"],
- ["Platinum", 4000, "Premium Plan"], ["Diamond", 5000, "Ultra Profit"], ["Sapphire", 6500, "High Yield"],
- ["Ruby", 8000, "Elite Plan"], ["Emerald", 10000, "VIP Access"], ["Pearl", 12000, "Super Plan"],
- ["Crown", 15000, "Master Earning"], ["Master", 18000, "Supreme Plan"], ["VIP 1", 20000, "VIP Level 1"],
- ["VIP 2", 25000, "VIP Level 2"], ["VIP 3", 30000, "VIP Level 3"], ["Executive", 35000, "Corporate Level"],
- ["Elite", 40000, "Max Yield"], ["Ultimate", 50000, "Ultimate Freedom"]
+  { title: "Starter", price: 300, subTitle: "Daily High Returns" },
+  { title: "Basic", price: 500, subTitle: "Standard Package" },
+  { title: "Standard", price: 1000, subTitle: "Best Seller" },
+  { title: "Bronze", price: 1500, subTitle: "Popular Choice" },
+  { title: "Silver", price: 2000, subTitle: "Pro Level" },
+  { title: "Gold", price: 3000, subTitle: "Advanced Earning" },
+  { title: "Platinum", price: 4000, subTitle: "Premium Plan" },
+  { title: "Diamond", price: 5000, subTitle: "Ultra Profit" },
+  { title: "Sapphire", price: 6500, subTitle: "High Yield" },
+  { title: "Ruby", price: 8000, subTitle: "Elite Plan" },
+  { title: "Emerald", price: 10000, subTitle: "VIP Access" },
+  { title: "Pearl", price: 12000, subTitle: "Super Plan" },
+  { title: "Crown", price: 15000, subTitle: "Master Earning" },
+  { title: "Master", price: 18000, subTitle: "Supreme Plan" },
+  { title: "VIP 1", price: 20000, subTitle: "VIP Level 1" },
+  { title: "VIP 2", price: 25000, subTitle: "VIP Level 2" },
+  { title: "VIP 3", price: 30000, subTitle: "VIP Level 3" },
+  { title: "Executive", price: 35000, subTitle: "Corporate Level" },
+  { title: "Elite", price: 40000, subTitle: "Max Yield" },
+  { title: "Ultimate", price: 50000, subTitle: "Ultimate Freedom" }
 ];
+
+// Helper: Convert old array-of-arrays format to new object format (for migration)
+function normalizePackageList(list) {
+  if (!Array.isArray(list) || list.length === 0) return packageList;
+  // If already objects, return as is
+  if (typeof list[0] === 'object' && !Array.isArray(list[0]) && list[0].title !== undefined) {
+    return list;
+  }
+  // Convert old format [title, price, subTitle] to objects
+  return list.map(item => {
+    if (Array.isArray(item)) {
+      return { title: item[0] || '', price: Number(item[1]) || 0, subTitle: item[2] || '' };
+    }
+    return item;
+  });
+}
 
 const taskIcons = { youtube: "📺", facebook: "👍", telegram: "📢", website: "🌐", app: "📲", other: "📌" };
 
@@ -699,7 +728,7 @@ function listenGlobalSettings(){
     if(d.dailyProfitPercent !== undefined) globalDailyProfitPercent = d.dailyProfitPercent;
     if(d.minWithdraw !== undefined) globalMinWithdraw = d.minWithdraw;
     if(d.maxWithdraw !== undefined) globalMaxWithdraw = d.maxWithdraw;
-    if(d.packageList) packageList = d.packageList;
+    if(d.packageList) packageList = normalizePackageList(d.packageList);
     if(d.rulesList) dynamicRulesList = d.rulesList;
     if(d.baseUserCount !== undefined) {
       globalBaseUserCount = d.baseUserCount;
@@ -1029,7 +1058,7 @@ function loadPackages(){
     remainingDaysText = `<span class="pkgTimer">⏳ Term: ${daysLeft} Days left</span>`;
   }
 
-  const subTitleText = p[2] || "";
+  const subTitleText = p.subTitle || "";
   const div=document.createElement("div");
   div.className="package";
   
@@ -1057,9 +1086,9 @@ function loadPackages(){
   else if(isPending) statusHtml = `<div class="status pendingStatus">⏳ Request Pending</div>`;
 
   div.innerHTML=`
-    <h3>${p[0]}</h3>
+    <h3>${p.title}</h3>
     <span class="pkgSubTitle">${subTitleText}</span>
-    <div class="price">৳${p[1]}</div>
+    <div class="price">৳${p.price}</div>
     ${statusHtml}
     ${actionButtonHtml}
   `;
@@ -1097,11 +1126,11 @@ window.openPaymentRequest=index=>{
  document.getElementById("requestUserId").value=currentUser.uid;
  document.getElementById("requestEmail").value=currentUser.email||"";
  document.getElementById("requestMobile").value=userData.mobile||"Not Set";
- document.getElementById("requestPackage").value=p[0];document.getElementById("requestAmount").value=p[1];
+ document.getElementById("requestPackage").value=p.title;document.getElementById("requestAmount").value=p.price;
  document.getElementById("requestTransactionNumber").value="";document.getElementById("transactionId").value="";
  document.getElementById("paymentMethod").value="bKash";
  updateSelectedPaymentNumber();
- document.getElementById("paymentPackageInfo").innerHTML=`<div class="info">আপনি <b>${p[0]}</b> Package-এর জন্য <b>৳${p[1]}</b> Payment Request করছেন। (মেয়াদ: ৩০ দিন)</div>`;
+ document.getElementById("paymentPackageInfo").innerHTML=`<div class="info">আপনি <b>${p.title}</b> Package-এর জন্য <b>৳${p.price}</b> Payment Request করছেন। (মেয়াদ: ৩০ দিন)</div>`;
  openPage("paymentRequest");
 };
 
@@ -1141,12 +1170,12 @@ window.submitPaymentRequest=async()=>{
   
   await addDoc(collection(db,"paymentRequests"),{
     uid:currentUser.uid, email:currentUser.email, mobile:userData.mobile||"", transactionNumber, transactionId,
-    packageIndex:selectedPackageIndex, packageName:p[0], amount:p[1], method, status:"pending", createdAt:serverTimestamp()
+    packageIndex:selectedPackageIndex, packageName:p.title, amount:p.price, method, status:"pending", createdAt:serverTimestamp()
   });
 
   await addDoc(collection(db,"notifications"),{
     uid:currentUser.uid, icon:"💳", title:"Payment Request Submitted",
-    text:`${p[0]} প্যাকেজের (৳${p[1]}) রিকোয়েস্ট পেন্ডিং আছে। যাচাই শেষে কনফার্ম করা হবে।`, createdAt:serverTimestamp()
+    text:`${p.title} প্যাকেজের (৳${p.price}) রিকোয়েস্ট পেন্ডিং আছে। যাচাই শেষে কনফার্ম করা হবে।`, createdAt:serverTimestamp()
   });
 
   showAlert("সফল!","Payment Request সফলভাবে জমা হয়েছে।","success");openPage("packages");
@@ -1382,7 +1411,7 @@ window.claimDailyProfit=async()=>{
  
  let totalPkgAmount = 0;
  activeList.forEach(pkg => {
-   totalPkgAmount += (packageList[pkg.index] ? packageList[pkg.index][1] : Number(pkg.amount || 0));
+   totalPkgAmount += (packageList[pkg.index] ? packageList[pkg.index].price : Number(pkg.amount || 0));
  });
 
  const profit = (totalPkgAmount * globalDailyProfitPercent) / 100;
@@ -1927,13 +1956,27 @@ window.editUserPackage = async (targetUid, pkgIndex) => {
 
   if (!targetPkg) return showAlert("ত্রুটি!", "প্যাকেজ পাওয়া যায়নি।", "error");
 
+  // Escape special characters to prevent HTML breaking
+  const escapeHtml = (str) => {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  };
+
+  const safeName = escapeHtml(targetPkg.packageName || '');
+  const safeAmount = targetPkg.amount || 0;
+
   const { value: formValues } = await Swal.fire({
     title: 'Edit User Package',
     html:
       `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Name</label>` +
-      `<input id="swal-pkg-name" class="swal2-input" value="${targetPkg.packageName || ''}" placeholder="Package Name">` +
+      `<input id="swal-pkg-name" class="swal2-input" value="${safeName}" placeholder="Package Name">` +
       `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Amount (৳)</label>` +
-      `<input id="swal-pkg-amount" type="number" class="swal2-input" value="${targetPkg.amount || 0}" placeholder="Amount">`,
+      `<input id="swal-pkg-amount" type="number" class="swal2-input" value="${safeAmount}" placeholder="Amount">`,
     focusConfirm: false,
     showCancelButton: true,
     confirmButtonText: 'Update Package',
@@ -2257,7 +2300,7 @@ function loadAdminPackageEditList(){
   packageList.forEach((pkg, index) => {
     box.innerHTML += `
       <div class="adminUser">
-        <b>${pkg[0]}</b> - ৳${pkg[1]} <small>(${pkg[2]||''})</small>
+        <b>${pkg.title}</b> - ৳${pkg.price} <small>(${pkg.subTitle || ''})</small>
         <div class="adminActions">
           <button class="primary" onclick="editPackageByAdmin(${index})">✏️ Edit</button>
           <button class="danger" onclick="deletePackageByAdmin(${index})">🗑️ Delete</button>
@@ -2274,7 +2317,7 @@ window.addNewPackageByAdmin = async () => {
 
   if(!title || isNaN(price)) return showAlert("তথ্য বাকি!", "প্যাকেজের শিরোনাম এবং সঠিক দাম লিখুন।", "warning");
 
-  packageList.push([title, price, subTitle]);
+  packageList.push({ title: title, price: price, subTitle: subTitle });
 
   try {
     await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
@@ -2288,15 +2331,31 @@ window.addNewPackageByAdmin = async () => {
 
 window.editPackageByAdmin = async (index) => {
   const currentPkg = packageList[index];
+  
+  // Escape function to prevent HTML breaking from special characters
+  const escapeHtml = (str) => {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  };
+
+  const safeTitle = escapeHtml(currentPkg.title || '');
+  const safePrice = currentPkg.price || 0;
+  const safeSubTitle = escapeHtml(currentPkg.subTitle || '');
+
   const { value: formValues } = await Swal.fire({
     title: 'Edit Package Information',
     html:
       `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Package Title</label>` +
-      `<input id="swal-pkg-t" class="swal2-input" value="${currentPkg[0]}">` +
+      `<input id="swal-pkg-t" class="swal2-input" value="${safeTitle}">` +
       `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Price in BDT (৳)</label>` +
-      `<input id="swal-pkg-p" type="number" class="swal2-input" value="${currentPkg[1]}">` +
+      `<input id="swal-pkg-p" type="number" class="swal2-input" value="${safePrice}">` +
       `<label style="display:block;text-align:left;font-size:12px;margin-bottom:4px">Sub Title / Description</label>` +
-      `<input id="swal-pkg-s" class="swal2-input" value="${currentPkg[2]||''}">`,
+      `<input id="swal-pkg-s" class="swal2-input" value="${safeSubTitle}">`,
     focusConfirm: false,
     showCancelButton: true,
     confirmButtonText: 'Save Package',
@@ -2316,7 +2375,7 @@ window.editPackageByAdmin = async (index) => {
 
     if(!t || isNaN(p)) return showAlert("ভুল তথ্য!", "সঠিক তথ্য দিন।", "warning");
 
-    packageList[index] = [t, p, s];
+    packageList[index] = { title: t, price: p, subTitle: s };
 
     try {
       await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
