@@ -75,7 +75,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 .profileRow{padding:13px 0;border-bottom:1px solid #eee}.profileRow:last-child{border-bottom:0}.profileRow small{display:block;color:#888;margin-bottom:4px}.profileRow strong{font-size:15px;word-break:break-all}
 .history{padding:12px 0;border-bottom:1px solid #eee}.pending{color:#ea580c;font-weight:bold}.approved{color:#16a34a;font-weight:bold}.rejected{color:#dc2626;font-weight:bold}
 
-.bottom{position:fixed;bottom:0;left:0;right:0;height:65px;background:#fff;display:flex;justify-space:evenly;align-items:center;box-shadow:0 -4px 15px #0001;z-index:100;padding:0 5px}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:65px;background:#fff;display:flex;justify-content:space-evenly;align-items:center;box-shadow:0 -4px 15px #0001;z-index:100;padding:0 5px}
 .nav{background:none;border:none;color:#777;font-size:11px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;position:relative;cursor:pointer}
 .nav span{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#2563eb;font-weight:bold}
 
@@ -195,6 +195,18 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <button class="primary" style="background:#16a34a; width:100%" id="claimProfitBtn" onclick="claimDailyProfit()">🎁 Claim Daily Profit</button>
   </div>
 
+  <!-- FREE TASKS SECTION (Home Page) -->
+  <div class="card" style="border-left:4px solid #16a34a; background:#f8fffb;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="background:#dcfce7;color:#15803d;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:700;letter-spacing:0.3px;">FREE TASK</span>
+      <h3 style="font-size:15px;margin:0;color:#166534;">🎁 Available Free Tasks</h3>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-bottom:12px;">ফ্রিতে এই টাস্ক সম্পন্ন করতে পারবেন। প্রতিটি টাস্ক একবার করে নিতে পারবেন।</p>
+    <div id="homeFreeTaskContainer">
+      <p style="color:#94a3b8;font-size:13px;text-align:center;padding:12px 0;">Loading free tasks...</p>
+    </div>
+  </div>
+
   <div class="card" style="border-left:5px solid #2563eb">
     <h3>📜 নিয়ম-কানুন ও গাইডলাইন (Rules & Terms)</h3>
     <p style="margin: 8px 0 12px; color:#666; font-size:13px;">Earnova প্ল্যাটফর্মে নিরাপদে কাজ করতে নিচের নিয়মগুলো অনুসরন করুন:</p>
@@ -273,7 +285,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="72" height="28" style="vertical-align:middle;display:block;"><rect width="120" height="40" rx="6" fill="#E2136E"/><text x="60" y="27" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="18">bKash</text></svg>
         </span>
         <strong id="selectedMethodLabel" style="display:none;">bKash</strong>
-        <span style="background:#fef3c7;color:#b45309;font-size:11px;padding:3px 8px;border-radius:99px;font-weight:bold;">Cash Out Only</span>
+        <span style="background:#ecfdf5;color:#047857;font-size:11px;padding:3px 8px;border-radius:99px;font-weight:bold;">Cash Out Only</span>
       </div>
       <div style="display:flex;gap:7px;align-items:center;margin-top:10px">
         <b id="paymentNumber" style="font-size:18px">Loading...</b>
@@ -305,12 +317,17 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   </div>
   <div id="taskLocked" class="locked">
     <div class="lockIcon">🔒</div>
-    <h3>Tasks Locked</h3>
-    <p style="color:#777;margin:10px 0 18px">আপনার কোনো Active Package নেই অথবা মেয়াদ (30 Days) শেষ হয়ে গেছে। নতুন প্যাকেজ কিনে Task Unlock করুন।</p>
-    <button class="primary" onclick="openPage('packages')">📦 View Packages</button>
+    <h3 style="margin-bottom:8px;">Daily Tasks Locked</h3>
+    <p style="color:#64748b;margin:0 0 6px;font-size:14px;line-height:1.6;">
+      এই সেকশনের টাস্কগুলো শুধুমাত্র <b>Active Package</b> থাকলেই আনলক হবে।
+    </p>
+    <p style="color:#94a3b8;margin:0 0 18px;font-size:13px;line-height:1.5;">
+      প্যাকেজ অ্যাক্টিভ করার পর আপনি এখানে ডেইলি টাস্ক সম্পন্ন করে অতিরিক্ত টোকেন আয় করতে পারবেন।
+    </p>
+    <button class="primary" onclick="openPage('packages')">📦 View Packages & Unlock Tasks</button>
   </div>
   <div id="taskArea" style="display:none">
-    <div class="card"><h3>🟢 Available Tasks</h3><p style="color:#777;margin-top:4px;font-size:13px">নিচের টাস্কগুলো সম্পন্ন করে টোকেন আর্ন করুন। প্রতিটি টাস্ক ২৪ ঘণ্টায় একবার করা যাবে।</p></div>
+    <div class="card"><h3>🟢 Available Daily Tasks</h3><p style="color:#777;margin-top:4px;font-size:13px">প্রতিটি টাস্ক মাত্র একবার সম্পন্ন করা যাবে। সম্পন্ন হওয়ার পর টাস্কটি আর দেখাবে না।</p></div>
     <div id="dynamicTaskContainer">Loading tasks...</div>
   </div>
 </div>
@@ -325,7 +342,16 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <p style="color:#777;margin:6px 0">Available Task Token: <b id="withdrawBalance">0</b></p>
     <div class="info" style="margin-top:10px">⚠️ <b>Withdraw Limit:</b> সর্বনিম্ন <span id="minWithdrawText">1000</span> থেকে সর্বোচ্চ <span id="maxWithdrawText">12000</span> টোকেন।</div>
 
-    <label>Method</label><select id="method"><option>bKash</option><option>Nagad</option></select>
+    <label>Method</label>
+    <select id="method" onchange="updateWithdrawMethodLogo()">
+      <option value="bKash">bKash</option>
+      <option value="Nagad">Nagad</option>
+    </select>
+    <div id="withdrawMethodLogoBox" style="margin:8px 0 12px; display:flex; align-items:center; gap:10px;">
+      <span id="withdrawMethodLogo"></span>
+      <span style="background:#eff6ff;color:#1d4ed8;font-size:11px;padding:3px 8px;border-radius:99px;font-weight:bold;">Secure Withdrawal</span>
+    </div>
+
     <label>Account Number</label><input id="number" type="text" placeholder="01XXXXXXXXX">
     
     <label>Token Amount</label>
@@ -418,6 +444,10 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <div class="icon">👥</div>
       <h4>User Management</h4>
     </div>
+    <div class="adminMenuCard" id="card_adminActivePkgSub" onclick="openAdminSubPage('adminActivePkgSub', this)">
+      <div class="icon">📦</div>
+      <h4>Active Package Users</h4>
+    </div>
     <div class="adminMenuCard" id="card_adminChatSub" onclick="openAdminSubPage('adminChatSub', this)">
       <div class="adminAlertDot" id="adminChatAlertDot"></div>
       <div class="icon">💬</div>
@@ -441,7 +471,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <h4>💳 Pending Payment Requests</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
     </div>
-    <input type="text" class="searchInput" id="searchPayInput" placeholder="🔍 Search email, TrxID, Mobile..." onkeyup="filterAdminList('adminPaymentRequests', this.value)">
+    <input type="text" class="searchInput" id="searchPayInput" placeholder="🔍 Search by Name, Email, User ID, TrxID, Mobile..." onkeyup="filterAdminList('adminPaymentRequests', this.value)">
     <div class="card">
       <div id="adminPaymentRequests">Loading...</div>
     </div>
@@ -453,7 +483,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <h4>💸 Pending Withdrawal Requests</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
     </div>
-    <input type="text" class="searchInput" id="searchWithInput" placeholder="🔍 Search email or number..." onkeyup="filterAdminList('adminWithdrawals', this.value)">
+    <input type="text" class="searchInput" id="searchWithInput" placeholder="🔍 Search by Name, Email, User ID, Number..." onkeyup="filterAdminList('adminWithdrawals', this.value)">
     <div class="card">
       <div id="adminWithdrawals">Loading...</div>
     </div>
@@ -465,9 +495,21 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <h4>👥 User Management & Control</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
     </div>
-    <input type="text" class="searchInput" id="searchUserInput" placeholder="🔍 Search user name or email..." onkeyup="filterAdminList('adminUsers', this.value)">
+    <input type="text" class="searchInput" id="searchUserInput" placeholder="🔍 Search by Name, Email, User ID..." onkeyup="filterAdminList('adminUsers', this.value)">
     <div class="card">
       <div id="adminUsers">Loading...</div>
+    </div>
+  </div>
+
+  <!-- 3B. ACTIVE PACKAGE USERS SUB PAGE -->
+  <div id="adminActivePkgSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>📦 Active Package Users</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+    <input type="text" class="searchInput" id="searchActivePkgInput" placeholder="🔍 Search by Name, Email, User ID, Mobile..." onkeyup="filterAdminList('adminActivePkgUsers', this.value)">
+    <div class="card">
+      <div id="adminActivePkgUsers">Loading...</div>
     </div>
   </div>
 
@@ -477,7 +519,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <h4>💬 Live Support Desk (User Chats)</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
     </div>
-    <input type="text" class="searchInput" id="searchChatInput" placeholder="🔍 Search user chat..." onkeyup="filterAdminList('adminChatUserList', this.value)">
+    <input type="text" class="searchInput" id="searchChatInput" placeholder="🔍 Search by Name, Email, User ID..." onkeyup="filterAdminList('adminChatUserList', this.value)">
     <div class="card">
       <div id="adminChatUserList">Loading active chats...</div>
       <div id="adminChatBox" style="display:none;margin-top:15px;border-top:2px solid #2563eb;padding-top:10px">
@@ -497,6 +539,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <h4>🏆 Top Referral Leaderboard</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
     </div>
+    <input type="text" class="searchInput" id="searchRefInput" placeholder="🔍 Search by Name, Email, User ID..." onkeyup="filterAdminList('adminReferralList', this.value)">
     <div class="card">
       <p style="font-size:12px;color:#666;margin-bottom:10px">সর্বোচ্চ রেফারেল প্রদানকারী ইউজারদের তালিকা ও বিস্তারিত তথ্য:</p>
       <div id="adminReferralList">Loading leaderboard...</div>
@@ -573,6 +616,10 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <input id="adminTaskReward" type="number" placeholder="10" value="10">
     <label>Task Target Link / URL</label>
     <input id="adminTaskLink" type="text" placeholder="https://...">
+    <label style="display:flex;align-items:center;gap:8px;margin:10px 0;">
+      <input type="checkbox" id="adminTaskPermanent" style="width:auto;margin:0;">
+      <span>⭐ Permanent Task (নতুন ইউজারসহ সবাই একবার করতে পারবে, প্যাকেজ ছাড়াই)</span>
+    </label>
     <button class="primary" style="width:100%;background:#16a34a" id="addTaskBtn" onclick="addDynamicTask()">🚀 Add Task</button>
   </div>
 
@@ -891,6 +938,23 @@ window.updateSelectedPaymentNumber=()=>{
  }
 };
 
+window.updateWithdrawMethodLogo = () => {
+  const method = document.getElementById("method")?.value || "bKash";
+  const logoEl = document.getElementById("withdrawMethodLogo");
+  if (!logoEl) return;
+
+  const bkashLogo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="72" height="28" style="vertical-align:middle;display:block;">
+    <rect width="120" height="40" rx="6" fill="#E2136E"/>
+    <text x="60" y="27" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="18">bKash</text>
+  </svg>`;
+  const nagadLogo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="72" height="28" style="vertical-align:middle;display:block;">
+    <rect width="120" height="40" rx="6" fill="#F68712"/>
+    <text x="60" y="27" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="18">Nagad</text>
+  </svg>`;
+
+  logoEl.innerHTML = method === "bKash" ? bkashLogo : nagadLogo;
+};
+
 window.togglePassword=(id,button)=>{
  const input=document.getElementById(id);
  input.type=input.type==="password"?"text":"password";
@@ -949,8 +1013,10 @@ async function checkAndProcessReferralOnVerify() {
 }
 
 window.registerUser=async()=>{
- const name=document.getElementById("registerName").value.trim(),email=document.getElementById("registerEmail").value.trim(),password=document.getElementById("registerPassword").value;
- if(!name||!email)return showAlert("ভুল তথ্য!","অনুগ্রহ করে আপনার নাম ও জিমেইল দিন।","warning");
+ const name=document.getElementById("registerName").value.trim(),email=document.getElementById("registerEmail").value.trim().toLowerCase(),password=document.getElementById("registerPassword").value;
+ if(!name) return showAlert("ভুল তথ্য!","অনুগ্রহ করে আপনার নাম দিন। এটি বাধ্যতামূলক।","warning");
+ if(!email) return showAlert("ভুল তথ্য!","অনুগ্রহ করে আপনার Gmail দিন। এটি বাধ্যতামূলক।","warning");
+ if(!email.endsWith("@gmail.com")) return showAlert("Gmail প্রয়োজন","অ্যাকাউন্ট তৈরি করতে শুধুমাত্র @gmail.com ইমেইল গ্রহণযোগ্য। অনুগ্রহ করে আপনার Gmail অ্যাড্রেস ব্যবহার করুন।","warning");
  if(password.length<6)return showAlert("দুর্বল পাসওয়ার্ড","পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।","warning");
  const btn=document.getElementById("registerBtn");btn.disabled=true;btn.innerText="Processing...";
  try{
@@ -961,7 +1027,7 @@ window.registerUser=async()=>{
 
   await setDoc(doc(db,"users",user.uid),{
     uid:user.uid, name, email:user.email, role:"user", mobile:"", address:"", district:"", upazila:"", dob:"",
-    packageBalance:0, taskToken: welcomeTokens, activePackages:[], taskTimestamps:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, isDisabled: false, emailVerified: false, referralCounted: false, createdAt:serverTimestamp()
+    packageBalance:0, taskToken: welcomeTokens, activePackages:[], taskTimestamps:{}, taskStartTimes:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, isDisabled: false, emailVerified: false, referralCounted: false, createdAt:serverTimestamp()
   });
 
   // Welcome bonus notification (only if enabled & amount > 0)
@@ -1211,7 +1277,9 @@ window.openPage=(page,button)=>{
    balanceBox.style.display = (page === "admin") ? "none" : "block";
  }
  
- if(page==="admin"&&userData.role==="admin")loadAdmin();window.scrollTo(0,0);
+ if(page==="admin"&&userData.role==="admin")loadAdmin();
+ if(page==="withdraw") updateWithdrawMethodLogo();
+ window.scrollTo(0,0);
 };
 
 window.openNotificationsPage=async()=>{
@@ -1492,52 +1560,121 @@ function updateBalance(){
 
 function updateTaskLock(){
  const activeCount = userData.activePackages ? userData.activePackages.length : 0;
- document.getElementById("taskLocked").style.display = activeCount === 0 ? "block" : "none";
- document.getElementById("taskArea").style.display = activeCount === 0 ? "none" : "block";
+ // Daily Tasks page: fully locked until package is active
+ if (activeCount === 0) {
+   document.getElementById("taskArea").style.display = "none";
+   document.getElementById("taskLocked").style.display = "block";
+ } else {
+   document.getElementById("taskArea").style.display = "block";
+   document.getElementById("taskLocked").style.display = "none";
+ }
+}
+
+function createTaskCard(t, taskId, isPermanent, startTime, rewardVal, now) {
+  const icon = taskIcons[t.category] || "🎯";
+  const catLabel = isPermanent ? "FREE" : (t.category || "Task").toUpperCase();
+  const btnId = `taskBtn_${taskId}`;
+
+  const div = document.createElement("div");
+  div.className = "card task";
+  if (isPermanent) div.style.borderLeft = "4px solid #16a34a";
+
+  let btnHtml = "";
+  if (startTime > 0) {
+    const elapsed = now - startTime;
+    if (elapsed >= 60000) {
+      btnHtml = `<button id="${btnId}" style="background:#16a34a" onclick="claimTaskReward('${taskId}', ${rewardVal})">🎁 Claim +${rewardVal}</button>`;
+    } else {
+      const left = Math.ceil((60000 - elapsed) / 1000);
+      btnHtml = `<button id="${btnId}" disabled>⏳ ${left}s left...</button>`;
+    }
+  } else {
+    btnHtml = `<button id="${btnId}" onclick="startTaskTimer('${taskId}', ${rewardVal}, '${t.link || ''}', ${isPermanent})">Start Task</button>`;
+  }
+
+  div.innerHTML = `
+    <div class="taskIcon">${icon}</div>
+    <div class="taskInfo">
+      <span class="taskTypeTag" ${isPermanent ? 'style="background:#dcfce7;color:#15803d;"' : ''}>${catLabel}</span>
+      <b>${t.title}</b>
+      <div class="reward">+${rewardVal} Token${isPermanent ? ' (One Time)' : ''}</div>
+    </div>
+    ${btnHtml}
+  `;
+
+  if (startTime > 0 && (now - startTime) < 60000) {
+    startTaskWaitTimer(btnId, taskId, rewardVal, startTime);
+  }
+
+  return div;
 }
 
 function listenTasks(){
  onSnapshot(collection(db,"tasks"), snap=>{
-   const container = document.getElementById("dynamicTaskContainer");
-   if(snap.empty){ container.innerHTML='<p style="color:#777">বর্তমানে কোনো টাস্ক নেই। এডমিন টাস্ক অ্যাড করলে এখানে দেখতে পাবেন।</p>'; return; }
-   container.innerHTML="";
-   
+   const dailyContainer = document.getElementById("dynamicTaskContainer");
+   const freeContainer = document.getElementById("homeFreeTaskContainer");
+
+   if (!dailyContainer && !freeContainer) return;
+
    Object.keys(countdownIntervals).forEach(key => clearInterval(countdownIntervals[key]));
    countdownIntervals = {};
 
    const timestamps = userData.taskTimestamps || {};
-   const now = Date.now(), day = 24*60*60*1000;
-   
+   const startTimes = userData.taskStartTimes || {};
+   const now = Date.now();
+   const activeCount = (userData.activePackages || []).length;
+
+   let freeCount = 0;
+   let dailyCount = 0;
+
+   if (freeContainer) freeContainer.innerHTML = "";
+   if (dailyContainer) dailyContainer.innerHTML = "";
+
+   if (snap.empty) {
+     if (freeContainer) freeContainer.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:12px 0;">বর্তমানে কোনো ফ্রি টাস্ক নেই।</p>';
+     if (dailyContainer) dailyContainer.innerHTML = '<p style="color:#777">বর্তমানে কোনো টাস্ক নেই। এডমিন টাস্ক অ্যাড করলে এখানে দেখতে পাবেন।</p>';
+     return;
+   }
+
    snap.forEach(docSnap=>{
      const t = docSnap.data();
      const taskId = docSnap.id;
-     const lastDone = timestamps[taskId] || 0;
-     const remainingTime = day - (now - lastDone);
-     const isDone = remainingTime > 0;
+     const isPermanent = !!t.isPermanent;
+
+     // One-time only: if already completed, permanently hide
+     if (timestamps[taskId]) return;
+
+     const startTime = startTimes[taskId] || 0;
      const rewardVal = Number(t.reward) || 10;
-     const icon = taskIcons[t.category] || "🎯";
-     const catLabel = (t.category || "Task").toUpperCase();
 
-     const btnId = `taskBtn_${taskId}`;
-     const div = document.createElement("div");
-     div.className = "card task";
-     div.innerHTML = `
-       <div class="taskIcon">${icon}</div>
-       <div class="taskInfo">
-         <span class="taskTypeTag">${catLabel}</span>
-         <b>${t.title}</b>
-         <div class="reward">+${rewardVal} Token</div>
-       </div>
-       <button id="${btnId}" ${isDone?'disabled':''} onclick="startTaskTimer('${taskId}', ${rewardVal}, '${t.link}')">
-         ${isDone ? '⏳ Waiting...' : 'Start Task'}
-       </button>
-     `;
-     container.appendChild(div);
+     // FREE / Permanent tasks → Home page
+     if (isPermanent) {
+       if (freeContainer) {
+         freeContainer.appendChild(createTaskCard(t, taskId, true, startTime, rewardVal, now));
+         freeCount++;
+       }
+       return;
+     }
 
-     if(isDone) {
-       startCountdownTimer(btnId, lastDone + day);
+     // Normal Daily tasks → Tasks page (only if package active)
+     if (activeCount === 0) return;
+
+     if (dailyContainer) {
+       dailyContainer.appendChild(createTaskCard(t, taskId, false, startTime, rewardVal, now));
+       dailyCount++;
      }
    });
+
+   if (freeContainer && freeCount === 0) {
+     freeContainer.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:12px 0;">বর্তমানে কোনো ফ্রি টাস্ক নেই।</p>';
+   }
+
+   if (dailyContainer && dailyCount === 0 && activeCount > 0) {
+     dailyContainer.innerHTML = '<p style="color:#777;text-align:center;padding:20px 0;">আপনি সব উপলব্ধ ডেইলি টাস্ক সম্পন্ন করেছেন। নতুন টাস্ক পেতে পরবর্তী ২৪ ঘন্টা অপেক্ষা করুন।</p>';
+   }
+
+   // Keep lock state in sync
+   updateTaskLock();
  });
 }
 
@@ -1551,6 +1688,7 @@ function startCountdownTimer(btnId, targetTime) {
     if (diff <= 0) {
       btn.innerText = "Start Task";
       btn.disabled = false;
+      btn.onclick = null;
       clearInterval(countdownIntervals[btnId]);
     } else {
       const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -1563,66 +1701,138 @@ function startCountdownTimer(btnId, targetTime) {
   countdownIntervals[btnId] = setInterval(updateTimer, 1000);
 }
 
-window.startTaskTimer = (taskId, reward, link) => {
-  if(!currentUser) return;
-  const activeCount = userData.activePackages ? userData.activePackages.length : 0;
-  if(activeCount === 0) return showAlert("লক!","টাস্ক করতে কমপক্ষে ১টি প্যাকেজ অ্যাক্টিভ করুন।","warning");
-
-  const timestamps = userData.taskTimestamps || {};
-  const lastDone = timestamps[taskId] || 0;
-  if(Date.now() - lastDone < 24*60*60*1000) return showAlert("অপেক্ষা করুন","এই টাস্কটি ২৪ ঘণ্টায় একবার করা যাবে।","info");
-
-  if(link && link.startsWith("http")) window.open(link, "_blank");
-
-  const btnId = `taskBtn_${taskId}`;
-  const btn = document.getElementById(btnId);
-  if(!btn) return;
-
-  btn.disabled = true;
-  let duration = 60;
-  btn.innerText = `⏳ ${duration}s`;
-
-  if(activeTaskTimers[taskId]) clearInterval(activeTaskTimers[taskId]);
-
+function startTaskWaitTimer(btnId, taskId, reward, startTime) {
+  if (activeTaskTimers[taskId]) clearInterval(activeTaskTimers[taskId]);
   activeTaskTimers[taskId] = setInterval(() => {
-    duration--;
-    if(document.getElementById(btnId)) {
-      document.getElementById(btnId).innerText = `⏳ ${duration}s`;
-    }
-
-    if(duration <= 0) {
+    const btn = document.getElementById(btnId);
+    if (!btn) { clearInterval(activeTaskTimers[taskId]); return; }
+    const elapsed = Date.now() - startTime;
+    if (elapsed >= 60000) {
       clearInterval(activeTaskTimers[taskId]);
       delete activeTaskTimers[taskId];
-      finalizeDynamicTask(taskId, reward);
+      btn.disabled = false;
+      btn.style.background = "#16a34a";
+      btn.innerText = `🎁 Claim +${reward}`;
+      btn.onclick = () => claimTaskReward(taskId, reward);
+    } else {
+      const left = Math.ceil((60000 - elapsed) / 1000);
+      btn.innerText = `⏳ ${left}s left...`;
+      btn.disabled = true;
     }
   }, 1000);
-};
+}
 
-async function finalizeDynamicTask(taskId, reward) {
-  const rewardAmount = Number(reward) || 10;
+window.startTaskTimer = async (taskId, reward, link, isPermanent = false) => {
+  if(!currentUser) return;
+
+  // Permanent task can be done without package. Normal tasks require package.
+  if (!isPermanent) {
+    const activeCount = userData.activePackages ? userData.activePackages.length : 0;
+    if(activeCount === 0) return showAlert("লক!","সাধারণ টাস্ক করতে কমপক্ষে ১টি প্যাকেজ অ্যাক্টিভ করুন।","warning");
+  }
+
   const timestamps = userData.taskTimestamps || {};
+  if (timestamps[taskId]) return showAlert("ইতিমধ্যে সম্পন্ন","এই টাস্কটি আপনি আগেই সম্পন্ন করেছেন।","info");
 
-  taskToken += rewardAmount;
-  timestamps[taskId] = Date.now();
+  // Save start time to Firebase
+  const startTimes = userData.taskStartTimes || {};
+  startTimes[taskId] = Date.now();
 
   try {
-    await updateDoc(doc(db, "users", currentUser.uid), { taskToken, taskTimestamps: timestamps });
-    userData.taskTimestamps = timestamps;
-    updateBalance();
+    await updateDoc(doc(db, "users", currentUser.uid), { taskStartTimes: startTimes });
+    userData.taskStartTimes = startTimes;
+  } catch(e) {
+    return showAlert("ত্রুটি!", "টাস্ক শুরু করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।", "error");
+  }
+
+  // Open the task link
+  if(link && link.startsWith("http")) {
+    window.open(link, "_blank");
+  }
+
+  // Update button immediately
+  const btnId = `taskBtn_${taskId}`;
+  const btn = document.getElementById(btnId);
+  if(btn) {
+    btn.disabled = true;
+    btn.innerText = `⏳ 60s left...`;
+    startTaskWaitTimer(btnId, taskId, reward, startTimes[taskId]);
+  }
+
+  showAlert("টাস্ক শুরু হয়েছে!", "কাজটি সম্পন্ন করতে কমপক্ষে ৬০ সেকেন্ড অপেক্ষা করুন। তারপর ফিরে এসে Claim বাটনে ক্লিক করে টোকেন নিন।", "info");
+};
+
+// Prevent double-claim race condition
+const claimingTasks = {};
+
+window.claimTaskReward = async (taskId, reward) => {
+  if(!currentUser) return;
+
+  // Already processing this task — block double click
+  if (claimingTasks[taskId]) return;
+  claimingTasks[taskId] = true;
+
+  const startTimes = userData.taskStartTimes || {};
+  const startTime = startTimes[taskId] || 0;
+  const timestamps = userData.taskTimestamps || {};
+
+  // Already claimed before
+  if (timestamps[taskId]) {
+    delete claimingTasks[taskId];
+    return showAlert("ইতিমধ্যে সম্পন্ন", "এই টাস্কটি আপনি আগেই ক্লেইম করেছেন।", "info");
+  }
+
+  if (!startTime || (Date.now() - startTime) < 60000) {
+    delete claimingTasks[taskId];
+    return showAlert("অপেক্ষা করুন!", "কমপক্ষে ৬০ সেকেন্ড কাজ করার পর Claim করতে পারবেন।", "warning");
+  }
+
+  const rewardAmount = Number(reward) || 10;
+  const btn = document.getElementById(`taskBtn_${taskId}`);
+  if(btn) { btn.disabled = true; btn.innerText = "Processing..."; }
+
+  // Mark as claimed immediately in local state to block any parallel calls
+  timestamps[taskId] = Date.now();
+  delete startTimes[taskId];
+  userData.taskTimestamps = timestamps;
+  userData.taskStartTimes = startTimes;
+
+  try {
+    await updateDoc(doc(db, "users", currentUser.uid), { 
+      taskToken: increment(rewardAmount), 
+      taskTimestamps: timestamps,
+      taskStartTimes: startTimes
+    });
     
-    document.getElementById("taskCount").innerText = (parseInt(document.getElementById("taskCount").innerText) || 0) + 1;
+    // Don't optimistically add — let onSnapshot set the real value from server
+    // This prevents temporary wrong balance (like 70 instead of 60)
+    const countEl = document.getElementById("taskCount");
+    if(countEl) countEl.innerText = (parseInt(countEl.innerText) || 0) + 1;
 
     await addDoc(collection(db, "notifications"), {
-      uid: currentUser.uid, icon: "🎯", title: "Success",
-      text: `আপনি সফলভাবে টাস্ক সম্পন্ন করে +${rewardAmount} Task Tokens ক্লেইম করেছেন!`, createdAt: serverTimestamp()
+      uid: currentUser.uid, icon: "🎯", title: "Task Claimed!",
+      text: `আপনি সফলভাবে টাস্ক ক্লেইম করে +${rewardAmount} Task Tokens পেয়েছেন!`, createdAt: serverTimestamp()
     });
 
-    showAlert("Success!", `টাস্ক সফলভাবে সম্পন্ন হয়েছে! +${rewardAmount} Task Tokens একাউন্টে যুক্ত হয়ে গেছে।`, "success");
+    showAlert("সফল!", `টাস্ক সফলভাবে ক্লেইম হয়েছে! +${rewardAmount} Task Tokens যোগ হয়েছে। এই টাস্কটি আর দেখাবে না।`, "success");
+    
+    // Permanently hide this task card for the user
+    if(btn) {
+      const card = btn.closest(".card.task");
+      if (card) card.remove();
+    }
   } catch(e) {
-    taskToken -= rewardAmount;
+    // Rollback local claim mark on failure
+    delete timestamps[taskId];
+    startTimes[taskId] = startTime;
+    userData.taskTimestamps = timestamps;
+    userData.taskStartTimes = startTimes;
     showAlert("ত্রুটি!", e.message, "error");
+    if(btn) { btn.disabled = false; btn.innerText = `🎁 Claim +${rewardAmount}`; }
+  } finally {
+    delete claimingTasks[taskId];
   }
-}
+};
 
 function checkProfitTimer(){
  const lastClaim=userData.lastProfitClaim||0, now=Date.now(), day=24*60*60*1000;
@@ -1640,6 +1850,19 @@ function checkProfitTimer(){
 
  const targetTime = lastClaim + day;
  const diff = targetTime - now;
+
+ // Missed claim detection: if more than 48 hours passed since last claim
+ if (lastClaim > 0 && now - lastClaim >= day * 2 && !userData.missedProfitNotified) {
+   addDoc(collection(db, "notifications"), {
+     uid: currentUser.uid,
+     icon: "⚠️",
+     title: "Daily Profit Missed!",
+     text: "আপনি আগের দিনের Daily Profit Claim মিস করেছেন। মিস করা Claim আর পাওয়া যাবে না। আজকের Claim এখন নিতে পারেন।",
+     createdAt: serverTimestamp()
+   }).catch(()=>{});
+   updateDoc(doc(db, "users", currentUser.uid), { missedProfitNotified: true }).catch(()=>{});
+   userData.missedProfitNotified = true;
+ }
 
  if(diff > 0){
    btn.disabled = true;
@@ -1682,19 +1905,21 @@ window.claimDailyProfit=async()=>{
  try{
   await updateDoc(doc(db,"users",currentUser.uid),{
     taskToken: increment(profit), 
-    lastProfitClaim: now
+    lastProfitClaim: now,
+    missedProfitNotified: false
   });
 
   taskToken += profit;
   userData.taskToken = taskToken;
   userData.lastProfitClaim = now;
+  userData.missedProfitNotified = false;
 
   updateBalance();
   checkProfitTimer();
 
   await addDoc(collection(db,"notifications"),{
     uid:currentUser.uid, icon:"📈", title:"Daily Profit Claimed!",
-    text:`অভিনন্দন! আপনার প্যাকেজ থেকে ${globalDailyProfitPercent}% প্রফিট বাবদ +${profit} Task Token ওয়ালেটে যোগ হয়েছে।`, createdAt:serverTimestamp()
+    text:`অভিনন্দন! আপনার প্যাকেজ থেকে ${globalDailyProfitPercent}% প্রফিট বাবদ +${profit} Task Token ওয়ালেটে যোগ হয়েছে। পরবর্তী Claim ২৪ ঘণ্টা পর পাবেন।`, createdAt:serverTimestamp()
   });
   showAlert("সফল!",`ডেইলি ${globalDailyProfitPercent}% প্রফিট থেকে +${profit} Task Token যোগ হয়েছে!`,"success");
  }catch(e){
@@ -1999,6 +2224,7 @@ function listenAdminBadges(){
 async function loadAdmin(){
   loadAdminPaymentRequests();
   loadAdminUsers();
+  loadAdminActivePackageUsers();
   loadAdminWithdrawals();
   loadAdminTasks();
   loadAdminAnnouncements();
@@ -2241,23 +2467,40 @@ async function loadAdminUsers(){
      userVerifiedMap[d.id] = !!data.emailVerified;
    });
 
-   // Sort by number of active packages (descending) - most packages first
+   // Sort by account creation time (newest first)
    usersArr.sort((a, b) => {
-     const aCount = (a.activePackages || []).length;
-     const bCount = (b.activePackages || []).length;
-     return bCount - aCount;
+     const aTime = a.createdAt?.seconds || a.createdAt || 0;
+     const bTime = b.createdAt?.seconds || b.createdAt || 0;
+     return bTime - aTime;
    });
 
+   // Total Real Users count at the top
+   const totalRealUsers = usersArr.length;
+   box.innerHTML = `
+     <div style="background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;padding:14px 16px;border-radius:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+       <div>
+         <div style="font-size:12px;opacity:0.9;">Total Real Users</div>
+         <div style="font-size:22px;font-weight:bold;margin-top:2px;">👥 ${totalRealUsers.toLocaleString("en-US")}</div>
+       </div>
+       <div style="font-size:11px;opacity:0.85;text-align:right;">Auto updating<br>with new accounts</div>
+     </div>
+   `;
+
    if(usersArr.length === 0){
-     box.innerHTML = "<p class='small'>No users found.</p>";
+     box.innerHTML += "<p class='small'>No users found.</p>";
      return;
    }
 
-   usersArr.forEach((u, serial) => {
+   usersArr.forEach((u) => {
      const isDis = u.isDisabled ? true : false;
      const activePkgs = u.activePackages || [];
-     const serialNo = serial + 1;
      const verifiedTag = u.emailVerified ? verifiedBadgeHTML : '';
+     const mobile = u.mobile || "Not Set";
+     const address = u.address || "Not Set";
+     const district = u.district || "Not Set";
+     const upazila = u.upazila || "Not Set";
+     const dob = u.dob || "Not Set";
+     const referredBy = u.referredBy || "None (Direct)";
 
      let pkgHtml = '';
      if(activePkgs.length === 0) {
@@ -2280,14 +2523,23 @@ async function loadAdminUsers(){
        <div class="adminUser" style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:14px; margin-bottom:14px; box-shadow:0 2px 8px #0000000d;">
          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
            <div>
-             <b style="font-size:15px;">#${serialNo} | ${u.name || 'No Name'}</b>${verifiedTag}
+             <b style="font-size:15px;">${u.name || 'No Name'}</b>${verifiedTag}
            </div>
            <span style="background:#2563eb;color:#fff;font-size:11px;padding:3px 10px;border-radius:99px;">📦 ${activePkgs.length} Active</span>
          </div>
-         <small style="color:#64748b; display:block; margin-bottom:2px;">📧 ${u.email || 'N/A'}</small>
-         <small style="color:#64748b; display:block; word-break:break-all;">🆔 ${u.uid}</small>
-         <div style="margin-top:8px; font-size:13px;">
-           <b>Pkg Bal:</b> ৳${u.packageBalance || 0} &nbsp;|&nbsp; <b>Tokens:</b> 🪙 ${u.taskToken || 0} &nbsp;|&nbsp; <b>Ref:</b> ${u.referralCount || 0}
+         
+         <div style="font-size:13px; line-height:1.7; margin-top:6px;">
+           <b>📧 Email:</b> ${u.email || 'N/A'}${verifiedTag}<br>
+           <b>🆔 User ID:</b> <span style="word-break:break-all;font-size:12px;">${u.uid}</span><br>
+           <b>📱 Mobile:</b> ${mobile}<br>
+           <b>🏠 Address:</b> ${address}<br>
+           <b>📍 District:</b> ${district} | <b>Upazila:</b> ${upazila}<br>
+           <b>🎂 Date of Birth:</b> ${dob}<br>
+           <b>📦 Package Balance:</b> ৳${u.packageBalance || 0}<br>
+           <b>🎯 Task Token:</b> 🪙 ${u.taskToken || 0}<br>
+           <b>👥 Referral Count:</b> ${u.referralCount || 0}<br>
+           <b>🔗 Referred By:</b> <span style="font-size:11px;word-break:break-all;">${referredBy}</span><br>
+           <b>🚫 Account Status:</b> ${isDis ? '<span style="color:#dc2626;font-weight:bold;">Disabled</span>' : '<span style="color:#16a34a;font-weight:bold;">Active</span>'}
          </div>
          
          <div style="margin-top:10px; border-top:1px dashed #cbd5e1; padding-top:8px;">
@@ -2298,11 +2550,129 @@ async function loadAdminUsers(){
          <div class="adminActions" style="margin-top:10px;">
            <button class="primary" onclick="editUserBalance('${u.uid}', ${u.packageBalance||0}, ${u.taskToken||0})">✏️ Edit Tokens/Bal</button>
            <button class="${isDis?'success':'danger'}" onclick="toggleUserStatus('${u.uid}', ${isDis})">${isDis?'✅ Enable':'🚫 Disable'}</button>
+           <button class="danger" onclick="deleteUserPermanently('${u.uid}', '${(u.name || 'User').replace(/'/g, "\\'")}', '${(u.email || '').replace(/'/g, "\\'")}')">🗑️ Delete User</button>
          </div>
        </div>
      `;
    });
  });
+}
+
+/* Active Package Users - only users who currently have running packages */
+function loadAdminActivePackageUsers(){
+  onSnapshot(collection(db,"users"), snap => {
+    const box = document.getElementById("adminActivePkgUsers");
+    if (!box) return;
+    box.innerHTML = "";
+
+    let usersArr = [];
+    snap.forEach(d => {
+      const data = { id: d.id, ...d.data() };
+      const activePkgs = data.activePackages || [];
+      // Only include users who have at least 1 active package
+      if (activePkgs.length > 0) {
+        usersArr.push(data);
+      }
+      userVerifiedMap[d.id] = !!data.emailVerified;
+    });
+
+    // Sort by number of active packages (highest first)
+    usersArr.sort((a, b) => {
+      const aCount = (a.activePackages || []).length;
+      const bCount = (b.activePackages || []).length;
+      if (bCount !== aCount) return bCount - aCount;
+      // Secondary sort: highest package balance
+      return (Number(b.packageBalance) || 0) - (Number(a.packageBalance) || 0);
+    });
+
+    const totalActiveUsers = usersArr.length;
+    const totalActivePackages = usersArr.reduce((sum, u) => sum + ((u.activePackages || []).length), 0);
+
+    box.innerHTML = `
+      <div style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;padding:14px 16px;border-radius:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:12px;opacity:0.9;">Active Package Users</div>
+          <div style="font-size:22px;font-weight:bold;margin-top:2px;">📦 ${totalActiveUsers.toLocaleString("en-US")}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:12px;opacity:0.9;">Total Running Packages</div>
+          <div style="font-size:18px;font-weight:bold;margin-top:2px;">${totalActivePackages}</div>
+        </div>
+      </div>
+    `;
+
+    if (usersArr.length === 0) {
+      box.innerHTML += "<p class='small' style='text-align:center;padding:20px 0;'>বর্তমানে কোনো ইউজারের Active Package নেই।</p>";
+      return;
+    }
+
+    const now = Date.now();
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+    usersArr.forEach((u) => {
+      const isDis = u.isDisabled ? true : false;
+      const activePkgs = u.activePackages || [];
+      const verifiedTag = u.emailVerified ? verifiedBadgeHTML : '';
+      const mobile = u.mobile || "Not Set";
+      const address = u.address || "Not Set";
+      const district = u.district || "Not Set";
+      const upazila = u.upazila || "Not Set";
+      const dob = u.dob || "Not Set";
+
+      let pkgHtml = '';
+      activePkgs.forEach((pkg, index) => {
+        let daysLeftText = "";
+        if (pkg.activatedAt) {
+          const elapsed = now - pkg.activatedAt;
+          const daysLeft = Math.max(0, Math.ceil((THIRTY_DAYS_MS - elapsed) / (1000 * 60 * 60 * 24)));
+          daysLeftText = `<span style="color:#dc2626;font-size:11px;margin-left:6px;">⏳ ${daysLeft} Days left</span>`;
+        }
+        pkgHtml += `
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:8px 10px;border-radius:8px;margin-top:5px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <span>📦 <b>${pkg.packageName || 'Package'}</b> (৳${pkg.amount || 0})${daysLeftText}</span>
+            <div class="adminActions" style="margin-top:0;">
+              <button class="primary" style="padding:3px 8px;font-size:11px;" onclick="editUserPackage('${u.uid}', ${index})">✏️ Edit</button>
+              <button class="danger" style="padding:3px 8px;font-size:11px;" onclick="deleteUserPackage('${u.uid}', ${index})">🗑️ Delete</button>
+            </div>
+          </div>
+        `;
+      });
+
+      box.innerHTML += `
+        <div class="adminUser" style="background:#fff; border:1px solid #bbf7d0; border-left:5px solid #16a34a; border-radius:14px; padding:14px; margin-bottom:14px; box-shadow:0 2px 8px #0000000d;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+            <div>
+              <b style="font-size:15px;">${u.name || 'No Name'}</b>${verifiedTag}
+            </div>
+            <span style="background:#16a34a;color:#fff;font-size:11px;padding:3px 10px;border-radius:99px;">📦 ${activePkgs.length} Active</span>
+          </div>
+          
+          <div style="font-size:13px; line-height:1.7; margin-top:6px;">
+            <b>📧 Email:</b> ${u.email || 'N/A'}${verifiedTag}<br>
+            <b>🆔 User ID:</b> <span style="word-break:break-all;font-size:12px;">${u.uid}</span><br>
+            <b>📱 Mobile:</b> ${mobile}<br>
+            <b>🏠 Address:</b> ${address}<br>
+            <b>📍 District:</b> ${district} | <b>Upazila:</b> ${upazila}<br>
+            <b>🎂 Date of Birth:</b> ${dob}<br>
+            <b>📦 Package Balance:</b> ৳${u.packageBalance || 0}<br>
+            <b>🎯 Task Token:</b> 🪙 ${u.taskToken || 0}<br>
+            <b>👥 Referral Count:</b> ${u.referralCount || 0}<br>
+            <b>🚫 Account Status:</b> ${isDis ? '<span style="color:#dc2626;font-weight:bold;">Disabled</span>' : '<span style="color:#16a34a;font-weight:bold;">Active</span>'}
+          </div>
+          
+          <div style="margin-top:10px; border-top:1px dashed #86efac; padding-top:8px;">
+            <small style="font-weight:bold;color:#15803d; display:block; margin-bottom:4px;">Running Packages (${activePkgs.length}/2)</small>
+            ${pkgHtml}
+          </div>
+
+          <div class="adminActions" style="margin-top:10px;">
+            <button class="primary" onclick="editUserBalance('${u.uid}', ${u.packageBalance||0}, ${u.taskToken||0})">✏️ Edit Tokens/Bal</button>
+            <button class="${isDis?'success':'danger'}" onclick="toggleUserStatus('${u.uid}', ${isDis})">${isDis?'✅ Enable':'🚫 Disable'}</button>
+          </div>
+        </div>
+      `;
+    });
+  });
 }
 
 /* Point 3: Edit Specific User Package */
@@ -2443,6 +2813,61 @@ window.toggleUserStatus = async (targetUid, currentIsDisabled) => {
   } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
 
+/* Permanent Delete User with UID confirmation */
+window.deleteUserPermanently = async (targetUid, userName, userEmail) => {
+  const { value: confirmUid } = await Swal.fire({
+    title: '⚠️ স্থায়ীভাবে ডিলিট করবেন?',
+    html: `
+      <p style="text-align:left;font-size:13px;line-height:1.6;margin-bottom:12px;">
+        আপনি <b>${userName}</b> (${userEmail}) এর অ্যাকাউন্ট <b style="color:#dc2626;">স্থায়ীভাবে মুছে ফেলতে</b> যাচ্ছেন।<br><br>
+        এই কাজটি <b>আনডু করা যাবে না</b>। সব ডেটা হারিয়ে যাবে।<br><br>
+        নিশ্চিত করতে নিচে ইউজারের <b>User ID</b> টাইপ করুন:
+      </p>
+      <input id="swal-confirm-uid" class="swal2-input" placeholder="User ID এখানে পেস্ট/টাইপ করুন" style="font-size:13px;">
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc2626',
+    confirmButtonText: 'হ্যাঁ, স্থায়ী Delete করুন',
+    cancelButtonText: 'বাতিল',
+    preConfirm: () => {
+      const val = document.getElementById('swal-confirm-uid').value.trim();
+      if (!val) {
+        Swal.showValidationMessage('User ID টাইপ করুন');
+        return false;
+      }
+      if (val !== targetUid) {
+        Swal.showValidationMessage('User ID মিলছে না! সঠিক ID দিন।');
+        return false;
+      }
+      return val;
+    }
+  });
+
+  if (!confirmUid) return;
+
+  try {
+    // Delete user document from Firestore
+    await deleteDoc(doc(db, "users", targetUid));
+
+    // Optional: Clean related data (notifications, chats etc. - basic cleanup)
+    const notifQ = query(collection(db, "notifications"), where("uid", "==", targetUid));
+    const notifSnap = await getDocs(notifQ);
+    const deletePromises = [];
+    notifSnap.forEach(d => deletePromises.push(deleteDoc(doc(db, "notifications", d.id))));
+
+    const chatQ = query(collection(db, "chats"), where("uid", "==", targetUid));
+    const chatSnap = await getDocs(chatQ);
+    chatSnap.forEach(d => deletePromises.push(deleteDoc(doc(db, "chats", d.id))));
+
+    await Promise.all(deletePromises);
+
+    showAlert("ডিলিট সম্পন্ন!", `${userName} এর অ্যাকাউন্ট স্থায়ীভাবে মুছে ফেলা হয়েছে।`, "success");
+  } catch (e) {
+    showAlert("ত্রুটি!", "ডিলিট করতে সমস্যা হয়েছে: " + e.message, "error");
+  }
+};
+
 function loadAdminAnnouncements(){
   onSnapshot(collection(db, "announcements"), snap => {
     const box = document.getElementById("adminNoticeList");
@@ -2501,9 +2926,10 @@ function loadAdminTasks(){
     snap.forEach(d => {
       const t = d.data();
       const icon = taskIcons[t.category] || "🎯";
+      const permanentBadge = t.isPermanent ? `<span style="background:#dcfce7;color:#15803d;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:bold;margin-left:6px;">⭐ PERMANENT</span>` : '';
       box.innerHTML += `
         <div class="adminUser">
-          <b>${icon} ${t.title}</b> (+${t.reward} Tokens)<br>
+          <b>${icon} ${t.title}</b> (+${t.reward} Tokens)${permanentBadge}<br>
           <small>Link: ${t.link || 'N/A'}</small>
           <div class="adminActions">
             <button class="danger" onclick="deleteTask('${d.id}')">🗑️ Delete Task</button>
@@ -2519,17 +2945,19 @@ window.addDynamicTask = async () => {
   const title = document.getElementById("adminTaskTitle").value.trim();
   const reward = parseInt(document.getElementById("adminTaskReward").value);
   const link = document.getElementById("adminTaskLink").value.trim();
+  const isPermanent = document.getElementById("adminTaskPermanent")?.checked || false;
 
   if(!title || isNaN(reward)) return showAlert("তথ্য দিন!", "টাস্ক শিরোনাম এবং রিওয়ার্ড টোকেন টাইপ করুন।", "warning");
 
   const btn = document.getElementById("addTaskBtn"); btn.disabled = true;
   try {
     await addDoc(collection(db, "tasks"), {
-      category, title, reward, link, createdAt: serverTimestamp()
+      category, title, reward, link, isPermanent, createdAt: serverTimestamp()
     });
     document.getElementById("adminTaskTitle").value = "";
     document.getElementById("adminTaskLink").value = "";
-    showAlert("সফল!", "নতুন টাস্ক সফলভাবে যুক্ত করা হয়েছে।", "success");
+    if (document.getElementById("adminTaskPermanent")) document.getElementById("adminTaskPermanent").checked = false;
+    showAlert("সফল!", isPermanent ? "Permanent টাস্ক সফলভাবে যুক্ত হয়েছে।" : "নতুন টাস্ক সফলভাবে যুক্ত করা হয়েছে।", "success");
   } catch(e) { showAlert("ত্রুটি!", e.message, "error"); } finally { btn.disabled = false; }
 };
 
@@ -3011,6 +3439,20 @@ document.addEventListener("visibilitychange", async () => {
       await currentUser.reload();
       updateGmailVerifyUI();
       updateHeaderName();
+      // When user returns from task link (especially in WebView/App), update any waiting Claim buttons
+      const startTimes = userData.taskStartTimes || {};
+      Object.keys(startTimes).forEach(taskId => {
+        const btn = document.getElementById(`taskBtn_${taskId}`);
+        if (btn && startTimes[taskId] && (Date.now() - startTimes[taskId]) >= 60000) {
+          // Find reward from button text or keep current
+          const rewardMatch = btn.innerText.match(/\+(\d+)/);
+          const reward = rewardMatch ? rewardMatch[1] : 10;
+          btn.disabled = false;
+          btn.style.background = "#16a34a";
+          btn.innerText = `🎁 Claim +${reward}`;
+          btn.onclick = () => claimTaskReward(taskId, Number(reward));
+        }
+      });
     } catch (e) {}
   }
 });
