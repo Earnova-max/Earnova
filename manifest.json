@@ -1,16 +1,14 @@
 {
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
   "name": "Earnova",
+  "orientation": "any",
+  "scope": "/",
   "short_name": "Earnova",
   "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#007bff",
+  "theme_color": "#076cf3",
+  "id": "com.earnova.app",
   "description": "A premier digital earning hub offering secure, verified online income streams and financial strategies.",
-  "icons": [
-    {
-      "src": "/icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "lang": "en"
 }
