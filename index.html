@@ -141,7 +141,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 <div class="login" id="login">
   <div class="loginBox">
     <div class="logo">E</div><h2>Earnova</h2><p>আপনার Account-এ Login করুন</p>
-    <input id="loginId" type="email" placeholder="Gmail">
+    <input id="loginId" type="text" placeholder="Gmail / User ID">
     <div class="passwordBox"><input id="loginPassword" type="password" placeholder="Password"><button class="passwordToggle" onclick="togglePassword('loginPassword',this)">👁️</button></div>
     <button class="forgotBtn" onclick="resetPassword()">Forgot Password?</button>
     <button class="primary" style="width:100%" id="loginBtn" onclick="login()">Login</button>
@@ -208,8 +208,9 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 
   <div class="card" style="border:2px dashed #2563eb; background:#f0f5ff">
     <h3>🎁 Referral & Earn Program</h3>
-    <p style="font-size:13px; color:#555; margin: 6px 0 12px">বন্ধুদের ইনভাইট করুন! প্রতি <b>১০ জন</b> সফল রেফারেল অ্যাকাউন্ট খোলার সাথে সাথে অটোমেটিক পাবেন <b>+৫০ Task Token</b> বোনাস!</p>
-    <div class="profileRow"><small>👥 Total Referred Users</small><strong id="referralCount">0 Person</strong></div>
+    <p style="font-size:13px; color:#555; margin: 6px 0 12px">বন্ধুদের ইনভাইট করুন! রেফার করা ইউজার <b>Account Verify</b> করলেই কাউন্ট হবে। প্রতি <b>১০ জন</b> Verified রেফারেলে প্রত্যেকে পাবেন <b>+৫০ Task Token</b> বোনাস!</p>
+    <div class="profileRow"><small>👥 Total Verified Referred Users</small><strong id="referralCount">0 Verified</strong></div>
+    <p style="font-size:11px; color:#64748b; margin-top:-4px; margin-bottom:8px;">শুধুমাত্র যারা Account Verify করেছে — তাদেরই এখানে গণনা হয়</p>
     <div class="profileRow"><small>🔗 Your Referral Link</small>
       <div class="copyRow">
         <input id="refLinkInput" type="text" readonly>
@@ -259,36 +260,39 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   </div>
   <div class="card">
     <div id="paymentPackageInfo"></div>
-    <label>🆔 User ID</label>
-    <div class="copyRow"><input id="requestUserId" type="text" readonly><button class="secondary copyBtn" onclick="copyText('requestUserId')">📋 Copy</button></div>
-
-    <label>📧 Gmail</label>
-    <div class="copyRow"><input id="requestEmail" type="email" readonly><button class="secondary copyBtn" onclick="copyText('requestEmail')">📋 Copy</button></div>
-
-    <label>📱 Mobile Number</label>
-    <div class="copyRow"><input id="requestMobile" type="text" readonly><button class="secondary copyBtn" onclick="copyText('requestMobile')">📋 Copy</button></div>
 
     <label>💰 Payment Method Select</label>
     <select id="paymentMethod" onchange="updateSelectedPaymentNumber()">
-      <option value="bKash">bKash Personal</option>
-      <option value="Nagad">Nagad Personal</option>
+      <option value="bKash">bKash</option>
+      <option value="Nagad">Nagad</option>
     </select>
 
     <div class="paymentNumber">
-      <div>💳 <strong>Send Money</strong> (<span id="selectedMethodLabel">bKash</span>)</div>
-      <div style="display:flex;gap:7px;align-items:center;margin-top:7px">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span id="paymentMethodLogo" style="display:inline-flex;align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="72" height="28" style="vertical-align:middle;display:block;"><rect width="120" height="40" rx="6" fill="#E2136E"/><text x="60" y="27" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="18">bKash</text></svg>
+        </span>
+        <strong id="selectedMethodLabel" style="display:none;">bKash</strong>
+        <span style="background:#fef3c7;color:#b45309;font-size:11px;padding:3px 8px;border-radius:99px;font-weight:bold;">Cash Out Only</span>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center;margin-top:10px">
         <b id="paymentNumber" style="font-size:18px">Loading...</b>
         <button class="secondary" style="padding:8px 12px" onclick="copyPaymentNumber()">📋 Copy</button>
       </div>
     </div>
 
-    <label>💳 Sender Mobile Number</label>
-    <input id="requestTransactionNumber" type="text" placeholder="যে নম্বর থেকে টাকা পাঠিয়েছেন">
-
     <label>📦 Package</label><input id="requestPackage" type="text" readonly>
     <label>💵 Amount</label><input id="requestAmount" type="number" readonly>
 
-    <label>🔢 Transaction ID / TrxID</label><input id="transactionId" type="text" placeholder="TrxID টাইপ করুন">
+    <label>🔢 Transaction ID / TrxID</label>
+    <input id="transactionId" type="text" placeholder="TrxID টাইপ করুন">
+
+    <label>📱 Sender Mobile Number</label>
+    <input id="requestTransactionNumber" type="text" placeholder="যে নম্বর থেকে টাকা পাঠিয়েছেন">
+
+    <label>📸 Payment Screenshot</label>
+    <input id="paymentScreenshot" type="file" accept="image/*" style="padding:12px; border:1px dashed #2563eb; background:#f8fafc;">
+    <small style="color:#666; display:block; margin: -8px 0 15px; font-size:12px;">পেমেন্টের স্ক্রিনশট আপলোড করুন (বাধ্যতামূলক)। Cloudinary-তে সেভ হবে।</small>
 
     <button class="primary" style="width:100%" id="submitPayBtn" onclick="submitPaymentRequest()">📤 Submit Payment Request</button>
   </div>
@@ -346,20 +350,48 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
   <div class="sectionTitle">
     <h3>👤 My Profile</h3>
   </div>
-  <div class="card">
-    <div class="profileRow"><small>📧 Gmail 🔒</small><strong id="profileGmail">Not Set</strong></div>
-    <div class="profileRow"><small>🆔 User ID 🔒</small><strong id="profileUID">Not Set</strong></div>
-    <div class="profileRow"><small>👤 Name</small><input id="editName" placeholder="Your Name"></div>
-    <div class="profileRow"><small>📱 Mobile Number</small><input id="editMobile" placeholder="01XXXXXXXXX"></div>
-    <div class="profileRow"><small>🏠 Address</small><input id="editAddress" placeholder="Your Address"></div>
-    <div class="profileRow"><small>📍 District</small><input id="editDistrict" placeholder="District"></div>
-    <div class="profileRow"><small>📍 Upazila</small><input id="editUpazila" placeholder="Upazila"></div>
-    <div class="profileRow"><small>🎂 Date of Birth</small><input id="editDOB" type="date"></div>
-    <button class="primary" style="width:100%;margin-top:15px" onclick="saveProfile()">💾 Save Profile</button>
-    <div class="profileRow" style="margin-top:15px"><small>📦 Package Balance</small><strong>৳ <span id="profilePackage">0</span></strong></div>
-    <div class="profileRow"><small>🎯 Task Token</small><strong>🪙 <span id="profileTask">0</span></strong></div>
-    <div class="profileRow"><small>📦 Active Packages Count</small><strong id="activePackagesCount">0 / 2</strong></div>
+
+  <!-- Account Info Card -->
+  <div class="card" style="border-top:4px solid #2563eb">
+    <h3 style="margin-bottom:12px">🔐 Account Information</h3>
+    
+    <div class="profileRow">
+      <small>📧 Gmail</small>
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:4px">
+        <strong id="profileGmail" style="word-break:break-all">Not Set</strong>
+        <span id="gmailVerifyBadge" style="display:none; font-size:11px; padding:3px 10px; border-radius:99px; font-weight:bold;"></span>
+        <button id="gmailVerifyBtn" class="secondary" style="padding:6px 12px; font-size:12px; display:none;" onclick="sendGmailVerification()">✅ Verify Gmail</button>
+      </div>
+    </div>
+
+    <div class="profileRow">
+      <small>🆔 User ID 🔒 (পরিবর্তনযোগ্য নয়)</small>
+      <strong id="profileUID" style="word-break:break-all; color:#64748b">Not Set</strong>
+    </div>
   </div>
+
+  <!-- Personal Info Card -->
+  <div class="card" style="border-top:4px solid #16a34a">
+    <h3 style="margin-bottom:12px">📝 Personal Information</h3>
+    <div id="profileLockNotice" class="info" style="display:none; margin-bottom:12px; background:#fff7ed; color:#c2410c; border:1px solid #fdba74;"></div>
+    <div class="profileRow"><small>👤 Full Name <span style="color:#dc2626">*</span></small><input id="editName" placeholder="আপনার পুরো নাম (বাধ্যতামূলক)"></div>
+    <div class="profileRow"><small>📱 Mobile Number <span style="color:#dc2626">*</span></small><input id="editMobile" placeholder="01XXXXXXXXX (বাধ্যতামূলক)"></div>
+    <div class="profileRow"><small>🏠 Address <span style="color:#dc2626">*</span></small><input id="editAddress" placeholder="আপনার ঠিকানা (বাধ্যতামূলক)"></div>
+    <div class="profileRow"><small>📍 District <span style="color:#dc2626">*</span></small><input id="editDistrict" placeholder="জেলা (বাধ্যতামূলক)"></div>
+    <div class="profileRow"><small>📍 Upazila <span style="color:#dc2626">*</span></small><input id="editUpazila" placeholder="উপজেলা (বাধ্যতামূলক)"></div>
+    <div class="profileRow"><small>🎂 Date of Birth <span style="color:#dc2626">*</span></small><input id="editDOB" type="date"></div>
+    
+    <button class="primary" style="width:100%;margin-top:18px; background:#16a34a" id="saveProfileBtn" onclick="saveProfile()">💾 Save / Verify Profile</button>
+  </div>
+
+  <!-- Balance Summary -->
+  <div class="card">
+    <h3 style="margin-bottom:12px">💰 Balance Summary</h3>
+    <div class="profileRow"><small>📦 Package Balance</small><strong>৳ <span id="profilePackage">0</span></strong></div>
+    <div class="profileRow"><small>🎯 Task Token</small><strong>🪙 <span id="profileTask">0</span></strong></div>
+    <div class="profileRow"><small>📦 Active Packages</small><strong id="activePackagesCount">0 / 2</strong></div>
+  </div>
+
   <button class="logout" onclick="logout()">Logout</button>
 </div>
 
@@ -579,6 +611,23 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <button class="primary" style="width:100%" onclick="saveBaseUserCount()">Save Total Users Count</button>
   </div>
 
+  <!-- Welcome Bonus Settings -->
+  <div class="card" style="border-top:4px solid #16a34a; margin-top:20px">
+    <h3>🎁 New Account Welcome Bonus</h3>
+    <p style="font-size:12px; color:#666; margin: 4px 0 12px">নতুন অ্যাকাউন্ট খোলার সময় ইউজার কত টোকেন বোনাস পাবে — এখান থেকে কন্ট্রোল করুন। Off করলে বোনাস বন্ধ থাকবে।</p>
+    
+    <label>Bonus Status</label>
+    <select id="adminWelcomeBonusEnabled">
+      <option value="true">✅ ON — বোনাস চালু</option>
+      <option value="false">❌ OFF — বোনাস বন্ধ</option>
+    </select>
+
+    <label>Welcome Bonus Token Amount</label>
+    <input id="adminWelcomeBonusAmount" type="number" placeholder="50" min="0">
+    
+    <button class="primary" style="width:100%; background:#16a34a" onclick="saveWelcomeBonusSettings()">💾 Save Welcome Bonus Settings</button>
+  </div>
+
 </div>
 
 </div>
@@ -613,8 +662,12 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, deleteDoc, query, where, getDocs, onSnapshot, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+// ========== CLOUDINARY CONFIG ==========
+const CLOUDINARY_CLOUD_NAME = "uepqaprw";
+const CLOUDINARY_UPLOAD_PRESET = "payment screenshots";
 
 const firebaseConfig={
   apiKey:"AIzaSyCovpUhfJKebXSrQjOfm3_43ldJ4o17Jbo",
@@ -633,6 +686,8 @@ let globalDailyProfitPercent = 10;
 let globalMinWithdraw = 1000, globalMaxWithdraw = 12000;
 let globalBaseUserCount = 27890;
 let globalBaseUserCountTime = new Date('2026-01-01T00:00:00Z').getTime();
+let globalWelcomeBonusEnabled = true;
+let globalWelcomeBonusAmount = 50;
 
 let packageBalance=0,taskToken=0,currentUser=null,userData={},chatUnsubscribe=null,selectedPackageIndex=null;
 let activeAdminChatUid=null, adminChatUnsub=null;
@@ -643,6 +698,7 @@ let chatInactivityTimer = null;
 let profitCountdownTimer = null;
 let myPendingPaymentRequests = []; 
 let userCountInterval = null;
+let userVerifiedMap = {}; // uid -> true/false for emailVerified
 
 // Dynamic Rules & Terms Array Default
 let dynamicRulesList = [
@@ -650,7 +706,7 @@ let dynamicRulesList = [
   "প্যাকেজ ডেইলি প্রফিট: প্রতিদিন (২৪ ঘণ্টা পর পর) প্যাকেজ মূল্যের প্রফিট ক্লেইম করা যাবে।",
   "প্যাকেজ লিমিট: একজন ইউজার সর্বোচ্চ ২ টি প্যাকেজ একটিভ রাখতে পারবেন (মেয়াদ ৩০ দিন)। ৩০ দিন শেষ হলে কেবল সেই নির্দিষ্ট প্যাকেজের ব্যালেন্স 0 হবে।",
   "উইথড্র লিমিট: সর্বনিম্ন ১,০০০ টাকা থেকে সর্বোচ্চ ১২,০০০ টাকা পর্যন্ত উইথড্র শুধুমাত্র Task Token থেকে কাটা হবে।",
-  "রেফারেল বোনাস: আপনার লিংক থেকে ১০ জন সফল ইউজার জয়েন করলে স্বয়ংক্রিয়ভাবে +৫০ Task Token বোনাস পাবেন।"
+  "রেফারেল বোনাস: রেফার করা ইউজার Account Verify করলেই কাউন্ট হবে। প্রতি ১০ জন Verified রেফারেলে স্বয়ংক্রিয়ভাবে +৫০ Task Token বোনাস পাবেন।"
 ];
 
 // Dynamic packages list structure: Array of Objects (Firestore does not support nested arrays)
@@ -697,6 +753,17 @@ const taskIcons = { youtube: "📺", facebook: "👍", telegram: "📢", website
 
 const showAlert=(title,text,icon="info")=>Swal.fire({title,text,icon,confirmButtonColor:"#2563eb"});
 
+// Verified badge HTML (same style everywhere)
+const verifiedBadgeHTML = `<span style="display:inline-block;background:#dcfce7;color:#15803d;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:bold;margin-left:6px;vertical-align:middle;">✓ Verified</span>`;
+
+function updateHeaderName() {
+  const nameEl = document.getElementById("userName");
+  if (!nameEl) return;
+  const name = userData.name || "User";
+  const isVerified = (currentUser && currentUser.emailVerified) || userData.emailVerified;
+  nameEl.innerHTML = isVerified ? `${name}${verifiedBadgeHTML}` : name;
+}
+
 /* Point 1: Dynamic User Counter based on Admin Settings */
 function startAutoUserCounter() {
   if (userCountInterval) clearInterval(userCountInterval);
@@ -737,6 +804,8 @@ function listenGlobalSettings(){
     } else {
       startAutoUserCounter();
     }
+    if(d.welcomeBonusEnabled !== undefined) globalWelcomeBonusEnabled = d.welcomeBonusEnabled;
+    if(d.welcomeBonusAmount !== undefined) globalWelcomeBonusAmount = Number(d.welcomeBonusAmount) || 0;
   } else {
     startAutoUserCounter();
   }
@@ -761,6 +830,23 @@ window.saveBaseUserCount = async () => {
   } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
 
+/* Save Welcome Bonus Settings */
+window.saveWelcomeBonusSettings = async () => {
+  const enabled = document.getElementById("adminWelcomeBonusEnabled").value === "true";
+  const amount = parseInt(document.getElementById("adminWelcomeBonusAmount").value);
+  if (isNaN(amount) || amount < 0) return showAlert("ত্রুটি!", "সঠিক বোনাস পরিমাণ লিখুন (০ বা তার বেশি)।", "warning");
+
+  try {
+    await setDoc(doc(db, "settings", "general"), {
+      welcomeBonusEnabled: enabled,
+      welcomeBonusAmount: amount
+    }, { merge: true });
+    globalWelcomeBonusEnabled = enabled;
+    globalWelcomeBonusAmount = amount;
+    showAlert("সফল!", enabled ? `Welcome Bonus চালু আছে — নতুন অ্যাকাউন্টে +${amount} Token পাবে।` : "Welcome Bonus বন্ধ করা হয়েছে। নতুন অ্যাকাউন্টে কোনো বোনাস পাবে না।", "success");
+  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+};
+
 function renderDynamicRules() {
   const container = document.getElementById("dynamicRulesContainer");
   if (!container) return;
@@ -781,12 +867,27 @@ window.updateSelectedPaymentNumber=()=>{
  const method = document.getElementById("paymentMethod")?.value || "bKash";
  const numEl = document.getElementById("paymentNumber");
  const labelEl = document.getElementById("selectedMethodLabel");
+ const logoEl = document.getElementById("paymentMethodLogo");
+
+ // Official-style inline SVG logos (always load, no external dependency)
+ const bkashLogo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="72" height="28" style="vertical-align:middle;display:block;">
+   <rect width="120" height="40" rx="6" fill="#E2136E"/>
+   <text x="60" y="27" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="18">bKash</text>
+ </svg>`;
+
+ const nagadLogo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="72" height="28" style="vertical-align:middle;display:block;">
+   <rect width="120" height="40" rx="6" fill="#F68712"/>
+   <text x="60" y="27" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="18">Nagad</text>
+ </svg>`;
+
  if(method === "bKash"){
    if(numEl) numEl.innerText = globalBkashNumber;
-   if(labelEl) labelEl.innerText = "bKash Personal";
+   if(labelEl) labelEl.innerText = "bKash";
+   if(logoEl) logoEl.innerHTML = bkashLogo;
  } else {
    if(numEl) numEl.innerText = globalNagadNumber;
-   if(labelEl) labelEl.innerText = "Nagad Personal";
+   if(labelEl) labelEl.innerText = "Nagad";
+   if(logoEl) logoEl.innerHTML = nagadLogo;
  }
 };
 
@@ -796,29 +897,55 @@ window.togglePassword=(id,button)=>{
  button.innerText=input.type==="password"?"👁️":"🙈";
 };
 
-async function processReferralBonus(referrerId) {
+/* Referral count only increases AFTER the referred user verifies Gmail */
+async function processReferralBonus(referrerId, newUserUid) {
   try {
+    if (!referrerId) return;
     const referrerRef = doc(db, "users", referrerId);
     const referrerSnap = await getDoc(referrerRef);
-    if (referrerSnap.exists()) {
-      const data = referrerSnap.data();
-      const currentCount = Number(data.referralCount || 0) + 1;
-      let bonusToken = (currentCount % 10 === 0) ? 50 : 0;
-      
-      await updateDoc(referrerRef, { 
-        referralCount: increment(1), 
-        taskToken: increment(bonusToken) 
-      });
+    if (!referrerSnap.exists()) return;
 
-      if (bonusToken > 0) {
-        await addDoc(collection(db, "notifications"), {
-          uid: referrerId, icon: "🎁", title: "Referral Bonus!",
-          text: `🎉 আপনার রেফারেল লিংকে ১০ জন ইউজার যুক্ত হওয়ায় +${bonusToken} Task Token বোনাস পেয়েছেন!`,
-          createdAt: serverTimestamp()
-        });
-      }
+    const data = referrerSnap.data();
+    const currentCount = Number(data.referralCount || 0) + 1;
+    let bonusToken = (currentCount % 10 === 0) ? 50 : 0;
+    
+    await updateDoc(referrerRef, { 
+      referralCount: increment(1), 
+      taskToken: increment(bonusToken) 
+    });
+
+    // Mark this new user so we never count them twice
+    if (newUserUid) {
+      await updateDoc(doc(db, "users", newUserUid), { referralCounted: true });
+    }
+
+    if (bonusToken > 0) {
+      await addDoc(collection(db, "notifications"), {
+        uid: referrerId, icon: "🎁", title: "Referral Bonus!",
+        text: `🎉 আপনার রেফারেল লিংকে ১০ জন Verified ইউজার যুক্ত হওয়ায় +${bonusToken} Task Token বোনাস পেয়েছেন!`,
+        createdAt: serverTimestamp()
+      });
+    } else {
+      await addDoc(collection(db, "notifications"), {
+        uid: referrerId, icon: "👥", title: "New Verified Referral!",
+        text: `একজন নতুন ইউজার Account Verify করেছে। আপনার রেফারেল কাউন্ট: ${currentCount}`,
+        createdAt: serverTimestamp()
+      });
     }
   } catch (err) { console.error("Referral process error:", err); }
+}
+
+/* Called when a user first becomes emailVerified */
+async function checkAndProcessReferralOnVerify() {
+  if (!currentUser || !userData) return;
+  if (!userData.referredBy) return;
+  if (userData.referralCounted) return; // already counted
+  if (!currentUser.emailVerified && !userData.emailVerified) return;
+
+  try {
+    await processReferralBonus(userData.referredBy, currentUser.uid);
+    userData.referralCounted = true;
+  } catch (e) { console.error("Referral on verify error:", e); }
 }
 
 window.registerUser=async()=>{
@@ -830,30 +957,96 @@ window.registerUser=async()=>{
   const result=await createUserWithEmailAndPassword(auth,email,password),user=result.user;
   const referrerId = localStorage.getItem('earnova_referredBy') || null;
   
+  const welcomeTokens = (globalWelcomeBonusEnabled && globalWelcomeBonusAmount > 0) ? globalWelcomeBonusAmount : 0;
+
   await setDoc(doc(db,"users",user.uid),{
     uid:user.uid, name, email:user.email, role:"user", mobile:"", address:"", district:"", upazila:"", dob:"",
-    packageBalance:0, taskToken:0, activePackages:[], taskTimestamps:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, isDisabled: false, createdAt:serverTimestamp()
+    packageBalance:0, taskToken: welcomeTokens, activePackages:[], taskTimestamps:{}, lastProfitClaim:0, referralCount:0, referredBy:referrerId, lastReadNotification:0, isDisabled: false, emailVerified: false, referralCounted: false, createdAt:serverTimestamp()
   });
 
-  if (referrerId) { 
-    await processReferralBonus(referrerId); 
-    localStorage.removeItem('earnova_referredBy'); 
+  // Welcome bonus notification (only if enabled & amount > 0)
+  if (welcomeTokens > 0) {
+    await addDoc(collection(db, "notifications"), {
+      uid: user.uid, icon: "🎁", title: "Welcome Bonus!",
+      text: `নতুন অ্যাকাউন্ট খোলার জন্য আপনি +${welcomeTokens} Task Token বোনাস পেয়েছেন!`, createdAt: serverTimestamp()
+    });
   }
-  showAlert("সফল!","অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!","success");showLogin();
+
+  // Gmail verification email পাঠানো
+  try { await sendEmailVerification(user); } catch(err) { console.log("Verification email error:", err); }
+
+  // Referral count will only be added AFTER this user verifies Gmail
+  if (referrerId) localStorage.removeItem('earnova_referredBy');
+
+  const bonusMsg = welcomeTokens > 0 ? ` + ${welcomeTokens} Token বোনাস!` : "!";
+  showAlert("সফল!",`অ্যাকাউন্ট তৈরি হয়েছে${bonusMsg} Gmail Verify করার জন্য ইমেইল চেক করুন। Verify করলে রেফারেল কাউন্ট যোগ হবে।`,"success");showLogin();
  }catch(e){showAlert("রেজিস্ট্রেশন ব্যর্থ!",e.message,"error")}finally{btn.disabled=false;btn.innerText="Register"}
 };
 
 window.login=async()=>{
- const email=document.getElementById("loginId").value.trim(),password=document.getElementById("loginPassword").value;
- if(!email||!password)return showAlert("তথ্য বাকি!","জিমেইল এবং পাসওয়ার্ড দিন।","warning");
+ const loginInput=document.getElementById("loginId").value.trim(),password=document.getElementById("loginPassword").value;
+ if(!loginInput||!password)return showAlert("তথ্য বাকি!","Gmail অথবা User ID এবং পাসওয়ার্ড দিন।","warning");
  const btn=document.getElementById("loginBtn");btn.disabled=true;btn.innerText="Logging in...";
- try{await signInWithEmailAndPassword(auth,email,password)}catch(e){showAlert("লগইন ব্যর্থ!",e.message,"error")}finally{btn.disabled=false;btn.innerText="Login"}
+ try{
+  let emailToUse = loginInput;
+
+  // If input is not an email, treat it as User ID and lookup the linked Gmail
+  if (!loginInput.includes("@")) {
+    try {
+      // Try direct document ID lookup first
+      let userSnap = await getDoc(doc(db, "users", loginInput));
+
+      // Fallback: query by uid field (in case document ID differs)
+      if (!userSnap.exists()) {
+        const q = query(collection(db, "users"), where("uid", "==", loginInput));
+        const qs = await getDocs(q);
+        if (!qs.empty) userSnap = qs.docs[0];
+      }
+
+      if (!userSnap || !userSnap.exists()) {
+        showAlert("লগইন ব্যর্থ!", "এই User ID দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি। সঠিক User ID চেক করুন।", "error");
+        return;
+      }
+      emailToUse = (userSnap.data().email || "").trim();
+      if (!emailToUse || !emailToUse.includes("@")) {
+        showAlert("লগইন ব্যর্থ!", "এই অ্যাকাউন্টের সাথে কোনো Gmail যুক্ত নেই।", "error");
+        return;
+      }
+    } catch (lookupErr) {
+      // Permission denied or network — give clear guidance
+      console.error("UID lookup error:", lookupErr);
+      showAlert("লগইন ব্যর্থ!", "User ID দিয়ে লগইন করতে সমস্যা হয়েছে। অনুগ্রহ করে Gmail দিয়ে লগইন করুন, অথবা Firebase Rules-এ users কালেকশনে get অনুমতি দিন।", "error");
+      return;
+    }
+  }
+
+  await signInWithEmailAndPassword(auth, emailToUse, password);
+ }catch(e){
+  let msg = "লগইন ব্যর্থ! সঠিক Gmail/User ID এবং পাসওয়ার্ড দিন।";
+  if (e.code === "auth/user-not-found" || e.code === "auth/invalid-credential" || e.code === "auth/wrong-password" || e.code === "auth/invalid-login-credentials") {
+    msg = "লগইন ব্যর্থ! সঠিক Gmail/User ID এবং পাসওয়ার্ড দিন।";
+  } else if (e.code === "auth/too-many-requests") {
+    msg = "অনেকবার ভুল চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+  } else if (e.code === "auth/invalid-email") {
+    msg = "সঠিক Gmail অ্যাড্রেস দিন।";
+  }
+  showAlert("লগইন ব্যর্থ!", msg, "error");
+ }finally{btn.disabled=false;btn.innerText="Login"}
 };
 
 window.resetPassword=async()=>{
- const email=document.getElementById("loginId").value.trim();
- if(!email)return showAlert("জিমেইল প্রয়োজন","পাসওয়ার্ড রিসেট করতে আগে আপনার জিমেইল লিখুন।","info");
- try{await sendPasswordResetEmail(auth,email);showAlert("ইমেইল পাঠানো হয়েছে!","আপনার জিমেইলে পাসওয়ার্ড রিসেট লিঙ্ক পাঠানো হয়েছে।","success")}catch(e){showAlert("ত্রুটি!",e.message,"error")}
+ const input=document.getElementById("loginId").value.trim();
+ if(!input)return showAlert("জিমেইল প্রয়োজন","পাসওয়ার্ড রিসেট করতে আগে আপনার Gmail লিখুন।","info");
+ if(!input.includes("@")) return showAlert("Gmail প্রয়োজন","পাসওয়ার্ড রিসেট শুধুমাত্র Gmail দিয়ে করা যায়। User ID দিয়ে সম্ভব নয়।","info");
+ try{
+  await sendPasswordResetEmail(auth,input);
+  showAlert("ইমেইল পাঠানো হয়েছে!","আপনার জিমেইলে পাসওয়ার্ড রিসেট লিঙ্ক পাঠানো হয়েছে।","success");
+ }catch(e){
+  let msg = "পাসওয়ার্ড রিসেট ইমেইল পাঠানো যায়নি। সঠিক Gmail দিন।";
+  if (e.code === "auth/user-not-found") msg = "এই Gmail দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি।";
+  else if (e.code === "auth/invalid-email") msg = "সঠিক Gmail অ্যাড্রেস দিন।";
+  showAlert("ত্রুটি!", msg, "error");
+ }
 };
 
 onAuthStateChanged(auth,async user=>{
@@ -864,7 +1057,7 @@ onAuthStateChanged(auth,async user=>{
  // Real-time listener for current user document
  onSnapshot(doc(db,"users",user.uid), async snap => {
    if(!snap.exists()){
-     userData={uid:user.uid,name:"User",email:user.email,role:"user",packageBalance:0,taskToken:0,activePackages:[],taskTimestamps:{},lastProfitClaim:0,referralCount:0,isDisabled:false,lastReadNotification:0};
+     userData={uid:user.uid,name:"User",email:user.email,role:"user",packageBalance:0,taskToken:0,activePackages:[],taskTimestamps:{},lastProfitClaim:0,referralCount:0,isDisabled:false,lastReadNotification:0,emailVerified:false};
      await setDoc(doc(db,"users",user.uid),userData);
      return;
    }
@@ -879,8 +1072,21 @@ onAuthStateChanged(auth,async user=>{
    checkPackageExpirations();
    calculateTotalPackageBalance();
    taskToken=Number(userData.taskToken||0);
-   document.getElementById("userName").innerText=userData.name||"User";
-   document.getElementById("profileGmail").innerText=user.email;document.getElementById("profileUID").innerText=user.uid;
+
+   // Sync emailVerified status to Firestore + process referral if first time verified
+   if (user.emailVerified && !userData.emailVerified) {
+     updateDoc(doc(db,"users",user.uid), { emailVerified: true }).catch(()=>{});
+     userData.emailVerified = true;
+     checkAndProcessReferralOnVerify();
+   } else if (user.emailVerified && userData.emailVerified && !userData.referralCounted && userData.referredBy) {
+     // Edge case: already marked verified in DB but referral not counted yet
+     checkAndProcessReferralOnVerify();
+   }
+
+   document.getElementById("profileGmail").innerText=user.email;
+   document.getElementById("profileUID").innerText=user.uid;
+   updateGmailVerifyUI();
+   updateHeaderName();
    
    document.getElementById("tdName").innerText = userData.name || "User";
    document.getElementById("tdGmail").innerText = user.email;
@@ -890,7 +1096,9 @@ onAuthStateChanged(auth,async user=>{
    document.getElementById("editAddress").value=userData.address||"";document.getElementById("editDistrict").value=userData.district||"";
    document.getElementById("editUpazila").value=userData.upazila||"";document.getElementById("editDOB").value=userData.dob||"";
    
-   document.getElementById("referralCount").innerText = (userData.referralCount || 0) + " Person";
+   applyProfileLockUI();
+
+   document.getElementById("referralCount").innerText = (userData.referralCount || 0) + " Verified";
    document.getElementById("refLinkInput").value = `${window.location.origin}${window.location.pathname}?ref=${user.uid}`;
 
    document.getElementById("login").style.display="none";document.getElementById("register").style.display="none";document.getElementById("app").style.display="block";
@@ -1123,14 +1331,15 @@ window.openPaymentRequest=index=>{
  }
 
  selectedPackageIndex=index;const p=packageList[index];
- document.getElementById("requestUserId").value=currentUser.uid;
- document.getElementById("requestEmail").value=currentUser.email||"";
- document.getElementById("requestMobile").value=userData.mobile||"Not Set";
- document.getElementById("requestPackage").value=p.title;document.getElementById("requestAmount").value=p.price;
- document.getElementById("requestTransactionNumber").value="";document.getElementById("transactionId").value="";
- document.getElementById("paymentMethod").value="bKash";
+ document.getElementById("requestPackage").value = p.title;
+ document.getElementById("requestAmount").value = p.price;
+ document.getElementById("requestTransactionNumber").value = "";
+ document.getElementById("transactionId").value = "";
+ const ssInput = document.getElementById("paymentScreenshot");
+ if(ssInput) ssInput.value = "";
+ document.getElementById("paymentMethod").value = "bKash";
  updateSelectedPaymentNumber();
- document.getElementById("paymentPackageInfo").innerHTML=`<div class="info">আপনি <b>${p.title}</b> Package-এর জন্য <b>৳${p.price}</b> Payment Request করছেন। (মেয়াদ: ৩০ দিন)</div>`;
+ document.getElementById("paymentPackageInfo").innerHTML = `<div class="info">আপনি <b>${p.title}</b> Package-এর জন্য <b>৳${p.price}</b> Payment Request করছেন। (মেয়াদ: ৩০ দিন)</div>`;
  openPage("paymentRequest");
 };
 
@@ -1160,26 +1369,78 @@ window.submitPaymentRequest=async()=>{
  const method=document.getElementById("paymentMethod").value;
  const transactionNumber=document.getElementById("requestTransactionNumber").value.trim();
  const transactionId=document.getElementById("transactionId").value.trim();
- if(!transactionNumber)return showAlert("Sender Number প্রয়োজন!","যে নম্বর থেকে টাকা পাঠিয়েছেন তা লিখুন।","warning");
- if(!transactionId)return showAlert("TrxID প্রয়োজন!","Transaction ID লিখুন।","warning");
- const btn=document.getElementById("submitPayBtn");btn.disabled=true;
+ const screenshotFile = document.getElementById("paymentScreenshot").files[0];
+
+ if(!transactionNumber) return showAlert("Sender Number প্রয়োজন!","যে নম্বর থেকে টাকা পাঠিয়েছেন তা লিখুন।","warning");
+ if(!transactionId) return showAlert("TrxID প্রয়োজন!","Transaction ID লিখুন।","warning");
+ if(!screenshotFile) return showAlert("Screenshot প্রয়োজন!","পেমেন্টের স্ক্রিনশট আপলোড করুন।","warning");
+
+ const btn=document.getElementById("submitPayBtn");
+ btn.disabled=true;
+ btn.innerText = "Uploading Screenshot...";
  const p=packageList[selectedPackageIndex];
+
  try{
-  const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid),where("packageIndex","==",selectedPackageIndex),where("status","==","pending")),existing=await getDocs(q);
-  if(!existing.empty){showAlert("রিকুয়েস্ট পেন্ডিং!","এই প্যাকেজের একটি Payment Request ইতিমধ্যে Pending আছে।","info");return}
-  
+  // 1. Check existing pending
+  const q=query(collection(db,"paymentRequests"),where("uid","==",currentUser.uid),where("packageIndex","==",selectedPackageIndex),where("status","==","pending"));
+  const existing=await getDocs(q);
+  if(!existing.empty){
+    showAlert("রিকুয়েস্ট পেন্ডিং!","এই প্যাকেজের একটি Payment Request ইতিমধ্যে Pending আছে।","info");
+    return;
+  }
+
+  // 2. Upload Screenshot to Cloudinary
+  let screenshotUrl = "";
+  if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+    showAlert("কনফিগারেশন ত্রুটি!", "পেমেন্ট স্ক্রিনশট আপলোড সিস্টেম সেটআপ করা হয়নি। সাপোর্টে যোগাযোগ করুন।", "warning");
+    screenshotUrl = "https://via.placeholder.com/400x600?text=Payment+Screenshot";
+  } else {
+    const formData = new FormData();
+    formData.append("file", screenshotFile);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", "earnova_payments");
+
+    const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: "POST",
+      body: formData
+    });
+    const cloudData = await cloudRes.json();
+    if (!cloudData.secure_url) throw new Error("Screenshot upload failed: " + (cloudData.error?.message || "Unknown error"));
+    screenshotUrl = cloudData.secure_url;
+  }
+
+  btn.innerText = "Submitting...";
+
+  // 3. Save to Firebase
   await addDoc(collection(db,"paymentRequests"),{
-    uid:currentUser.uid, email:currentUser.email, mobile:userData.mobile||"", transactionNumber, transactionId,
-    packageIndex:selectedPackageIndex, packageName:p.title, amount:p.price, method, status:"pending", createdAt:serverTimestamp()
+    uid: currentUser.uid,
+    email: currentUser.email,
+    mobile: userData.mobile || "",
+    transactionNumber,
+    transactionId,
+    packageIndex: selectedPackageIndex,
+    packageName: p.title,
+    amount: p.price,
+    method,
+    screenshotUrl,
+    status: "pending",
+    createdAt: serverTimestamp()
   });
 
   await addDoc(collection(db,"notifications"),{
-    uid:currentUser.uid, icon:"💳", title:"Payment Request Submitted",
-    text:`${p.title} প্যাকেজের (৳${p.price}) রিকোয়েস্ট পেন্ডিং আছে। যাচাই শেষে কনফার্ম করা হবে।`, createdAt:serverTimestamp()
+    uid: currentUser.uid, icon: "💳", title: "Payment Request Submitted",
+    text: `${p.title} প্যাকেজের (৳${p.price}) রিকোয়েস্ট + Screenshot সহ পেন্ডিং আছে। যাচাই শেষে কনফার্ম করা হবে।`,
+    createdAt: serverTimestamp()
   });
 
-  showAlert("সফল!","Payment Request সফলভাবে জমা হয়েছে।","success");openPage("packages");
- }catch(e){showAlert("ব্যর্থ!",e.message,"error")}finally{btn.disabled=false}
+  showAlert("সফল!", "আপনার Payment Request সফলভাবে জমা হয়েছে। যাচাই শেষে প্যাকেজ অ্যাক্টিভ করা হবে।", "success");
+  openPage("packages");
+ }catch(e){
+  showAlert("ব্যর্থ!", e.message, "error");
+ }finally{
+  btn.disabled=false;
+  btn.innerText = "📤 Submit Payment Request";
+ }
 };
 
 /* Package Payment Request History Modal */
@@ -1444,6 +1705,17 @@ window.claimDailyProfit=async()=>{
 
 window.withdraw=async()=>{
  if(!currentUser)return;
+
+ // Gmail Verify চেক
+ if (!currentUser.emailVerified) {
+   return showAlert("Gmail Verify প্রয়োজন!", "উইথড্র করতে হলে আগে আপনার Gmail Verify করুন। Profile পেজে গিয়ে 'Verify Gmail' বাটনে ক্লিক করুন এবং ইমেইলে আসা লিংক ক্লিক করে Verify করুন।", "warning");
+ }
+
+ // Active Package চেক (বোনাস/রেফারেল টাকা উইথড্র করতে প্যাকেজ লাগবে)
+ if ((userData.activePackages || []).length === 0) {
+   return showAlert("Active Package প্রয়োজন!", "বোনাস বা রেফারেল থেকে আয় করা টোকেন উইথড্র করতে হলে কমপক্ষে একটি প্যাকেজ Active করতে হবে।", "warning");
+ }
+
  const method=document.getElementById("method").value,number=document.getElementById("number").value.trim(),amount=parseInt(document.getElementById("amount").value);
  
  if(!/^01\d{9}$/.test(number))return showAlert("ভুল নম্বর!","সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।","warning");
@@ -1478,15 +1750,75 @@ function loadWithdrawals(){
 
 window.saveProfile=async()=>{
  if(!currentUser)return;
- const name=document.getElementById("editName").value.trim(),mobile=document.getElementById("editMobile").value.trim(),address=document.getElementById("editAddress").value.trim(),district=document.getElementById("editDistrict").value.trim(),upazila=document.getElementById("editUpazila").value.trim(),dob=document.getElementById("editDOB").value;
+
+ // 30-day lock check
+ const lockUntil = userData.profileLockedUntil || 0;
+ if (lockUntil && Date.now() < lockUntil) {
+   const daysLeft = Math.ceil((lockUntil - Date.now()) / (1000 * 60 * 60 * 24));
+   return showAlert("প্রোফাইল লকড!", `আপনার ব্যক্তিগত তথ্য ইতিমধ্যে ভেরিফাই করা হয়েছে। ${daysLeft} দিন পর পরিবর্তন করতে পারবেন।`, "info");
+ }
+
+ const name=document.getElementById("editName").value.trim();
+ const mobile=document.getElementById("editMobile").value.trim();
+ const address=document.getElementById("editAddress").value.trim();
+ const district=document.getElementById("editDistrict").value.trim();
+ const upazila=document.getElementById("editUpazila").value.trim();
+ const dob=document.getElementById("editDOB").value;
+
+ // All fields mandatory
+ if (!name) return showAlert("তথ্য অসম্পূর্ণ!", "পুরো নাম লিখুন। এটি বাধ্যতামূলক।", "warning");
+ if (!mobile) return showAlert("তথ্য অসম্পূর্ণ!", "মোবাইল নম্বর লিখুন। এটি বাধ্যতামূলক।", "warning");
+ if (!/^01\d{9}$/.test(mobile)) return showAlert("ভুল নম্বর!", "সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (01XXXXXXXXX)।", "warning");
+ if (!address) return showAlert("তথ্য অসম্পূর্ণ!", "ঠিকানা লিখুন। এটি বাধ্যতামূলক।", "warning");
+ if (!district) return showAlert("তথ্য অসম্পূর্ণ!", "জেলা লিখুন। এটি বাধ্যতামূলক।", "warning");
+ if (!upazila) return showAlert("তথ্য অসম্পূর্ণ!", "উপজেলা লিখুন। এটি বাধ্যতামূলক।", "warning");
+ if (!dob) return showAlert("তথ্য অসম্পূর্ণ!", "জন্ম তারিখ নির্বাচন করুন। এটি বাধ্যতামূলক।", "warning");
+
  try{
-  await updateDoc(doc(db,"users",currentUser.uid),{name,mobile,address,district,upazila,dob});
-  userData={...userData,name,mobile,address,district,upazila,dob};
-  document.getElementById("userName").innerText=name||"User";
-  document.getElementById("tdName").innerText=name||"User";
-  showAlert("সেভ হয়েছে!","প্রোফাইল তথ্য আপডেট করা হয়েছে।","success");
- }catch(e){showAlert("ত্রুটি!",e.message,"error")}
+  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+  const lockedUntil = Date.now() + THIRTY_DAYS_MS;
+
+  await updateDoc(doc(db,"users",currentUser.uid),{
+    name, mobile, address, district, upazila, dob,
+    profileLockedUntil: lockedUntil,
+    profileVerifiedAt: Date.now()
+  });
+  userData = {...userData, name, mobile, address, district, upazila, dob, profileLockedUntil: lockedUntil, profileVerifiedAt: Date.now()};
+  
+  updateHeaderName();
+  document.getElementById("tdName").innerText = name || "User";
+  applyProfileLockUI();
+  showAlert("প্রোফাইল ভেরিফাইড!", "আপনার ব্যক্তিগত তথ্য সফলভাবে সেভ ও ভেরিফাই করা হয়েছে। পরবর্তী ৩০ দিন এই তথ্য পরিবর্তন করা যাবে না।", "success");
+ }catch(e){showAlert("ত্রুটি!", "প্রোফাইল সেভ করা যায়নি। আবার চেষ্টা করুন।", "error")}
 };
+
+function applyProfileLockUI() {
+  const lockUntil = userData.profileLockedUntil || 0;
+  const isLocked = lockUntil && Date.now() < lockUntil;
+  const notice = document.getElementById("profileLockNotice");
+  const btn = document.getElementById("saveProfileBtn");
+  const fields = ["editName","editMobile","editAddress","editDistrict","editUpazila","editDOB"];
+
+  if (isLocked) {
+    const daysLeft = Math.ceil((lockUntil - Date.now()) / (1000 * 60 * 60 * 24));
+    if (notice) {
+      notice.style.display = "block";
+      notice.innerHTML = `🔒 <b>প্রোফাইল লকড</b> — আপনার ব্যক্তিগত তথ্য ভেরিফাই করা হয়েছে। <b>${daysLeft} দিন</b> পর পরিবর্তন করতে পারবেন।`;
+    }
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.disabled = true; el.style.background = "#f1f5f9"; el.style.cursor = "not-allowed"; }
+    });
+    if (btn) { btn.disabled = true; btn.innerText = "🔒 Locked — ৩০ দিন পর পরিবর্তনযোগ্য"; btn.style.background = "#94a3b8"; }
+  } else {
+    if (notice) notice.style.display = "none";
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.disabled = false; el.style.background = ""; el.style.cursor = ""; }
+    });
+    if (btn) { btn.disabled = false; btn.innerText = "💾 Save / Verify Profile"; btn.style.background = "#16a34a"; }
+  }
+}
 
 function loadNotifications(){
  if(!currentUser)return;
@@ -1680,6 +2012,10 @@ async function loadAdmin(){
   document.getElementById("adminMinWithdraw").value = globalMinWithdraw;
   document.getElementById("adminMaxWithdraw").value = globalMaxWithdraw;
   document.getElementById("adminBaseUserCountInput").value = globalBaseUserCount;
+  const wbEnabled = document.getElementById("adminWelcomeBonusEnabled");
+  const wbAmount = document.getElementById("adminWelcomeBonusAmount");
+  if (wbEnabled) wbEnabled.value = globalWelcomeBonusEnabled ? "true" : "false";
+  if (wbAmount) wbAmount.value = globalWelcomeBonusAmount;
 }
 
 function loadAdminRulesEditList(){
@@ -1764,11 +2100,23 @@ function loadAdminPaymentRequests(){
     if(arr.length === 0){ box.innerHTML = "<p class='small'>No payment requests.</p>"; return; }
 
     arr.forEach(r => {
+      const screenshotHtml = r.screenshotUrl 
+        ? `<div style="margin:8px 0">
+             <a href="${r.screenshotUrl}" target="_blank" download style="display:inline-block;background:#2563eb;color:#fff;padding:6px 12px;border-radius:8px;font-size:12px;text-decoration:none;margin-right:8px;">
+               📸 View / Download Screenshot
+             </a>
+             <br>
+             <img src="${r.screenshotUrl}" alt="Screenshot" style="max-width:160px;max-height:200px;border-radius:8px;margin-top:6px;border:1px solid #ddd;cursor:pointer;" onclick="window.open('${r.screenshotUrl}','_blank')">
+           </div>`
+        : `<small style="color:#999">No screenshot uploaded</small>`;
+
+      const isVerified = userVerifiedMap[r.uid] ? verifiedBadgeHTML : '';
       box.innerHTML += `
         <div class="adminUser">
-          <b>${r.packageName || 'Package'} (৳${r.amount})</b> - ${r.email}<br>
-          <small>Sender: ${r.transactionNumber} | TrxID: ${r.transactionId} | Method: ${r.method}</small><br>
-          <small>Status: <b>${r.status.toUpperCase()}</b></small>
+          <b>${r.packageName || 'Package'} (৳${r.amount})</b> - ${r.email}${isVerified}<br>
+          <small>Sender: ${r.transactionNumber || 'N/A'} | TrxID: ${r.transactionId || 'N/A'} | Method: ${r.method || 'N/A'}</small><br>
+          <small>Mobile: ${r.mobile || 'N/A'} | Status: <b>${(r.status||'').toUpperCase()}</b></small>
+          ${screenshotHtml}
           ${r.status === 'pending' ? `
             <div class="adminActions">
               <button class="success" onclick="approvePaymentRequest('${r.id}', '${r.uid}', ${r.packageIndex}, ${r.amount}, '${r.packageName}')">✅ Approve</button>
@@ -1838,9 +2186,10 @@ function loadAdminWithdrawals(){
     if(arr.length === 0){ box.innerHTML = "<p class='small'>No withdrawal requests.</p>"; return; }
 
     arr.forEach(w => {
+      const isVerified = userVerifiedMap[w.uid] ? verifiedBadgeHTML : '';
       box.innerHTML += `
         <div class="adminUser">
-          <b>🪙 ${w.amount} Tokens (${w.method})</b> - ${w.email}<br>
+          <b>🪙 ${w.amount} Tokens (${w.method})</b> - ${w.email}${isVerified}<br>
           <small>Account Number: ${w.number} | Status: <b>${w.status.toUpperCase()}</b></small>
           ${w.status === 'pending' ? `
             <div class="adminActions">
@@ -1883,17 +2232,20 @@ async function loadAdminUsers(){
  onSnapshot(collection(db,"users"), snap => {
    const box=document.getElementById("adminUsers"); box.innerHTML="";
    
-   // Collect all users into array for sorting
+   // Collect all users into array for sorting + populate verified map
    let usersArr = [];
+   userVerifiedMap = {};
    snap.forEach(d => {
-     usersArr.push({ id: d.id, ...d.data() });
+     const data = { id: d.id, ...d.data() };
+     usersArr.push(data);
+     userVerifiedMap[d.id] = !!data.emailVerified;
    });
 
    // Sort by number of active packages (descending) - most packages first
    usersArr.sort((a, b) => {
      const aCount = (a.activePackages || []).length;
      const bCount = (b.activePackages || []).length;
-     return bCount - aCount; // Highest active packages first
+     return bCount - aCount;
    });
 
    if(usersArr.length === 0){
@@ -1905,6 +2257,7 @@ async function loadAdminUsers(){
      const isDis = u.isDisabled ? true : false;
      const activePkgs = u.activePackages || [];
      const serialNo = serial + 1;
+     const verifiedTag = u.emailVerified ? verifiedBadgeHTML : '';
 
      let pkgHtml = '';
      if(activePkgs.length === 0) {
@@ -1924,17 +2277,25 @@ async function loadAdminUsers(){
      }
 
      box.innerHTML+=`
-       <div class="adminUser">
-         <b>#${serialNo} | ${u.name || 'No Name'}</b> (${u.email}) <span style="background:#2563eb;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;margin-left:6px;">📦 ${activePkgs.length} Active</span><br>
-         <small>ID: ${u.uid}</small><br>
-         <small>Pkg Bal: ৳${u.packageBalance || 0} | Tokens: 🪙 ${u.taskToken || 0} | Ref Count: ${u.referralCount || 0}</small>
+       <div class="adminUser" style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:14px; margin-bottom:14px; box-shadow:0 2px 8px #0000000d;">
+         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+           <div>
+             <b style="font-size:15px;">#${serialNo} | ${u.name || 'No Name'}</b>${verifiedTag}
+           </div>
+           <span style="background:#2563eb;color:#fff;font-size:11px;padding:3px 10px;border-radius:99px;">📦 ${activePkgs.length} Active</span>
+         </div>
+         <small style="color:#64748b; display:block; margin-bottom:2px;">📧 ${u.email || 'N/A'}</small>
+         <small style="color:#64748b; display:block; word-break:break-all;">🆔 ${u.uid}</small>
+         <div style="margin-top:8px; font-size:13px;">
+           <b>Pkg Bal:</b> ৳${u.packageBalance || 0} &nbsp;|&nbsp; <b>Tokens:</b> 🪙 ${u.taskToken || 0} &nbsp;|&nbsp; <b>Ref:</b> ${u.referralCount || 0}
+         </div>
          
-         <div style="margin-top:8px;border-top:1px dashed #ddd;padding-top:6px;">
-           <small style="font-weight:bold;color:#2563eb">Active Packages Control (${activePkgs.length}/2):</small>
+         <div style="margin-top:10px; border-top:1px dashed #cbd5e1; padding-top:8px;">
+           <small style="font-weight:bold;color:#2563eb; display:block; margin-bottom:4px;">Active Packages Control (${activePkgs.length}/2)</small>
            ${pkgHtml}
          </div>
 
-         <div class="adminActions">
+         <div class="adminActions" style="margin-top:10px;">
            <button class="primary" onclick="editUserBalance('${u.uid}', ${u.packageBalance||0}, ${u.taskToken||0})">✏️ Edit Tokens/Bal</button>
            <button class="${isDis?'success':'danger'}" onclick="toggleUserStatus('${u.uid}', ${isDis})">${isDis?'✅ Enable':'🚫 Disable'}</button>
          </div>
@@ -2192,6 +2553,7 @@ function loadAdminReferralLeaderboard(){
     snap.forEach(d => {
       const u = { id: d.id, ...d.data() };
       users.push(u);
+      userVerifiedMap[d.id] = !!u.emailVerified;
       
       if (u.referredBy) {
         if (!referredMap[u.referredBy]) referredMap[u.referredBy] = [];
@@ -2218,6 +2580,7 @@ function loadAdminReferralLeaderboard(){
       const referredBy = u.referredBy || "None (Direct)";
       const myReferredList = referredMap[u.uid] || [];
       const referredCount = myReferredList.length;
+      const verifiedTag = u.emailVerified ? verifiedBadgeHTML : '';
 
       // Store referred list in a global temp object for the Details button
       if (!window._referralDetailsCache) window._referralDetailsCache = {};
@@ -2227,7 +2590,7 @@ function loadAdminReferralLeaderboard(){
         <div class="adminUser" style="background:#f8fafc; border-left:4px solid #2563eb; margin-bottom:12px; padding:12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
             <div>
-              <b style="font-size:15px;">${rankBadge} | ${u.name || 'No Name'}</b>
+              <b style="font-size:15px;">${rankBadge} | ${u.name || 'No Name'}</b>${verifiedTag}
               <span style="background:#16a34a;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;margin-left:8px;">👥 ${u.referralCount || 0} Referred</span>
             </div>
             <button class="primary" style="padding:6px 14px; font-size:12px; border-radius:8px;" onclick="showReferredUsersDetails('${u.uid}', '${(u.name || 'User').replace(/'/g, "\\'")}')">
@@ -2237,7 +2600,7 @@ function loadAdminReferralLeaderboard(){
           <br>
           
           <div style="font-size:13px; line-height:1.7;">
-            <b>📧 Email:</b> ${u.email || 'N/A'}<br>
+            <b>📧 Email:</b> ${u.email || 'N/A'}${verifiedTag}<br>
             <b>🆔 User ID:</b> <span style="word-break:break-all;font-size:12px;">${u.uid}</span><br>
             <b>📱 Mobile:</b> ${mobile}<br>
             <b>🏠 Address:</b> ${address}<br>
@@ -2268,12 +2631,14 @@ window.showReferredUsersDetails = (referrerUid, referrerName) => {
     
     list.forEach((refUser, idx) => {
       const pkgCount = (refUser.activePackages || []).length;
+      const isVerified = !!(refUser.emailVerified || userVerifiedMap[refUser.uid] || userVerifiedMap[refUser.id]);
+      const verifiedTag = isVerified ? verifiedBadgeHTML : `<span style="display:inline-block;background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:bold;margin-left:6px;">Not Verified</span>`;
       htmlContent += `
         <div style="border-bottom:1px solid #eee; padding:10px 0;">
-          <b>#${idx + 1} | ${refUser.name || 'No Name'}</b><br>
+          <b>#${idx + 1} | ${refUser.name || 'No Name'}</b>${verifiedTag}<br>
           <small style="color:#555;">
             📧 ${refUser.email || 'N/A'}<br>
-            🆔 ${refUser.uid}<br>
+            🆔 ${refUser.uid || refUser.id}<br>
             📱 ${refUser.mobile || 'Not Set'} | 📦 Active Pkg: ${pkgCount}/2<br>
             💰 Pkg Bal: ৳${refUser.packageBalance || 0} | 🪙 Token: ${refUser.taskToken || 0}
           </small>
@@ -2475,12 +2840,13 @@ function listenAdminChats(){
 
     userList.forEach(u => {
       const isUnread = u.unreadCount > 0;
+      const verifiedTag = userVerifiedMap[u.uid] ? verifiedBadgeHTML : '';
       const item = document.createElement("div");
       item.className = `adminUser adminUserItem ${isUnread ? 'unread' : ''}`;
       item.onclick = () => selectAdminChatUser(u.uid, u.userName, u.userEmail);
       item.innerHTML = `
         <div>
-          <b>${u.userName}</b> (${u.userEmail})<br>
+          <b>${u.userName}</b>${verifiedTag} (${u.userEmail})<br>
           <small>ID: ${u.uid}</small>
         </div>
         ${isUnread ? `<span class="unreadBadge">${u.unreadCount} New</span>` : ''}
@@ -2550,9 +2916,107 @@ window.deleteChatMessage = async (msgId) => {
     await deleteDoc(doc(db, "chats", msgId));
   } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
 };
+
+/* ========== Gmail Verification System ========== */
+let gmailVerifyCooldownTimer = null;
+let gmailVerifyCooldownUntil = 0;
+
+function updateGmailVerifyUI() {
+  const badge = document.getElementById("gmailVerifyBadge");
+  const btn = document.getElementById("gmailVerifyBtn");
+  if (!badge || !btn || !currentUser) return;
+
+  if (currentUser.emailVerified) {
+    badge.style.display = "inline-block";
+    badge.innerText = "✓ Verified";
+    badge.style.background = "#dcfce7";
+    badge.style.color = "#15803d";
+    btn.style.display = "none";
+    // Sync to Firestore if needed + process referral
+    if (!userData.emailVerified) {
+      updateDoc(doc(db,"users",currentUser.uid), { emailVerified: true }).catch(()=>{});
+      userData.emailVerified = true;
+      updateHeaderName();
+      checkAndProcessReferralOnVerify();
+    } else if (!userData.referralCounted && userData.referredBy) {
+      checkAndProcessReferralOnVerify();
+    }
+  } else {
+    badge.style.display = "inline-block";
+    badge.innerText = "Not Verified";
+    badge.style.background = "#fee2e2";
+    badge.style.color = "#dc2626";
+    btn.style.display = "inline-block";
+
+    // Restore cooldown state if still active
+    if (Date.now() < gmailVerifyCooldownUntil) {
+      startGmailVerifyCooldown(Math.ceil((gmailVerifyCooldownUntil - Date.now()) / 1000));
+    }
+  }
+}
+
+function startGmailVerifyCooldown(secondsLeft) {
+  const btn = document.getElementById("gmailVerifyBtn");
+  if (!btn) return;
+  if (gmailVerifyCooldownTimer) clearInterval(gmailVerifyCooldownTimer);
+
+  btn.disabled = true;
+  const updateBtnText = () => {
+    const remaining = Math.ceil((gmailVerifyCooldownUntil - Date.now()) / 1000);
+    if (remaining <= 0) {
+      clearInterval(gmailVerifyCooldownTimer);
+      gmailVerifyCooldownTimer = null;
+      btn.disabled = false;
+      btn.innerText = "✅ Verify Gmail";
+      return;
+    }
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    btn.innerText = `⏳ ${m}:${s.toString().padStart(2,"0")} পর আবার পাঠান`;
+  };
+  updateBtnText();
+  gmailVerifyCooldownTimer = setInterval(updateBtnText, 1000);
+}
+
+window.sendGmailVerification = async () => {
+  if (!currentUser) return;
+  if (Date.now() < gmailVerifyCooldownUntil) {
+    return showAlert("অপেক্ষা করুন", "ভেরিফিকেশন ইমেইল ইতিমধ্যে পাঠানো হয়েছে। ২ মিনিট পর আবার চেষ্টা করুন।", "info");
+  }
+
+  const btn = document.getElementById("gmailVerifyBtn");
+  if (btn) { btn.disabled = true; btn.innerText = "পাঠানো হচ্ছে..."; }
+
+  try {
+    await sendEmailVerification(currentUser);
+    gmailVerifyCooldownUntil = Date.now() + 2 * 60 * 1000; // 2 minutes
+    startGmailVerifyCooldown(120);
+    showAlert("ইমেইল পাঠানো হয়েছে! 📧", "আপনার Gmail-এ একটি Verification লিংক পাঠানো হয়েছে। লিংকে ক্লিক করে Verify করুন, তারপর এই পেজটি রিফ্রেশ করুন।", "success");
+  } catch (e) {
+    if (btn) { btn.disabled = false; btn.innerText = "✅ Verify Gmail"; }
+    let msg = "ভেরিফিকেশন ইমেইল পাঠানো যায়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+    if (e.code === "auth/too-many-requests") {
+      msg = "অনেকবার অনুরোধ করা হয়েছে। অনুগ্রহ করে ২-৩ মিনিট অপেক্ষা করে আবার চেষ্টা করুন।";
+      gmailVerifyCooldownUntil = Date.now() + 2 * 60 * 1000;
+      startGmailVerifyCooldown(120);
+    }
+    showAlert("অনুরোধ ব্যর্থ!", msg, "warning");
+  }
+};
+
+// Periodically refresh emailVerified status when user returns to the tab
+document.addEventListener("visibilitychange", async () => {
+  if (document.visibilityState === "visible" && currentUser) {
+    try {
+      await currentUser.reload();
+      updateGmailVerifyUI();
+      updateHeaderName();
+    } catch (e) {}
+  }
+});
 </script>
 
 <script src="app-banner.js"></script>
-  
+
 </body>
 </html>
