@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Earnova - Professional Earning Platform</title>
-  
+
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -44,8 +44,8 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 .historyBtn{background:#2563eb;color:#fff;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;position:relative;box-shadow:0 2px 6px #00000022}
 .historyRedDot{position:absolute;top:-4px;right:-4px;width:12px;height:12px;background:#ef4444;border-radius:50%;border:2px solid #fff;display:none;box-shadow:0 0 5px #ef4444}
 
-.balanceBox{background:#fff;color:#172033;margin-top:18px;padding:17px;border-radius:18px;box-shadow:0 8px 20px #0002}
-.moneyBox{padding:12px 0}.moneyBox+.moneyBox{border-top:1px solid #eee}.moneyBox small{color:#777}.moneyBox h2{margin-top:5px}
+.balanceBox{background:#fff;color:#172033;margin-top:14px;padding:12px 15px;border-radius:16px;box-shadow:0 6px 16px #0002}
+.moneyBox{padding:8px 0}.moneyBox+.moneyBox{border-top:1px solid #eee}.moneyBox small{color:#777;font-size:11px}.moneyBox h2{margin-top:3px;font-size:18px}
 .packageMoney{color:#2563eb}.taskMoney{color:#16a34a}
 .container{padding:18px}.card{background:#fff;padding:18px;border-radius:17px;margin-bottom:15px;box-shadow:0 3px 12px #0001}
 
@@ -75,9 +75,29 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 .profileRow{padding:13px 0;border-bottom:1px solid #eee}.profileRow:last-child{border-bottom:0}.profileRow small{display:block;color:#888;margin-bottom:4px}.profileRow strong{font-size:15px;word-break:break-all}
 .history{padding:12px 0;border-bottom:1px solid #eee}.pending{color:#ea580c;font-weight:bold}.approved{color:#16a34a;font-weight:bold}.rejected{color:#dc2626;font-weight:bold}
 
-.bottom{position:fixed;bottom:0;left:0;right:0;height:65px;background:#fff;display:flex;justify-content:space-evenly;align-items:center;box-shadow:0 -4px 15px #0001;z-index:100;padding:0 5px}
-.nav{background:none;border:none;color:#777;font-size:11px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;position:relative;cursor:pointer}
-.nav span{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#2563eb;font-weight:bold}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:68px;background:#fff;display:flex;justify-content:space-evenly;align-items:flex-end;box-shadow:0 -4px 18px #0001;z-index:100;padding:0 4px 6px}
+.nav{background:none;border:none;color:#94a3b8;font-size:10px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0 4px;position:relative;cursor:pointer;border-radius:12px;transition:.2s}
+.nav span{display:block;font-size:20px;margin-bottom:2px;transition:.2s}
+.nav.active{color:#2563eb;font-weight:700;background:#eff6ff}
+.nav.active span{transform:scale(1.08)}
+/* Tasks button — raised upward, same active color as others */
+.nav.navTasks{
+  flex:1.15;
+  margin-bottom:10px;
+  padding:10px 0 8px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 2px 10px #00000018;
+  border:1px solid #e2e8f0;
+}
+.nav.navTasks span{font-size:24px}
+.nav.navTasks.active{
+  color:#2563eb;
+  background:#eff6ff;
+  box-shadow:0 4px 14px #2563eb22;
+  border-color:#bfdbfe;
+}
+.nav.navTasks.active span{transform:scale(1.08)}
 
 .logout{width:100%;padding:13px;background:#fee2e2;color:#dc2626;border-radius:10px;margin-top:10px}
 .adminBadge{display:inline-block;background:#dcfce7;color:#15803d;padding:5px 99px;border-radius:999px;font-size:12px;font-weight:bold}
@@ -172,7 +192,7 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
       <div class="bellContainer">
         <button class="bell" onclick="openNotificationsPage()">🔔<div class="redDot" id="headerRedDot"></div></button>
       </div>
-      <button class="menuBtn" onclick="openPage('threeDotSettings')">⋮</button>
+      <button class="menuBtn" onclick="openPage('threeDotSettings')" title="নিয়ম-কানুন ও শর্তাবলী">ℹ️</button>
     </div>
   </div>
   <div class="balanceBox" id="headerBalanceBox">
@@ -235,17 +255,25 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 <!-- THREE-DOT SETTINGS PAGE -->
 <div id="threeDotSettings" class="page">
   <div class="sectionTitle">
-    <h3>⚙️ Account Overview</h3>
+    <h3>ℹ️ নিয়ম-কানুন ও শর্তাবলী</h3>
     <button class="closePageBtn" onclick="openPage('home')">✕</button>
   </div>
-  <div class="card">
-    <div class="profileRow"><small>👤 Account Holder Name</small><strong id="tdName">Loading...</strong></div>
-    <div class="profileRow"><small>📧 Gmail Address</small><strong id="tdGmail">Loading...</strong></div>
-    <div class="profileRow"><small>🆔 User ID</small><strong id="tdUID">Loading...</strong></div>
-    <hr style="margin: 20px 0 15px; border:0; border-top:1px solid #eee">
-    <h4 style="margin-bottom:8px">🔐 Security & Password</h4>
-    <p style="font-size:12px; color:#666; margin-bottom:12px">পাসওয়ার্ড পরিবর্তন করতে নিচের বাটনে ক্লিক করুন।</p>
-    <button class="secondary" style="width:100%; border:1px solid #2563eb;" onclick="changePasswordFromSettings()">🔑 Change Password</button>
+
+  <div class="card" style="border-left:4px solid #2563eb">
+    <h3 style="margin-bottom:10px">📜 Earnova প্ল্যাটফর্মের সম্পূর্ণ নিয়মাবলী</h3>
+    <p style="font-size:13px;color:#555;margin-bottom:4px;line-height:1.6">নিচের সব নিয়ম ও শর্তাবলী সাবধানে পড়ে নিন। এই প্ল্যাটফর্ম ব্যবহার করে আপনি সব নিয়ম মেনে চলতে সম্মত হচ্ছেন।</p>
+  </div>
+
+  <!-- Fully admin-controlled About Rules (order + content) -->
+  <div id="aboutRulesFullContainer">
+    <div class="card"><p style="color:#94a3b8;text-align:center;">Loading rules...</p></div>
+  </div>
+
+  <div class="card" style="background:#f8fafc;border:1px dashed #cbd5e1">
+    <p style="font-size:12px;color:#64748b;text-align:center;line-height:1.6;margin:0">
+      কোনো নিয়ম ভঙ্গ করলে অ্যাকাউন্ট স্থগিত বা বাতিল করা হতে পারে।<br>
+      সহায়তার জন্য Live Chat ব্যবহার করুন।
+    </p>
   </div>
 </div>
 
@@ -373,14 +401,16 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 
 <!-- PROFILE PAGE -->
 <div id="profile" class="page">
-  <div class="sectionTitle">
-    <h3>👤 My Profile</h3>
+  <!-- Centered Profile Avatar + Name (main identity — no duplicate title) -->
+  <div class="card" style="text-align:center; padding:28px 18px 22px; background:linear-gradient(180deg,#f0f5ff 0%,#fff 60%); border:1px solid #e0e7ff;">
+    <div id="profileAvatar" style="width:82px;height:82px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-size:36px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 6px 20px #2563eb40;letter-spacing:0;user-select:none;">U</div>
+    <h2 id="profileDisplayName" style="font-size:20px;margin:0 0 6px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">User</h2>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">Earnova Member</p>
   </div>
 
-  <!-- Account Info Card -->
+  <!-- Account Information -->
   <div class="card" style="border-top:4px solid #2563eb">
     <h3 style="margin-bottom:12px">🔐 Account Information</h3>
-    
     <div class="profileRow">
       <small>📧 Gmail</small>
       <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:4px">
@@ -389,25 +419,25 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
         <button id="gmailVerifyBtn" class="secondary" style="padding:6px 12px; font-size:12px; display:none;" onclick="sendGmailVerification()">✅ Verify Gmail</button>
       </div>
     </div>
-
     <div class="profileRow">
       <small>🆔 User ID 🔒 (পরিবর্তনযোগ্য নয়)</small>
       <strong id="profileUID" style="word-break:break-all; color:#64748b">Not Set</strong>
     </div>
   </div>
 
-  <!-- Personal Info Card -->
+  <!-- Personal Information (View Only) -->
   <div class="card" style="border-top:4px solid #16a34a">
     <h3 style="margin-bottom:12px">📝 Personal Information</h3>
     <div id="profileLockNotice" class="info" style="display:none; margin-bottom:12px; background:#fff7ed; color:#c2410c; border:1px solid #fdba74;"></div>
-    <div class="profileRow"><small>👤 Full Name <span style="color:#dc2626">*</span></small><input id="editName" placeholder="আপনার পুরো নাম (বাধ্যতামূলক)"></div>
-    <div class="profileRow"><small>📱 Mobile Number <span style="color:#dc2626">*</span></small><input id="editMobile" placeholder="01XXXXXXXXX (বাধ্যতামূলক)"></div>
-    <div class="profileRow"><small>🏠 Address <span style="color:#dc2626">*</span></small><input id="editAddress" placeholder="আপনার ঠিকানা (বাধ্যতামূলক)"></div>
-    <div class="profileRow"><small>📍 District <span style="color:#dc2626">*</span></small><input id="editDistrict" placeholder="জেলা (বাধ্যতামূলক)"></div>
-    <div class="profileRow"><small>📍 Upazila <span style="color:#dc2626">*</span></small><input id="editUpazila" placeholder="উপজেলা (বাধ্যতামূলক)"></div>
-    <div class="profileRow"><small>🎂 Date of Birth <span style="color:#dc2626">*</span></small><input id="editDOB" type="date"></div>
     
-    <button class="primary" style="width:100%;margin-top:18px; background:#16a34a" id="saveProfileBtn" onclick="saveProfile()">💾 Save / Verify Profile</button>
+    <div class="profileRow"><small>👤 Full Name</small><strong id="viewName">—</strong></div>
+    <div class="profileRow"><small>📱 Mobile Number</small><strong id="viewMobile">—</strong></div>
+    <div class="profileRow"><small>🏠 Address</small><strong id="viewAddress">—</strong></div>
+    <div class="profileRow"><small>📍 District</small><strong id="viewDistrict">—</strong></div>
+    <div class="profileRow"><small>📍 Upazila</small><strong id="viewUpazila">—</strong></div>
+    <div class="profileRow"><small>🎂 Date of Birth</small><strong id="viewDOB">—</strong></div>
+    
+    <button class="primary" style="width:100%;margin-top:18px; background:#16a34a" id="saveProfileBtn" onclick="openProfileEditPage()">✏️ Edit</button>
   </div>
 
   <!-- Balance Summary -->
@@ -418,7 +448,47 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <div class="profileRow"><small>📦 Active Packages</small><strong id="activePackagesCount">0 / 2</strong></div>
   </div>
 
+  <!-- Wallet + Withdraw Buttons -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
+    <button class="primary" style="padding:16px 12px; border-radius:14px; display:flex; flex-direction:column; align-items:center; gap:6px; background:linear-gradient(135deg,#2563eb,#4f46e5); box-shadow:0 4px 14px #2563eb33;" onclick="showWalletPopup()">
+      <span style="font-size:24px;">💰</span>
+      <span style="font-size:13px; font-weight:700;">Wallet</span>
+    </button>
+    <button class="primary" style="padding:16px 12px; border-radius:14px; display:flex; flex-direction:column; align-items:center; gap:6px; background:linear-gradient(135deg,#16a34a,#15803d); box-shadow:0 4px 14px #16a34a33;" onclick="openPage('withdraw')">
+      <span style="font-size:24px;">💸</span>
+      <span style="font-size:13px; font-weight:700;">Withdraw</span>
+    </button>
+  </div>
+
+  <!-- Password Change (at the end) -->
+  <div class="card" style="border-top:4px solid #64748b">
+    <h3 style="margin-bottom:8px">🔐 Security & Password</h3>
+    <p style="font-size:12px; color:#666; margin-bottom:12px">পাসওয়ার্ড পরিবর্তন করতে নিচের বাটনে ক্লিক করুন।</p>
+    <button class="secondary" style="width:100%; border:1px solid #2563eb;" id="changePassBtn" onclick="changePasswordFromSettings()">🔑 Change Password</button>
+  </div>
+
   <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<!-- Profile Edit Overlay Page -->
+<div id="profileEditPage" class="page">
+  <div class="sectionTitle">
+    <h3>✏️ Edit Personal Information</h3>
+    <button class="closePageBtn" onclick="closeProfileEditPage()">✕</button>
+  </div>
+  <div class="card" style="border-top:4px solid #16a34a">
+    <div class="info" style="margin-bottom:14px; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe;">
+      সব তথ্য সঠিকভাবে পূরণ করুন। সেভ করার পর <b>৩০ দিন</b> পর্যন্ত পরিবর্তন করা যাবে না।
+    </div>
+    <div class="profileRow"><small>👤 Full Name <span style="color:#dc2626">*</span></small><input id="editName" placeholder="আপনার পুরো নাম (বাধ্যতামূলক)" autocomplete="off"></div>
+    <div class="profileRow"><small>📱 Mobile Number <span style="color:#dc2626">*</span></small><input id="editMobile" placeholder="01XXXXXXXXX (বাধ্যতামূলক)" autocomplete="off"></div>
+    <div class="profileRow"><small>🏠 Address <span style="color:#dc2626">*</span></small><input id="editAddress" placeholder="আপনার ঠিকানা (বাধ্যতামূলক)" autocomplete="off"></div>
+    <div class="profileRow"><small>📍 District <span style="color:#dc2626">*</span></small><input id="editDistrict" placeholder="জেলা (বাধ্যতামূলক)" autocomplete="off"></div>
+    <div class="profileRow"><small>📍 Upazila <span style="color:#dc2626">*</span></small><input id="editUpazila" placeholder="উপজেলা (বাধ্যতামূলক)" autocomplete="off"></div>
+    <div class="profileRow"><small>🎂 Date of Birth <span style="color:#dc2626">*</span></small><input id="editDOB" type="date" autocomplete="off"></div>
+    
+    <button class="primary" style="width:100%;margin-top:18px; background:#16a34a" id="submitProfileEditBtn" onclick="submitProfileEdit()">💾 Submit</button>
+  </div>
 </div>
 
 <!-- ADMIN CONTROL CENTER -->
@@ -460,6 +530,10 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     <div class="adminMenuCard" id="card_adminPagesSub" onclick="openAdminSubPage('adminPagesSub', this)">
       <div class="icon">⚙️</div>
       <h4>Page Management</h4>
+    </div>
+    <div class="adminMenuCard" id="card_adminAboutSub" onclick="openAdminSubPage('adminAboutSub', this)">
+      <div class="icon">ℹ️</div>
+      <h4>About & Rules</h4>
     </div>
   </div>
 
@@ -546,25 +620,47 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
     </div>
   </div>
 
+  <!-- ABOUT & RULES SUB PAGE (dedicated) -->
+  <div id="adminAboutSub" class="adminSubPage">
+    <div class="sectionTitle">
+      <h4>ℹ️ About & Rules Control</h4>
+      <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
+    </div>
+
+    <!-- HOME PAGE RULES -->
+    <div class="card" style="border-left:5px solid #16a34a">
+      <h3>🏠 Home Page Rules</h3>
+      <p style="font-size:12px; color:#666; margin: 5px 0 12px">হোম পেজের নিয়ম — এডিট, ডিলিট, যোগ এবং <b>↑ ↓</b> সিরিয়াল।</p>
+      <div style="border:1px dashed #16a34a;padding:12px;border-radius:10px;margin-bottom:15px;background:#f0fdf4">
+        <h4>➕ Add Home Rule</h4>
+        <input id="newHomeRuleText" type="text" placeholder="নতুন হোম পেজ নিয়ম লিখুন...">
+        <button class="primary" style="width:100%;background:#16a34a" onclick="addHomeRule()">Add Rule</button>
+      </div>
+      <div id="adminHomeRulesEditContainer">Loading...</div>
+    </div>
+
+    <!-- ABOUT PAGE RULES -->
+    <div class="card" style="border-left:5px solid #2563eb">
+      <h3>ℹ️ About Page Rules</h3>
+      <p style="font-size:12px; color:#666; margin: 5px 0 12px">About (ℹ️) পেজের সব নিয়ম — শিরোনাম/আইটেম, এডিট, ডিলিট, <b>↑ ↓</b> সিরিয়াল।</p>
+      <div style="border:1px dashed #2563eb;padding:12px;border-radius:10px;margin-bottom:15px;background:#f8fafc">
+        <h4>➕ Add About Item</h4>
+        <select id="newAboutRuleType" style="margin-bottom:8px">
+          <option value="heading">📌 Section Heading (শিরোনাম)</option>
+          <option value="item">• Rule Item (নিয়ম)</option>
+        </select>
+        <input id="newAboutRuleText" type="text" placeholder="টেক্সট লিখুন...">
+        <button class="primary" style="width:100%;background:#2563eb" onclick="addAboutRule()">Add to About Page</button>
+      </div>
+      <div id="adminAboutRulesEditContainer">Loading...</div>
+    </div>
+  </div>
+
   <!-- 6. PAGES & SYSTEM SETTINGS SUB PAGE -->
   <div id="adminPagesSub" class="adminSubPage">
     <div class="sectionTitle">
       <h4>⚙️ Page & Settings Management</h4>
       <button class="closePageBtn" onclick="closeAdminSubPage()">✕</button>
-    </div>
-    
-    <!-- Home Page Rules & Terms Edit/Add/Delete Management -->
-    <div class="card" style="border-left:5px solid #2563eb">
-      <h3>📜 Home Page Rules & Terms Management</h3>
-      <p style="font-size:12px; color:#666; margin: 5px 0 12px">হোম পেজের নিয়ম-কানুন এডিট, ডিলিট এবং নতুন নিয়ম যোগ করুন:</p>
-      
-      <div style="border:1px dashed #2563eb;padding:12px;border-radius:10px;margin-bottom:15px;background:#f8fafc">
-        <h4>➕ Add New Rule Item</h4>
-        <input id="newRuleText" type="text" placeholder="Enter new rule or guidelines text...">
-        <button class="primary" style="width:100%;background:#16a34a" onclick="addNewRuleByAdmin()">Add Rule Item</button>
-      </div>
-
-      <div id="adminRulesEditContainer">Loading rules list...</div>
     </div>
 
     <!-- Home Page Settings -->
@@ -681,10 +777,10 @@ input:focus,select:focus,textarea:focus{border-color:#2563eb}
 
 <div class="bottom">
   <button class="nav active" id="homeNavBtn" onclick="openPage('home',this)"><span>🏠</span>Home</button>
-  <button class="nav" onclick="openPage('packages',this)"><span>📦</span>Packages</button>
-  <button class="nav" onclick="openPage('tasks',this)"><span>🎯</span>Tasks</button>
-  <button class="nav" onclick="openPage('withdraw',this)"><span>💸</span>Withdraw</button>
-  <button class="nav" onclick="openPage('profile',this)"><span>👤</span>Profile</button>
+  <button class="nav" id="pkgNavBtn" onclick="openPage('packages',this)"><span>📦</span>Packages</button>
+  <button class="nav navTasks" id="tasksNavBtn" onclick="openPage('tasks',this)"><span>🎯</span>Tasks</button>
+  <button class="nav" id="withdrawNavBtn" onclick="openPage('withdraw',this)"><span>💸</span>Withdraw</button>
+  <button class="nav" id="profileNavBtn" onclick="openPage('profile',this)"><span>👤</span>Profile</button>
 </div>
 </div>
 
@@ -712,7 +808,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, deleteDoc, query, where, getDocs, onSnapshot, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// ========== CLOUDINARY CONFIG ==========
+// ========== IMAGE UPLOAD CONFIG ==========
 const CLOUDINARY_CLOUD_NAME = "uepqaprw";
 const CLOUDINARY_UPLOAD_PRESET = "payment screenshots";
 
@@ -746,14 +842,52 @@ let profitCountdownTimer = null;
 let myPendingPaymentRequests = []; 
 let userCountInterval = null;
 let userVerifiedMap = {}; // uid -> true/false for emailVerified
+let profileFieldsFilled = false; // prevent overwriting inputs while user is typing
 
-// Dynamic Rules & Terms Array Default
+// Dynamic Rules & Terms Array Default (Home Page)
 let dynamicRulesList = [
   "১টি অ্যাকাউন্ট: একজন ইউজার একটির বেশি অ্যাকাউন্ট তৈরি করতে পারবেন না।",
   "প্যাকেজ ডেইলি প্রফিট: প্রতিদিন (২৪ ঘণ্টা পর পর) প্যাকেজ মূল্যের প্রফিট ক্লেইম করা যাবে।",
   "প্যাকেজ লিমিট: একজন ইউজার সর্বোচ্চ ২ টি প্যাকেজ একটিভ রাখতে পারবেন (মেয়াদ ৩০ দিন)। ৩০ দিন শেষ হলে কেবল সেই নির্দিষ্ট প্যাকেজের ব্যালেন্স 0 হবে।",
   "উইথড্র লিমিট: সর্বনিম্ন ১,০০০ টাকা থেকে সর্বোচ্চ ১২,০০০ টাকা পর্যন্ত উইথড্র শুধুমাত্র Task Token থেকে কাটা হবে।",
   "রেফারেল বোনাস: রেফার করা ইউজার Account Verify করলেই কাউন্ট হবে। প্রতি ১০ জন Verified রেফারেলে স্বয়ংক্রিয়ভাবে +৫০ Task Token বোনাস পাবেন।"
+];
+
+// About Page Rules (fully admin controllable — heading + item, ordered)
+let aboutRulesList = [
+  { type: "heading", text: "১. অ্যাকাউন্ট সংক্রান্ত নিয়ম" },
+  { type: "item", text: "একজন ইউজার মাত্র ১টি অ্যাকাউন্ট তৈরি করতে পারবেন।" },
+  { type: "item", text: "শুধুমাত্র @gmail.com ইমেইল দিয়ে রেজিস্ট্রেশন করা যাবে।" },
+  { type: "item", text: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।" },
+  { type: "item", text: "প্রোফাইলের সব তথ্য (নাম, মোবাইল, ঠিকানা, জেলা, উপজেলা, জন্ম তারিখ) বাধ্যতামূলক।" },
+  { type: "item", text: "প্রোফাইল একবার সেভ/ভেরিফাই করার পর ৩০ দিন লক থাকবে।" },
+  { type: "item", text: "উইথড্র করতে হলে Gmail Verify করতে হবে।" },
+  { type: "heading", text: "২. প্যাকেজ সংক্রান্ত নিয়ম" },
+  { type: "item", text: "একসাথে সর্বোচ্চ ২টি প্যাকেজ Active রাখা যাবে।" },
+  { type: "item", text: "প্রতিটি প্যাকেজের মেয়াদ ৩০ দিন।" },
+  { type: "item", text: "৩০ দিন শেষ হলে সেই প্যাকেজের ব্যালেন্স ০ হয়ে যাবে।" },
+  { type: "item", text: "একসাথে ১টির বেশি Payment Request Pending রাখা যাবে না।" },
+  { type: "item", text: "Active + Pending মিলে ২টির বেশি হতে পারবে না।" },
+  { type: "item", text: "Payment Request দিতে TrxID + Sender Number + Screenshot বাধ্যতামূলক।" },
+  { type: "item", text: "bKash / Nagad — শুধুমাত্র Cash Out।" },
+  { type: "heading", text: "৩. ডেইলি প্রফিট নিয়ম" },
+  { type: "item", text: "শুধুমাত্র Active Package থাকলে Claim করা যাবে।" },
+  { type: "item", text: "২৪ ঘণ্টা পর পর একবার Claim করা যাবে।" },
+  { type: "item", text: "মিস করলে আর পেছনের Claim পাওয়া যাবে না।" },
+  { type: "heading", text: "৪. টাস্ক সংক্রান্ত নিয়ম" },
+  { type: "item", text: "Free Task → প্যাকেজ ছাড়াই করা যাবে (একবার মাত্র)।" },
+  { type: "item", text: "Daily Task → কমপক্ষে ১টি Active Package থাকতে হবে।" },
+  { type: "item", text: "প্রতিটি টাস্ক মাত্র একবার সম্পন্ন করা যাবে।" },
+  { type: "item", text: "টাস্ক Start করার পর কমপক্ষে ৬০ সেকেন্ড অপেক্ষা করে Claim করতে হবে।" },
+  { type: "heading", text: "৫. উইথড্র নিয়ম" },
+  { type: "item", text: "সর্বনিম্ন ১০০০ টোকেন থেকে সর্বোচ্চ ১২০০০ টোকেন।" },
+  { type: "item", text: "শুধুমাত্র Task Token থেকে কাটা হবে।" },
+  { type: "item", text: "Gmail Verify করা বাধ্যতামূলক।" },
+  { type: "item", text: "কমপক্ষে ১টি Active Package থাকতে হবে।" },
+  { type: "item", text: "মোবাইল নম্বর হতে হবে ০১XXXXXXXXX ফরম্যাটে।" },
+  { type: "heading", text: "৬. রেফারেল নিয়ম" },
+  { type: "item", text: "রেফার করা ইউজার Gmail Verify করলেই কাউন্ট হবে।" },
+  { type: "item", text: "প্রতি ১০ জন Verified রেফারেলে +৫০ Task Token বোনাস।" }
 ];
 
 // Dynamic packages list structure: Array of Objects (Firestore does not support nested arrays)
@@ -800,6 +934,37 @@ const taskIcons = { youtube: "📺", facebook: "👍", telegram: "📢", website
 
 const showAlert=(title,text,icon="info")=>Swal.fire({title,text,icon,confirmButtonColor:"#2563eb"});
 
+/* Professional Safe Error Handler — never exposes Firebase / technical messages to users */
+function getSafeErrorMsg(e, customMsg) {
+  if (customMsg) return customMsg;
+  if (!e) return "কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+
+  const code = (e.code || "").toString().toLowerCase();
+  const msg  = (e.message || "").toString().toLowerCase();
+
+  if (code.includes("network") || msg.includes("network") || code === "auth/network-request-failed") {
+    return "ইন্টারনেট সংযোগে সমস্যা হয়েছে। নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।";
+  }
+  if (code.includes("permission") || msg.includes("permission") || msg.includes("insufficient") || code.includes("permission-denied")) {
+    return "আপনার এই কাজটি করার অনুমতি নেই। সাপোর্টে যোগাযোগ করুন।";
+  }
+  if (code === "auth/too-many-requests" || msg.includes("too-many-requests")) {
+    return "অনেকবার চেষ্টা করা হয়েছে। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।";
+  }
+  if (code === "auth/user-disabled" || msg.includes("user-disabled")) {
+    return "এই অ্যাকাউন্টটি ডিজেবল করা হয়েছে। সাপোর্টে যোগাযোগ করুন।";
+  }
+  if (code === "auth/requires-recent-login") {
+    return "নিরাপত্তার জন্য আবার লগইন করে চেষ্টা করুন।";
+  }
+  if (msg.includes("quota") || msg.includes("resource-exhausted")) {
+    return "সিস্টেমে সাময়িক সমস্যা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+  }
+
+  // Default safe message — never show raw e.message
+  return "কাজটি সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।";
+}
+
 // Verified badge HTML (same style everywhere)
 const verifiedBadgeHTML = `<span style="display:inline-block;background:#dcfce7;color:#15803d;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:bold;margin-left:6px;vertical-align:middle;">✓ Verified</span>`;
 
@@ -809,6 +974,32 @@ function updateHeaderName() {
   const name = userData.name || "User";
   const isVerified = (currentUser && currentUser.emailVerified) || userData.emailVerified;
   nameEl.innerHTML = isVerified ? `${name}${verifiedBadgeHTML}` : name;
+
+  // Update Profile page avatar + display name
+  updateProfileAvatarAndName();
+}
+
+function updateProfileAvatarAndName() {
+  const name = userData.name || "User";
+  const firstLetter = name.trim().charAt(0).toUpperCase() || "U";
+  const isVerified = (currentUser && currentUser.emailVerified) || userData.emailVerified;
+
+  const avatar = document.getElementById("profileAvatar");
+  if (avatar) avatar.innerText = firstLetter;
+
+  const displayName = document.getElementById("profileDisplayName");
+  if (displayName) {
+    displayName.innerHTML = isVerified ? `${name}${verifiedBadgeHTML}` : name;
+  }
+
+  // Update view-only personal info fields
+  const setView = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val || "—"; };
+  setView("viewName", userData.name);
+  setView("viewMobile", userData.mobile);
+  setView("viewAddress", userData.address);
+  setView("viewDistrict", userData.district);
+  setView("viewUpazila", userData.upazila);
+  setView("viewDOB", userData.dob);
 }
 
 /* Point 1: Dynamic User Counter based on Admin Settings */
@@ -844,6 +1035,9 @@ function listenGlobalSettings(){
     if(d.maxWithdraw !== undefined) globalMaxWithdraw = d.maxWithdraw;
     if(d.packageList) packageList = normalizePackageList(d.packageList);
     if(d.rulesList) dynamicRulesList = d.rulesList;
+    if(d.aboutRulesList && Array.isArray(d.aboutRulesList) && d.aboutRulesList.length > 0) {
+      aboutRulesList = d.aboutRulesList;
+    }
     if(d.baseUserCount !== undefined) {
       globalBaseUserCount = d.baseUserCount;
       globalBaseUserCountTime = d.baseUserCountTime || Date.now();
@@ -859,7 +1053,11 @@ function listenGlobalSettings(){
   updateSelectedPaymentNumber();
   updateDynamicSystemTexts();
   renderDynamicRules();
-  if(userData && userData.role === "admin") loadAdminRulesEditList();
+  renderAboutRules();
+  if(userData && userData.role === "admin") {
+    loadAdminHomeRulesEditList();
+    loadAdminAboutRulesEditList();
+  }
  });
 }
 
@@ -874,7 +1072,7 @@ window.saveBaseUserCount = async () => {
       baseUserCountTime: Date.now()
     }, { merge: true });
     showAlert("সফল!", "Total Users Count সফলভাবে আপডেট করা হয়েছে!", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 /* Save Welcome Bonus Settings */
@@ -891,15 +1089,60 @@ window.saveWelcomeBonusSettings = async () => {
     globalWelcomeBonusEnabled = enabled;
     globalWelcomeBonusAmount = amount;
     showAlert("সফল!", enabled ? `Welcome Bonus চালু আছে — নতুন অ্যাকাউন্টে +${amount} Token পাবে।` : "Welcome Bonus বন্ধ করা হয়েছে। নতুন অ্যাকাউন্টে কোনো বোনাস পাবে না।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function renderDynamicRules() {
   const container = document.getElementById("dynamicRulesContainer");
   if (!container) return;
   container.innerHTML = "";
+  if (!dynamicRulesList.length) {
+    container.innerHTML = `<li>বর্তমানে কোনো নিয়ম নেই।</li>`;
+    return;
+  }
   dynamicRulesList.forEach(rule => {
     container.innerHTML += `<li>${rule}</li>`;
+  });
+}
+
+function renderAboutRules() {
+  const box = document.getElementById("aboutRulesFullContainer");
+  if (!box) return;
+  box.innerHTML = "";
+
+  if (!aboutRulesList.length) {
+    box.innerHTML = `<div class="card"><p style="color:#94a3b8;text-align:center;">বর্তমানে কোনো নিয়ম নেই।</p></div>`;
+    return;
+  }
+
+  let currentCard = null;
+  let currentList = null;
+
+  aboutRulesList.forEach((entry) => {
+    const type = entry.type || "item";
+    const text = entry.text || "";
+
+    if (type === "heading") {
+      currentCard = document.createElement("div");
+      currentCard.className = "card";
+      currentCard.innerHTML = `<h3 style="color:#2563eb;margin-bottom:10px">${text}</h3>`;
+      currentList = document.createElement("ul");
+      currentList.className = "rulesList";
+      currentCard.appendChild(currentList);
+      box.appendChild(currentCard);
+    } else {
+      if (!currentList) {
+        currentCard = document.createElement("div");
+        currentCard.className = "card";
+        currentList = document.createElement("ul");
+        currentList.className = "rulesList";
+        currentCard.appendChild(currentList);
+        box.appendChild(currentCard);
+      }
+      const li = document.createElement("li");
+      li.innerHTML = text;
+      currentList.appendChild(li);
+    }
   });
 }
 
@@ -1046,7 +1289,21 @@ window.registerUser=async()=>{
 
   const bonusMsg = welcomeTokens > 0 ? ` + ${welcomeTokens} Token বোনাস!` : "!";
   showAlert("সফল!",`অ্যাকাউন্ট তৈরি হয়েছে${bonusMsg} Gmail Verify করার জন্য ইমেইল চেক করুন। Verify করলে রেফারেল কাউন্ট যোগ হবে।`,"success");showLogin();
- }catch(e){showAlert("রেজিস্ট্রেশন ব্যর্থ!",e.message,"error")}finally{btn.disabled=false;btn.innerText="Register"}
+ }catch(e){
+  let msg = "অ্যাকাউন্ট তৈরি করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।";
+  if (e.code === "auth/email-already-in-use") {
+    msg = "এই Gmail দিয়ে ইতিমধ্যে একটি অ্যাকাউন্ট তৈরি করা আছে। অনুগ্রহ করে Login করুন অথবা অন্য Gmail ব্যবহার করুন।";
+  } else if (e.code === "auth/invalid-email") {
+    msg = "সঠিক Gmail অ্যাড্রেস দিন।";
+  } else if (e.code === "auth/weak-password") {
+    msg = "পাসওয়ার্ড খুবই দুর্বল। কমপক্ষে ৬ অক্ষরের একটি শক্তিশালী পাসওয়ার্ড দিন।";
+  } else if (e.code === "auth/too-many-requests") {
+    msg = "অনেকবার চেষ্টা করা হয়েছে। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।";
+  } else if (e.code === "auth/network-request-failed") {
+    msg = "ইন্টারনেট সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।";
+  }
+  showAlert("রেজিস্ট্রেশন ব্যর্থ!", msg, "error");
+ }finally{btn.disabled=false;btn.innerText="Register"}
 };
 
 window.login=async()=>{
@@ -1079,9 +1336,8 @@ window.login=async()=>{
         return;
       }
     } catch (lookupErr) {
-      // Permission denied or network — give clear guidance
       console.error("UID lookup error:", lookupErr);
-      showAlert("লগইন ব্যর্থ!", "User ID দিয়ে লগইন করতে সমস্যা হয়েছে। অনুগ্রহ করে Gmail দিয়ে লগইন করুন, অথবা Firebase Rules-এ users কালেকশনে get অনুমতি দিন।", "error");
+      showAlert("লগইন ব্যর্থ!", "User ID দিয়ে লগইন করতে সমস্যা হয়েছে। অনুগ্রহ করে Gmail দিয়ে লগইন করুন।", "error");
       return;
     }
   }
@@ -1095,6 +1351,8 @@ window.login=async()=>{
     msg = "অনেকবার ভুল চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।";
   } else if (e.code === "auth/invalid-email") {
     msg = "সঠিক Gmail অ্যাড্রেস দিন।";
+  } else if (e.code === "auth/network-request-failed") {
+    msg = "ইন্টারনেট সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।";
   }
   showAlert("লগইন ব্যর্থ!", msg, "error");
  }finally{btn.disabled=false;btn.innerText="Login"}
@@ -1116,7 +1374,7 @@ window.resetPassword=async()=>{
 };
 
 onAuthStateChanged(auth,async user=>{
- if(!user){currentUser=null;document.getElementById("app").style.display="none";document.getElementById("register").style.display="none";document.getElementById("login").style.display="flex";return}
+ if(!user){currentUser=null;profileFieldsFilled=false;document.getElementById("app").style.display="none";document.getElementById("register").style.display="none";document.getElementById("login").style.display="flex";return}
  currentUser=user;
  listenGlobalSettings();
 
@@ -1152,16 +1410,7 @@ onAuthStateChanged(auth,async user=>{
    document.getElementById("profileGmail").innerText=user.email;
    document.getElementById("profileUID").innerText=user.uid;
    updateGmailVerifyUI();
-   updateHeaderName();
-   
-   document.getElementById("tdName").innerText = userData.name || "User";
-   document.getElementById("tdGmail").innerText = user.email;
-   document.getElementById("tdUID").innerText = user.uid;
-
-   document.getElementById("editName").value=userData.name||"";document.getElementById("editMobile").value=userData.mobile||"";
-   document.getElementById("editAddress").value=userData.address||"";document.getElementById("editDistrict").value=userData.district||"";
-   document.getElementById("editUpazila").value=userData.upazila||"";document.getElementById("editDOB").value=userData.dob||"";
-   
+   updateHeaderName(); // also updates avatar + view fields
    applyProfileLockUI();
 
    document.getElementById("referralCount").innerText = (userData.referralCount || 0) + " Verified";
@@ -1249,13 +1498,69 @@ async function checkPackageExpirations(){
   }
 }
 
+let passwordChangeCooldownUntil = 0;
+let passwordChangeCooldownTimer = null;
+
 window.changePasswordFromSettings = async () => {
   if (!currentUser || !currentUser.email) return;
+
+  // Cooldown check
+  if (Date.now() < passwordChangeCooldownUntil) {
+    const left = Math.ceil((passwordChangeCooldownUntil - Date.now()) / 1000);
+    const m = Math.floor(left / 60);
+    const s = left % 60;
+    return showAlert("অপেক্ষা করুন", `পাসওয়ার্ড রিসেট ইমেইল ইতিমধ্যে পাঠানো হয়েছে। ${m}:${s.toString().padStart(2,"0")} পর আবার চেষ্টা করুন।`, "info");
+  }
+
+  // Professional confirmation first
+  const conf = await Swal.fire({
+    title: "পাসওয়ার্ড পরিবর্তন?",
+    html: `<p style="font-size:14px;line-height:1.7;color:#334155;">আপনি কি সত্যিই পাসওয়ার্ড পরিবর্তন করতে চান?<br><br>OK ক্লিক করলে আপনার Gmail (<b>${currentUser.email}</b>)-এ একটি রিসেট লিংক পাঠানো হবে।</p>`,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "OK — লিংক পাঠান",
+    cancelButtonText: "বাতিল",
+    confirmButtonColor: "#2563eb"
+  });
+
+  if (!conf.isConfirmed) return;
+
+  const btn = document.getElementById("changePassBtn");
+  if (btn) { btn.disabled = true; btn.innerText = "পাঠানো হচ্ছে..."; }
+
   try {
     await sendPasswordResetEmail(auth, currentUser.email);
-    showAlert("ইমেইল পাঠানো হয়েছে! 📧", `আপনার জিমেইল (${currentUser.email})-এ পাসওয়ার্ড পরিবর্তনের লিঙ্ক পাঠানো হয়েছে।`, "success");
-  } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
+    passwordChangeCooldownUntil = Date.now() + 2 * 60 * 1000; // 2 minutes
+    startPasswordChangeCooldown();
+    showAlert("ইমেইল পাঠানো হয়েছে! 📧", `আপনার জিমেইল (${currentUser.email})-এ পাসওয়ার্ড পরিবর্তনের লিঙ্ক পাঠানো হয়েছে। ইমেইল চেক করুন।`, "success");
+  } catch (e) {
+    if (btn) { btn.disabled = false; btn.innerText = "🔑 Change Password"; }
+    showAlert("ত্রুটি!", getSafeErrorMsg(e), "error");
+  }
 };
+
+function startPasswordChangeCooldown() {
+  const btn = document.getElementById("changePassBtn");
+  if (!btn) return;
+  if (passwordChangeCooldownTimer) clearInterval(passwordChangeCooldownTimer);
+
+  btn.disabled = true;
+  const tick = () => {
+    const remaining = Math.ceil((passwordChangeCooldownUntil - Date.now()) / 1000);
+    if (remaining <= 0) {
+      clearInterval(passwordChangeCooldownTimer);
+      passwordChangeCooldownTimer = null;
+      btn.disabled = false;
+      btn.innerText = "🔑 Change Password";
+      return;
+    }
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    btn.innerText = `⏳ ${m}:${s.toString().padStart(2,"0")} পর আবার চেষ্টা করুন`;
+  };
+  tick();
+  passwordChangeCooldownTimer = setInterval(tick, 1000);
+}
 
 window.showRegister=()=>{document.getElementById("login").style.display="none";document.getElementById("register").style.display="flex"};
 window.showLogin=()=>{document.getElementById("register").style.display="none";document.getElementById("login").style.display="flex"};
@@ -1264,21 +1569,47 @@ window.openPage=(page,button)=>{
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
  const target=document.getElementById(page);if(target)target.classList.add("active");
  document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+
+ // Active nav highlighting (clear color so user knows which tab is open)
  if(button) {
    button.classList.add("active");
- } else if(page === 'home') {
-   document.getElementById("homeNavBtn")?.classList.add("active");
- } else if(page === 'admin') {
-   document.getElementById("adminNavBtn")?.classList.add("active");
+ } else {
+   const navMap = {
+     home: "homeNavBtn",
+     packages: "pkgNavBtn",
+     tasks: "tasksNavBtn",
+     withdraw: "withdrawNavBtn",
+     profile: "profileNavBtn",
+     profileEditPage: "profileNavBtn",
+     admin: "adminNavBtn"
+   };
+   const navId = navMap[page];
+   if (navId) document.getElementById(navId)?.classList.add("active");
  }
  
  const balanceBox = document.getElementById("headerBalanceBox");
  if (balanceBox) {
-   balanceBox.style.display = (page === "admin") ? "none" : "block";
+   // Hide balance on Profile & Admin pages
+   balanceBox.style.display = (page === "admin" || page === "profile" || page === "profileEditPage") ? "none" : "block";
+ }
+
+ // Header: on Profile show only "My Profile" (name lives in avatar section)
+ const welcomeSmall = document.querySelector(".header .top small");
+ const nameEl = document.getElementById("userName");
+ if (page === "profile" || page === "profileEditPage") {
+   if (welcomeSmall) welcomeSmall.innerText = "My Profile";
+   if (nameEl) nameEl.style.display = "none";
+ } else {
+   if (welcomeSmall) welcomeSmall.innerText = "Welcome back 👋";
+   if (nameEl) nameEl.style.display = "";
  }
  
  if(page==="admin"&&userData.role==="admin")loadAdmin();
  if(page==="withdraw") updateWithdrawMethodLogo();
+ if(page==="profile") {
+   updateProfileAvatarAndName();
+   applyProfileLockUI();
+ }
  window.scrollTo(0,0);
 };
 
@@ -1457,7 +1788,7 @@ window.submitPaymentRequest=async()=>{
     return;
   }
 
-  // 2. Upload Screenshot to Cloudinary
+  // 2. Upload Screenshot to secure storage
   let screenshotUrl = "";
   if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
     showAlert("কনফিগারেশন ত্রুটি!", "পেমেন্ট স্ক্রিনশট আপলোড সিস্টেম সেটআপ করা হয়নি। সাপোর্টে যোগাযোগ করুন।", "warning");
@@ -1473,13 +1804,13 @@ window.submitPaymentRequest=async()=>{
       body: formData
     });
     const cloudData = await cloudRes.json();
-    if (!cloudData.secure_url) throw new Error("Screenshot upload failed: " + (cloudData.error?.message || "Unknown error"));
+    if (!cloudData.secure_url) throw new Error("Screenshot upload failed");
     screenshotUrl = cloudData.secure_url;
   }
 
   btn.innerText = "Submitting...";
 
-  // 3. Save to Firebase
+  // 3. Save payment request data
   await addDoc(collection(db,"paymentRequests"),{
     uid: currentUser.uid,
     email: currentUser.email,
@@ -1504,7 +1835,8 @@ window.submitPaymentRequest=async()=>{
   showAlert("সফল!", "আপনার Payment Request সফলভাবে জমা হয়েছে। যাচাই শেষে প্যাকেজ অ্যাক্টিভ করা হবে।", "success");
   openPage("packages");
  }catch(e){
-  showAlert("ব্যর্থ!", e.message, "error");
+  console.error("Payment request error:", e);
+  showAlert("ব্যর্থ!", "পেমেন্ট রিকোয়েস্ট জমা দিতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।", "error");
  }finally{
   btn.disabled=false;
   btn.innerText = "📤 Submit Payment Request";
@@ -1547,7 +1879,7 @@ window.showMyPaymentRequestHistory = async () => {
       confirmButtonText: 'ঠিক আছে',
       confirmButtonColor: '#2563eb'
     });
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function updateBalance(){
@@ -1734,7 +2066,7 @@ window.startTaskTimer = async (taskId, reward, link, isPermanent = false) => {
   const timestamps = userData.taskTimestamps || {};
   if (timestamps[taskId]) return showAlert("ইতিমধ্যে সম্পন্ন","এই টাস্কটি আপনি আগেই সম্পন্ন করেছেন।","info");
 
-  // Save start time to Firebase
+  // Save start time to database
   const startTimes = userData.taskStartTimes || {};
   startTimes[taskId] = Date.now();
 
@@ -1827,7 +2159,7 @@ window.claimTaskReward = async (taskId, reward) => {
     startTimes[taskId] = startTime;
     userData.taskTimestamps = timestamps;
     userData.taskStartTimes = startTimes;
-    showAlert("ত্রুটি!", e.message, "error");
+    showAlert("ত্রুটি!", getSafeErrorMsg(e), "error");
     if(btn) { btn.disabled = false; btn.innerText = `🎁 Claim +${rewardAmount}`; }
   } finally {
     delete claimingTasks[taskId];
@@ -1924,7 +2256,7 @@ window.claimDailyProfit=async()=>{
   showAlert("সফল!",`ডেইলি ${globalDailyProfitPercent}% প্রফিট থেকে +${profit} Task Token যোগ হয়েছে!`,"success");
  }catch(e){
   checkProfitTimer();
-  showAlert("ত্রুটি!",e.message,"error");
+  showAlert("ত্রুটি!", getSafeErrorMsg(e), "error");
  }
 };
 
@@ -1960,7 +2292,7 @@ window.withdraw=async()=>{
   
   updateBalance();loadWithdrawals();document.getElementById("number").value="";document.getElementById("amount").value="";
   showAlert("রিকোয়েস্ট জমা হয়েছে!","আপনার উইথড্রয়াল আবেদনটি সফল হয়েছে।","success");
- }catch(e){taskToken+=amount;showAlert("ত্রুটি!",e.message,"error")}finally{btn.disabled=false}
+ }catch(e){taskToken+=amount;showAlert("ত্রুটি!", getSafeErrorMsg(e), "error")}finally{btn.disabled=false}
 };
 
 function loadWithdrawals(){
@@ -1973,48 +2305,85 @@ function loadWithdrawals(){
  });
 }
 
-window.saveProfile=async()=>{
- if(!currentUser)return;
+/* Open the separate Edit page for personal information */
+window.openProfileEditPage = () => {
+  if (!currentUser) return;
+  const lockUntil = userData.profileLockedUntil || 0;
+  if (lockUntil && Date.now() < lockUntil) {
+    const daysLeft = Math.ceil((lockUntil - Date.now()) / (1000 * 60 * 60 * 24));
+    return showAlert("প্রোফাইল লকড!", `আপনার ব্যক্তিগত তথ্য ইতিমধ্যে ভেরিফাই করা হয়েছে। ${daysLeft} দিন পর পরিবর্তন করতে পারবেন।`, "info");
+  }
 
- // 30-day lock check
- const lockUntil = userData.profileLockedUntil || 0;
- if (lockUntil && Date.now() < lockUntil) {
-   const daysLeft = Math.ceil((lockUntil - Date.now()) / (1000 * 60 * 60 * 24));
-   return showAlert("প্রোফাইল লকড!", `আপনার ব্যক্তিগত তথ্য ইতিমধ্যে ভেরিফাই করা হয়েছে। ${daysLeft} দিন পর পরিবর্তন করতে পারবেন।`, "info");
- }
+  // Pre-fill current values
+  document.getElementById("editName").value = userData.name || "";
+  document.getElementById("editMobile").value = userData.mobile || "";
+  document.getElementById("editAddress").value = userData.address || "";
+  document.getElementById("editDistrict").value = userData.district || "";
+  document.getElementById("editUpazila").value = userData.upazila || "";
+  document.getElementById("editDOB").value = userData.dob || "";
 
- const name=document.getElementById("editName").value.trim();
- const mobile=document.getElementById("editMobile").value.trim();
- const address=document.getElementById("editAddress").value.trim();
- const district=document.getElementById("editDistrict").value.trim();
- const upazila=document.getElementById("editUpazila").value.trim();
- const dob=document.getElementById("editDOB").value;
+  openPage("profileEditPage");
+};
 
- // All fields mandatory
- if (!name) return showAlert("তথ্য অসম্পূর্ণ!", "পুরো নাম লিখুন। এটি বাধ্যতামূলক।", "warning");
- if (!mobile) return showAlert("তথ্য অসম্পূর্ণ!", "মোবাইল নম্বর লিখুন। এটি বাধ্যতামূলক।", "warning");
- if (!/^01\d{9}$/.test(mobile)) return showAlert("ভুল নম্বর!", "সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (01XXXXXXXXX)।", "warning");
- if (!address) return showAlert("তথ্য অসম্পূর্ণ!", "ঠিকানা লিখুন। এটি বাধ্যতামূলক।", "warning");
- if (!district) return showAlert("তথ্য অসম্পূর্ণ!", "জেলা লিখুন। এটি বাধ্যতামূলক।", "warning");
- if (!upazila) return showAlert("তথ্য অসম্পূর্ণ!", "উপজেলা লিখুন। এটি বাধ্যতামূলক।", "warning");
- if (!dob) return showAlert("তথ্য অসম্পূর্ণ!", "জন্ম তারিখ নির্বাচন করুন। এটি বাধ্যতামূলক।", "warning");
+window.closeProfileEditPage = () => {
+  openPage("profile");
+};
 
- try{
-  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
-  const lockedUntil = Date.now() + THIRTY_DAYS_MS;
+/* Submit from Edit page → confirmation → then save */
+window.submitProfileEdit = async () => {
+  if (!currentUser) return;
 
-  await updateDoc(doc(db,"users",currentUser.uid),{
-    name, mobile, address, district, upazila, dob,
-    profileLockedUntil: lockedUntil,
-    profileVerifiedAt: Date.now()
+  const name = document.getElementById("editName").value.trim();
+  const mobile = document.getElementById("editMobile").value.trim();
+  const address = document.getElementById("editAddress").value.trim();
+  const district = document.getElementById("editDistrict").value.trim();
+  const upazila = document.getElementById("editUpazila").value.trim();
+  const dob = document.getElementById("editDOB").value;
+
+  if (!name) return showAlert("তথ্য অসম্পূর্ণ!", "পুরো নাম লিখুন। এটি বাধ্যতামূলক।", "warning");
+  if (!mobile) return showAlert("তথ্য অসম্পূর্ণ!", "মোবাইল নম্বর লিখুন। এটি বাধ্যতামূলক।", "warning");
+  if (!/^01\d{9}$/.test(mobile)) return showAlert("ভুল নম্বর!", "সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (01XXXXXXXXX)।", "warning");
+  if (!address) return showAlert("তথ্য অসম্পূর্ণ!", "ঠিকানা লিখুন। এটি বাধ্যতামূলক।", "warning");
+  if (!district) return showAlert("তথ্য অসম্পূর্ণ!", "জেলা লিখুন। এটি বাধ্যতামূলক।", "warning");
+  if (!upazila) return showAlert("তথ্য অসম্পূর্ণ!", "উপজেলা লিখুন। এটি বাধ্যতামূলক।", "warning");
+  if (!dob) return showAlert("তথ্য অসম্পূর্ণ!", "জন্ম তারিখ নির্বাচন করুন। এটি বাধ্যতামূলক।", "warning");
+
+  // Final professional confirmation
+  const conf = await Swal.fire({
+    title: "নিশ্চিত করুন",
+    html: `<p style="font-size:14px;line-height:1.7;color:#334155;text-align:left;">সব তথ্য ঠিক আছে তো?<br><br>OK ক্লিক করলে তথ্য সেভ হয়ে যাবে এবং পরবর্তী <b>৩০ দিন</b> আর পরিবর্তন করা যাবে না।</p>`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "OK — সেভ করুন",
+    cancelButtonText: "আবার চেক করি",
+    confirmButtonColor: "#16a34a"
   });
-  userData = {...userData, name, mobile, address, district, upazila, dob, profileLockedUntil: lockedUntil, profileVerifiedAt: Date.now()};
-  
-  updateHeaderName();
-  document.getElementById("tdName").innerText = name || "User";
-  applyProfileLockUI();
-  showAlert("প্রোফাইল ভেরিফাইড!", "আপনার ব্যক্তিগত তথ্য সফলভাবে সেভ ও ভেরিফাই করা হয়েছে। পরবর্তী ৩০ দিন এই তথ্য পরিবর্তন করা যাবে না।", "success");
- }catch(e){showAlert("ত্রুটি!", "প্রোফাইল সেভ করা যায়নি। আবার চেষ্টা করুন।", "error")}
+
+  if (!conf.isConfirmed) return;
+
+  const btn = document.getElementById("submitProfileEditBtn");
+  if (btn) { btn.disabled = true; btn.innerText = "সেভ হচ্ছে..."; }
+
+  try {
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    const lockedUntil = Date.now() + THIRTY_DAYS_MS;
+
+    await updateDoc(doc(db, "users", currentUser.uid), {
+      name, mobile, address, district, upazila, dob,
+      profileLockedUntil: lockedUntil,
+      profileVerifiedAt: Date.now()
+    });
+    userData = { ...userData, name, mobile, address, district, upazila, dob, profileLockedUntil: lockedUntil, profileVerifiedAt: Date.now() };
+
+    updateHeaderName();
+    applyProfileLockUI();
+    showAlert("প্রোফাইল ভেরিফাইড!", "আপনার ব্যক্তিগত তথ্য সফলভাবে সেভ ও ভেরিফাই করা হয়েছে। পরবর্তী ৩০ দিন এই তথ্য পরিবর্তন করা যাবে না।", "success");
+    openPage("profile");
+  } catch (e) {
+    showAlert("ত্রুটি!", "প্রোফাইল সেভ করা যায়নি। আবার চেষ্টা করুন।", "error");
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerText = "💾 Submit"; }
+  }
 };
 
 function applyProfileLockUI() {
@@ -2022,7 +2391,6 @@ function applyProfileLockUI() {
   const isLocked = lockUntil && Date.now() < lockUntil;
   const notice = document.getElementById("profileLockNotice");
   const btn = document.getElementById("saveProfileBtn");
-  const fields = ["editName","editMobile","editAddress","editDistrict","editUpazila","editDOB"];
 
   if (isLocked) {
     const daysLeft = Math.ceil((lockUntil - Date.now()) / (1000 * 60 * 60 * 24));
@@ -2030,20 +2398,49 @@ function applyProfileLockUI() {
       notice.style.display = "block";
       notice.innerHTML = `🔒 <b>প্রোফাইল লকড</b> — আপনার ব্যক্তিগত তথ্য ভেরিফাই করা হয়েছে। <b>${daysLeft} দিন</b> পর পরিবর্তন করতে পারবেন।`;
     }
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) { el.disabled = true; el.style.background = "#f1f5f9"; el.style.cursor = "not-allowed"; }
-    });
-    if (btn) { btn.disabled = true; btn.innerText = "🔒 Locked — ৩০ দিন পর পরিবর্তনযোগ্য"; btn.style.background = "#94a3b8"; }
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = `🔒 Locked — ${daysLeft} দিন পর Edit`;
+      btn.style.background = "#94a3b8";
+    }
   } else {
     if (notice) notice.style.display = "none";
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) { el.disabled = false; el.style.background = ""; el.style.cursor = ""; }
-    });
-    if (btn) { btn.disabled = false; btn.innerText = "💾 Save / Verify Profile"; btn.style.background = "#16a34a"; }
+    if (btn) {
+      btn.disabled = false;
+      btn.innerText = "✏️ Edit";
+      btn.style.background = "#16a34a";
+    }
   }
 }
+
+/* Wallet popup — shows balance & tokens */
+window.showWalletPopup = () => {
+  const pkg = document.getElementById("profilePackage")?.innerText || "0";
+  const token = document.getElementById("profileTask")?.innerText || "0";
+  const active = document.getElementById("activePackagesCount")?.innerText || "0 / 2";
+
+  Swal.fire({
+    title: "💰 My Wallet",
+    html: `
+      <div style="text-align:left;font-size:14px;line-height:2;">
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+          <span>📦 Package Balance</span>
+          <b style="color:#2563eb;font-size:18px;">৳ ${pkg}</b>
+        </div>
+        <div style="background:#f0fdf4;padding:12px 14px;border-radius:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+          <span>🎯 Task Token</span>
+          <b style="color:#16a34a;font-size:18px;">🪙 ${token}</b>
+        </div>
+        <div style="background:#f8fafc;padding:12px 14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;">
+          <span>📦 Active Packages</span>
+          <b>${active}</b>
+        </div>
+      </div>
+    `,
+    confirmButtonText: "ঠিক আছে",
+    confirmButtonColor: "#2563eb"
+  });
+};
 
 function loadNotifications(){
  if(!currentUser)return;
@@ -2068,7 +2465,7 @@ function loadNotifications(){
  });
 }
 
-window.logout=()=>signOut(auth);
+window.logout=()=>{ profileFieldsFilled = false; signOut(auth); };
 
 window.toggleChat=()=>{
  const win=document.getElementById("chatWindow");
@@ -2172,6 +2569,12 @@ window.openAdminSubPage = (subId, cardEl) => {
   const target = document.getElementById(subId);
   if (target) target.classList.add("active");
   if (cardEl) cardEl.classList.add("selectedCard");
+
+  // Load rules lists when opening About & Rules control
+  if (subId === "adminAboutSub") {
+    loadAdminHomeRulesEditList();
+    loadAdminAboutRulesEditList();
+  }
 };
 
 window.closeAdminSubPage = () => {
@@ -2230,7 +2633,8 @@ async function loadAdmin(){
   loadAdminAnnouncements();
   loadAdminReferralLeaderboard();
   loadAdminPackageEditList();
-  loadAdminRulesEditList();
+  loadAdminHomeRulesEditList();
+  loadAdminAboutRulesEditList();
   listenAdminChats();
   document.getElementById("adminBkashInput").value = globalBkashNumber;
   document.getElementById("adminNagadInput").value = globalNagadNumber;
@@ -2244,75 +2648,201 @@ async function loadAdmin(){
   if (wbAmount) wbAmount.value = globalWelcomeBonusAmount;
 }
 
-function loadAdminRulesEditList(){
-  const box = document.getElementById("adminRulesEditContainer");
+/* ========== HOME RULES ADMIN ========== */
+function loadAdminHomeRulesEditList(){
+  const box = document.getElementById("adminHomeRulesEditContainer");
   if (!box) return;
   box.innerHTML = "";
+  if (!dynamicRulesList.length) {
+    box.innerHTML = "<p class='small'>কোনো হোম রুলস নেই।</p>";
+    return;
+  }
   dynamicRulesList.forEach((rule, index) => {
     box.innerHTML += `
-      <div class="adminUser">
-        <b>Rule #${index + 1}:</b> ${rule}
-        <div class="adminActions">
-          <button class="primary" onclick="editRuleByAdmin(${index})">✏️ Edit Rule</button>
-          <button class="danger" onclick="deleteRuleByAdmin(${index})">🗑️ Delete</button>
+      <div class="adminUser" style="background:#f8fafc;border-radius:10px;padding:10px;margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:140px;"><b>#${index + 1}</b> — ${rule}</div>
+          <div class="adminActions" style="margin-top:0;">
+            <button class="secondary" style="padding:4px 8px;font-size:12px;" onclick="moveHomeRule(${index},-1)" ${index===0?"disabled":""}>↑</button>
+            <button class="secondary" style="padding:4px 8px;font-size:12px;" onclick="moveHomeRule(${index},1)" ${index===dynamicRulesList.length-1?"disabled":""}>↓</button>
+            <button class="primary" style="padding:4px 8px;font-size:12px;" onclick="editHomeRule(${index})">✏️</button>
+            <button class="danger" style="padding:4px 8px;font-size:12px;" onclick="deleteHomeRule(${index})">🗑️</button>
+          </div>
         </div>
       </div>
     `;
   });
 }
 
-window.addNewRuleByAdmin = async () => {
-  const input = document.getElementById("newRuleText");
-  const text = input ? input.value.trim() : "";
-  if (!text) return showAlert("ইনপুট প্রয়োজন!", "নিয়ম-কানুনের তথ্য লিখুন।", "warning");
+async function saveHomeRules() {
+  await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
+  renderDynamicRules();
+  loadAdminHomeRulesEditList();
+}
 
+window.addHomeRule = async () => {
+  const input = document.getElementById("newHomeRuleText");
+  const text = input ? input.value.trim() : "";
+  if (!text) return showAlert("ইনপুট প্রয়োজন!", "নিয়মের টেক্সট লিখুন।", "warning");
   dynamicRulesList.push(text);
   try {
-    await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
+    await saveHomeRules();
     if (input) input.value = "";
-    showAlert("সফল!", "নতুন রুলস যুক্ত করা হয়েছে।", "success");
-    loadAdminRulesEditList();
-  } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
+    showAlert("সফল!", "হোম রুলস যোগ হয়েছে।", "success");
+  } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
-window.editRuleByAdmin = async (index) => {
-  const currentRule = dynamicRulesList[index];
+window.editHomeRule = async (index) => {
   const { value: newRule } = await Swal.fire({
-    title: 'Edit Rule / Guideline',
-    input: 'textarea',
-    inputValue: currentRule,
+    title: "Edit Home Rule",
+    input: "textarea",
+    inputValue: dynamicRulesList[index],
     showCancelButton: true,
-    confirmButtonText: 'Save Changes'
+    confirmButtonText: "Save"
   });
-
-  if (newRule && newRule.trim() !== "") {
+  if (newRule && newRule.trim()) {
     dynamicRulesList[index] = newRule.trim();
     try {
-      await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
-      showAlert("সফল!", "রুলস আপডেট করা হয়েছে।", "success");
-      loadAdminRulesEditList();
-    } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
+      await saveHomeRules();
+      showAlert("সফল!", "রুলস আপডেট হয়েছে।", "success");
+    } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
   }
 };
 
-window.deleteRuleByAdmin = async (index) => {
+window.deleteHomeRule = async (index) => {
   const res = await Swal.fire({
-    title: 'রুলসটি মুছে ফেলবেন?',
-    text: 'এই রুলসটি হোম পেজ থেকে ডিলিট হয়ে যাবে।',
-    icon: 'warning',
+    title: "ডিলিট করবেন?",
+    text: "এই হোম রুলস মুছে যাবে।",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#dc2626',
-    confirmButtonText: 'হ্যাঁ, Delete করুন'
+    confirmButtonColor: "#dc2626",
+    confirmButtonText: "হ্যাঁ, Delete"
   });
+  if (!res.isConfirmed) return;
+  dynamicRulesList.splice(index, 1);
+  try {
+    await saveHomeRules();
+    showAlert("ডিলিট হয়েছে!", "রুলস মুছে ফেলা হয়েছে।", "success");
+  } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
+};
 
-  if (res.isConfirmed) {
-    dynamicRulesList.splice(index, 1);
-    try {
-      await setDoc(doc(db, "settings", "general"), { rulesList: dynamicRulesList }, { merge: true });
-      showAlert("ডিলিট হয়েছে!", "রুলসটি মুছে ফেলা হয়েছে।", "success");
-      loadAdminRulesEditList();
-    } catch (e) { showAlert("ত্রুটি!", e.message, "error"); }
+window.moveHomeRule = async (index, dir) => {
+  const newIndex = index + dir;
+  if (newIndex < 0 || newIndex >= dynamicRulesList.length) return;
+  const temp = dynamicRulesList[index];
+  dynamicRulesList[index] = dynamicRulesList[newIndex];
+  dynamicRulesList[newIndex] = temp;
+  try {
+    await saveHomeRules();
+  } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
+};
+
+/* ========== ABOUT RULES ADMIN ========== */
+function loadAdminAboutRulesEditList(){
+  const box = document.getElementById("adminAboutRulesEditContainer");
+  if (!box) return;
+  box.innerHTML = "";
+  if (!aboutRulesList.length) {
+    box.innerHTML = "<p class='small'>কোনো About রুলস নেই।</p>";
+    return;
   }
+  aboutRulesList.forEach((entry, index) => {
+    const isHeading = (entry.type || "item") === "heading";
+    const badge = isHeading
+      ? `<span style="background:#dbeafe;color:#1d4ed8;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:bold;">HEADING</span>`
+      : `<span style="background:#f1f5f9;color:#475569;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:bold;">ITEM</span>`;
+    box.innerHTML += `
+      <div class="adminUser" style="background:${isHeading ? "#eff6ff" : "#f8fafc"};border-radius:10px;padding:10px;margin-bottom:8px;border-left:3px solid ${isHeading ? "#2563eb" : "#cbd5e1"};">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:140px;">
+            ${badge} <b>#${index + 1}</b><br>
+            <span style="font-size:13px;${isHeading ? "font-weight:700;color:#1e40af;" : ""}">${entry.text || ""}</span>
+          </div>
+          <div class="adminActions" style="margin-top:0;">
+            <button class="secondary" style="padding:4px 8px;font-size:12px;" onclick="moveAboutRule(${index},-1)" ${index===0?"disabled":""}>↑</button>
+            <button class="secondary" style="padding:4px 8px;font-size:12px;" onclick="moveAboutRule(${index},1)" ${index===aboutRulesList.length-1?"disabled":""}>↓</button>
+            <button class="primary" style="padding:4px 8px;font-size:12px;" onclick="editAboutRule(${index})">✏️</button>
+            <button class="danger" style="padding:4px 8px;font-size:12px;" onclick="deleteAboutRule(${index})">🗑️</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+async function saveAboutRules() {
+  await setDoc(doc(db, "settings", "general"), { aboutRulesList: aboutRulesList }, { merge: true });
+  renderAboutRules();
+  loadAdminAboutRulesEditList();
+}
+
+window.addAboutRule = async () => {
+  const type = document.getElementById("newAboutRuleType")?.value || "item";
+  const input = document.getElementById("newAboutRuleText");
+  const text = input ? input.value.trim() : "";
+  if (!text) return showAlert("ইনপুট প্রয়োজন!", "টেক্সট লিখুন।", "warning");
+  aboutRulesList.push({ type, text });
+  try {
+    await saveAboutRules();
+    if (input) input.value = "";
+    showAlert("সফল!", type === "heading" ? "শিরোনাম যোগ হয়েছে।" : "নিয়ম যোগ হয়েছে।", "success");
+  } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
+};
+
+window.editAboutRule = async (index) => {
+  const entry = aboutRulesList[index];
+  const { value: formValues } = await Swal.fire({
+    title: "Edit About Item",
+    html: `
+      <select id="swal-about-type" class="swal2-input" style="width:80%">
+        <option value="heading" ${entry.type === "heading" ? "selected" : ""}>Section Heading</option>
+        <option value="item" ${entry.type !== "heading" ? "selected" : ""}>Rule Item</option>
+      </select>
+      <textarea id="swal-about-text" class="swal2-textarea" style="width:80%">${(entry.text || "").replace(/</g, "&lt;")}</textarea>
+    `,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: "Save",
+    preConfirm: () => ({
+      type: document.getElementById("swal-about-type").value,
+      text: document.getElementById("swal-about-text").value.trim()
+    })
+  });
+  if (formValues && formValues.text) {
+    aboutRulesList[index] = formValues;
+    try {
+      await saveAboutRules();
+      showAlert("সফল!", "About আইটেম আপডেট হয়েছে।", "success");
+    } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
+  }
+};
+
+window.deleteAboutRule = async (index) => {
+  const res = await Swal.fire({
+    title: "ডিলিট করবেন?",
+    text: "এই About আইটেম মুছে যাবে।",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#dc2626",
+    confirmButtonText: "হ্যাঁ, Delete"
+  });
+  if (!res.isConfirmed) return;
+  aboutRulesList.splice(index, 1);
+  try {
+    await saveAboutRules();
+    showAlert("ডিলিট হয়েছে!", "আইটেম মুছে ফেলা হয়েছে।", "success");
+  } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
+};
+
+window.moveAboutRule = async (index, dir) => {
+  const newIndex = index + dir;
+  if (newIndex < 0 || newIndex >= aboutRulesList.length) return;
+  const temp = aboutRulesList[index];
+  aboutRulesList[index] = aboutRulesList[newIndex];
+  aboutRulesList[newIndex] = temp;
+  try {
+    await saveAboutRules();
+  } catch (e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function loadAdminPaymentRequests(){
@@ -2387,7 +2917,7 @@ window.approvePaymentRequest = async (reqId, targetUid, pkgIndex, amount, pkgNam
     });
 
     showAlert("Approved!", "পেমেন্ট রিকোয়েস্ট সফলভাবে এপ্রুভ করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.rejectPaymentRequest = async (reqId, targetUid, pkgName) => {
@@ -2398,7 +2928,7 @@ window.rejectPaymentRequest = async (reqId, targetUid, pkgName) => {
       text: `আপনার ${pkgName} প্যাকেজের পেমেন্ট রিকোয়েস্টটি বাতিল করা হয়েছে।`, createdAt: serverTimestamp()
     });
     showAlert("Rejected!", "পেমেন্ট রিকোয়েস্ট রিজেক্ট করা হয়েছে।", "info");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function loadAdminWithdrawals(){
@@ -2437,7 +2967,7 @@ window.approveWithdrawal = async (wId, targetUid, amount) => {
       text: `আপনার ${amount} টোকেনের উত্তোলন রিকোয়েস্টটি সম্পন্ন হয়েছে।`, createdAt: serverTimestamp()
     });
     showAlert("Approved!", "উইথড্র রিকোয়েস্ট এপ্রুভ করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.rejectWithdrawal = async (wId, targetUid, amount) => {
@@ -2449,7 +2979,7 @@ window.rejectWithdrawal = async (wId, targetUid, amount) => {
       text: `আপনার ${amount} টোকেনের উইথড্র রিকোয়েস্ট রিজেক্ট করা হয়েছে। 🪙 ${amount} টোকেন পুনরায় আপনার Task Token ব্যালেন্সে ফেরত দেওয়া হয়েছে।`, createdAt: serverTimestamp()
     });
     showAlert("Rejected & Refunded!", "উইথড্র বাতিল করে টোকেন ফেরত দেওয়া হয়েছে।", "info");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 /* Point 3: User Management with Separate Packages Control (Edit & Delete) */
@@ -2734,7 +3264,7 @@ window.editUserPackage = async (targetUid, pkgIndex) => {
         packageBalance: newPackageBalance
       });
       showAlert("সফল!", "ইউজারের প্যাকেজ এডিট করা হয়েছে।", "success");
-    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+    } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
   }
 };
 
@@ -2769,7 +3299,7 @@ window.deleteUserPackage = async (targetUid, pkgIndex) => {
       packageBalance: newPackageBalance
     });
     showAlert("সফল!", "প্যাকেজটি সফলভাবে রিমুভ করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.editUserBalance = async (targetUid, curPkg, curTask) => {
@@ -2802,7 +3332,7 @@ window.editUserBalance = async (targetUid, curPkg, curTask) => {
         taskToken: newTask
       });
       showAlert("সফল!", "ইউজারের ব্যালেন্স আপডেট করা হয়েছে।", "success");
-    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+    } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
   }
 };
 
@@ -2810,7 +3340,7 @@ window.toggleUserStatus = async (targetUid, currentIsDisabled) => {
   try {
     await updateDoc(doc(db, "users", targetUid), { isDisabled: !currentIsDisabled });
     showAlert("সফল!", `ইউজার অ্যাকাউন্ট ${!currentIsDisabled ? 'ডিসেবল' : 'ইনেবল'} করা হয়েছে।`, "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 /* Permanent Delete User with UID confirmation */
@@ -2864,7 +3394,7 @@ window.deleteUserPermanently = async (targetUid, userName, userEmail) => {
 
     showAlert("ডিলিট সম্পন্ন!", `${userName} এর অ্যাকাউন্ট স্থায়ীভাবে মুছে ফেলা হয়েছে।`, "success");
   } catch (e) {
-    showAlert("ত্রুটি!", "ডিলিট করতে সমস্যা হয়েছে: " + e.message, "error");
+    showAlert("ত্রুটি!", getSafeErrorMsg(e, "ইউজার ডিলিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।"), "error");
   }
 };
 
@@ -2906,14 +3436,14 @@ window.sendGlobalNotice = async () => {
     document.getElementById("adminNoticeTitle").value = "";
     document.getElementById("adminNoticeText").value = "";
     showAlert("সফল!", "নোটিশটি সফলভাবে প্রচার করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); } finally { btn.disabled = false; }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); } finally { btn.disabled = false; }
 };
 
 window.deleteAnnouncement = async (id) => {
   try {
     await deleteDoc(doc(db, "announcements", id));
     showAlert("মুছে ফেলা হয়েছে!", "নোটিশটি ডিলিট করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function loadAdminTasks(){
@@ -2958,14 +3488,14 @@ window.addDynamicTask = async () => {
     document.getElementById("adminTaskLink").value = "";
     if (document.getElementById("adminTaskPermanent")) document.getElementById("adminTaskPermanent").checked = false;
     showAlert("সফল!", isPermanent ? "Permanent টাস্ক সফলভাবে যুক্ত হয়েছে।" : "নতুন টাস্ক সফলভাবে যুক্ত করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); } finally { btn.disabled = false; }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); } finally { btn.disabled = false; }
 };
 
 window.deleteTask = async (id) => {
   try {
     await deleteDoc(doc(db, "tasks", id));
     showAlert("ডিলিট হয়েছে!", "টাস্কটি মুছে ফেলা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function loadAdminReferralLeaderboard(){
@@ -3119,7 +3649,7 @@ window.addNewPackageByAdmin = async () => {
     document.getElementById("newPkgPrice").value = "";
     showAlert("সফল!", "নতুন প্যাকেজ যুক্ত করা হয়েছে।", "success");
     loadAdminPackageEditList();
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.editPackageByAdmin = async (index) => {
@@ -3174,7 +3704,7 @@ window.editPackageByAdmin = async (index) => {
       await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
       showAlert("সফল!", "প্যাকেজ তথ্য আপডেট করা হয়েছে।", "success");
       loadAdminPackageEditList();
-    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+    } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
   }
 };
 
@@ -3194,7 +3724,7 @@ window.deletePackageByAdmin = async (index) => {
       await setDoc(doc(db, "settings", "general"), { packageList }, { merge: true });
       showAlert("ডিলিট হয়েছে!", "প্যাকেজটি রিমুভ করা হয়েছে।", "success");
       loadAdminPackageEditList();
-    } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+    } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
   }
 };
 
@@ -3205,7 +3735,7 @@ window.saveDailyProfitPercentage = async () => {
   try {
     await setDoc(doc(db, "settings", "general"), { dailyProfitPercent: val }, { merge: true });
     showAlert("সফল!", "ডেইলি প্রফিট শতাংশ আপডেট করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.saveWithdrawLimits = async () => {
@@ -3219,7 +3749,7 @@ window.saveWithdrawLimits = async () => {
   try {
     await setDoc(doc(db, "settings", "general"), { minWithdraw: minVal, maxWithdraw: maxVal }, { merge: true });
     showAlert("সফল!", "উইথড্র লিমিট আপডেট করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.updateAdminPaymentNumbers = async () => {
@@ -3231,7 +3761,7 @@ window.updateAdminPaymentNumbers = async () => {
   try {
     await setDoc(doc(db, "settings", "general"), { bkashNumber: bkash, nagadNumber: nagad }, { merge: true });
     showAlert("সফল!", "Payment Numbers সফলভাবে সেভ করা হয়েছে।", "success");
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 function listenAdminChats(){
@@ -3336,13 +3866,13 @@ window.sendAdminChatReply = async () => {
       readByAdmin: true
     });
     input.value = "";
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 window.deleteChatMessage = async (msgId) => {
   try {
     await deleteDoc(doc(db, "chats", msgId));
-  } catch(e) { showAlert("ত্রুটি!", e.message, "error"); }
+  } catch(e) { showAlert("ত্রুটি!", getSafeErrorMsg(e), "error"); }
 };
 
 /* ========== Gmail Verification System ========== */
